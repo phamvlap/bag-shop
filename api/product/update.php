@@ -30,4 +30,4 @@ $newProduct = [
 			'price' => $price
 		];
 
-$product->updateProduct(id: $id_product, newProduct: $newProduct);
+$product->edit(id: $id_product, newProduct: $newProduct);

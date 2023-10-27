@@ -12,6 +12,6 @@ $product = new Product();
 
 $idProduct = isset($_GET['id']) ? $_GET['id'] : 0;
 
-$res = $product->getProductByID($idProduct);
+$res = $product->findByID($idProduct);
 
 echo json_encode($res);

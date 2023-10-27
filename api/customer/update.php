@@ -2,7 +2,7 @@
 
 header('Acess-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-header('Acess-Control-Allow-Methos: PUT');
+header('Acess-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requesteds-With');
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -11,28 +11,21 @@ use App\Model\Customer;
 
 $customer = new Customer();
 
-$data = json_decode(file_get_contents("php://input"));
+$user = [
+	'name' => $_SESSION['user']['name'],
+	'username' => $_SESSION['user']['username'],
+	'password' => $_SESSION['user']['password'],
+	'phone_number' => $_SESSION['user']['phone_number'],
+	'gender' => $_SESSION['user']['gender'],
+	'email' => $_SESSION['user']['email'],
+	'address' => $_SESSION['user']['name']
+];
 
-$id_customer = $data->id_customer;
-$name = $data->name;
-$username = $data->username;
-$password = $data->password;
-$avatar = $data->avatar;
-$phone_number = $data->phone_number;
-$gender = $data->gender;
-$email = $data->email;
-$address = $data->address;
-
-$newInfo = [
-			'id_customer' => $id_customer,
-			'name' => htmlspecialchars($name),
-			'username' => htmlspecialchars($username),
-			'password' => htmlspecialchars($password),
-			'avatar' => htmlspecialchars($avatar),
-			'phone_number' => htmlspecialchars($phone_number),
-			'gender' => htmlspecialchars($gender),
-			'email' => htmlspecialchars($email),
-			'address' => htmlspecialchars($address)
-		];
-
-$customer->updateProfileCustomer(id: $id_customer, newInfo: $newInfo);
+if($customer->edit(id: $_SESSION['user']['id'], newInfo: $user)) {
+	$_SESSION['update-user']['status'] = 'success';
+	$_SESSION['update-user']['content'] = 'Cập nhật thông tin thành công';
+}
+else {
+	$_SESSION['update-user']['status'] = 'failed';
+	$_SESSION['update-user']['content'] = 'Cập nhật thông tin thất bại';
+}

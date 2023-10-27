@@ -10,6 +10,6 @@ use App\Model\Customer;
 
 $customer = new Customer();
 
-$res = $customer->getAllCustomers();
+$res = $customer->all();
 
 echo json_encode($res);

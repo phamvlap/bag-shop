@@ -12,6 +12,6 @@ $customer = new Customer();
 
 $idCustomer = isset($_GET['id']) ? $_GET['id'] : null;
 
-$res = $customer->getCustomerByID($idCustomer);
+$res = $customer->findByID($idCustomer);
 
 echo json_encode($res);

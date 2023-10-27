@@ -20,4 +20,4 @@ $type_product = $data->type_product;
 $unit = $data->unit;
 $price = $data->price;
 
-$product->addProduct(name: $name, describes: $describes, images: $images, type_product: $type_product, unit: $unit, price: $price);
+$product->add();

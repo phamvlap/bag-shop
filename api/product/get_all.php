@@ -10,6 +10,6 @@ use App\Model\Product;
 
 $product = new Product();
 
-$res = $product->getAllProducts();
+$res = $product->all();
 
 echo json_encode($res);

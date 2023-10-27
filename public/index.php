@@ -1,22 +1,76 @@
 <?php
 
-require_once __DIR__ . '/../bootstrap/bootstrap.php';
+use App\Models\Product;
 
-$pages = ['home', 'search', 'cart', 'detail', 'signin', 'signup'];
+require_once __DIR__ . '/../bootstrap.php';
 
-$uri = $_SERVER['REQUEST_URI'];
+define('VIEWS_DIR', __DIR__ . '/../app/views');
+const PUBLIC_DIR = '../../../..';
+const DOMAIN_NAME = 'http://goodstore.localhost';
+const APP_NAME = 'Bag Shop';
 
-$pageName = explode('?', trim($uri, '/'))[0];
+$router = new \Bramus\Router\Router();
 
-if(!in_array($pageName, $pages)) {
-	$pageName = 'home';
-}
+// product
+$router->get(
+	'/',
+	'App\Controllers\ProductsController@index'
+);
+$router->get(
+	'/home',
+	'App\Controllers\ProductsController@index'
+);
+$router->get(
+	'/view/item/(\d+)',
+	'App\Controllers\ProductsController@viewItem'
+);
 
-$controller = ucfirst(strtolower($pageName)) . "Controller";
+// customer
+$router->get(
+	'/user/register',
+	'App\Controllers\Customer\RegisterController@create'
+);
+$router->post(
+	'/user/register',
+	'App\Controllers\Customer\RegisterController@store'
+);
+$router->get(
+	'/user/signin',
+	'App\Controllers\Customer\SigninController@create'
+);
+$router->post(
+	'/user/signin',
+	'App\Controllers\Customer\SigninController@store'
+);
+$router->get(
+	'/user/profile',
+	'App\Controllers\Customer\ProfileController@edit'
+);
+$router->post(
+	'/user/profile',
+	'App\Controllers\Customer\ProfileController@update'
+);
+$router->get(
+	'/user/logout',
+	'App\Controllers\Customer\SigninController@destroy'
+);
 
-$controller = "App\\Controller\\{$controller}";
-$page = new $controller();
+// cart
+$router->get(
+	'/cart',
+	'App\Controllers\CartController@index'
+);
+$router->get(
+	'/checkout/view',
+	'App\Controllers\CartController@showCheckout'
+);
+$router->post(
+	'/checkout/view',
+	'App\Controllers\CartController@create'
+);
+$router->post(
+	'/checkout/order',
+	'App\Controllers\CartController@store'
+);
 
-$page->index();
-
-?>
+$router->run();

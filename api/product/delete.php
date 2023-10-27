@@ -14,5 +14,5 @@ $product = new Product();
 $idProduct = isset($_GET['id']) ? $_GET['id'] : null;
 
 if($idProduct) {
-	$product->deleteProduct($idProduct);
+	$product->remove($idProduct);
 }
