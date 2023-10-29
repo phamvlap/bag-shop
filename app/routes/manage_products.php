@@ -1,0 +1,26 @@
+<?php 
+
+$router->get(
+	'/admin/product/add',
+	'App\Controllers\Admin\ManageProductsController@create'
+);
+$router->post(
+	'/admin/product/add',
+	'App\Controllers\Admin\ManageProductsController@store'
+);
+$router->get(
+	'/admin/product/edit/(\d+)',
+	'App\Controllers\Admin\ManageProductsController@edit'
+);
+$router->post(
+	'/admin/product/edit/(\d+)',
+	'App\Controllers\Admin\ManageProductsController@update'
+);
+$router->get(
+	'/admin/product/delete/(\d+)',
+	'App\Controllers\Admin\ManageProductsController@confirmDelete'
+);
+$router->post(
+	'/admin/product/delete/(\d+)',
+	'App\Controllers\Admin\ManageProductsController@destroy'
+);

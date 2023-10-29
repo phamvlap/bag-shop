@@ -1,21 +1,21 @@
 <?php require_once __DIR__ . '/components/head.php'; ?>
 
 <div class="container p-0">
-	<!-- Header -->
+	<!-- header -->
 	<div id="header" class="container fixed-top">
 		<?php require_once __DIR__ . '/components/header.php'; ?>
 	</div>
 
 	<div class="container content">
 		<div class="row">
-			<!-- Sidebar -->
+			<!-- sidebar -->
 			<div id="sidebar" class="col-md-2 mt-2 px-1 p-0 sidebar">
 				<?php require_once __DIR__ . '/components/sidebar.php'; ?>
 			</div>
 
 			<div class="col-md-10 p-0">
 				<div id="detail-item" class="ms-2">
-					<!-- Detail product -->
+					<!-- detail product -->
 					<?php 
 						$imgs = explode(';', $_SESSION['item']['images']);
 					?>
@@ -25,13 +25,13 @@
 							<div id="imagesDetailItem" class="carousel slide" data-bs-ride="carousel">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
-									    <img src="../../../../images/products/<?= $imgs[0] ?>" class="d-block w-100" alt="...">
+									    <img src="/uploads/<?= $imgs[0] ?>" class="d-block w-100" alt="...">
 									</div>
 									<div class="carousel-item">
-									    <img src="../../../../images/products/<?= $imgs[0] ?>" class="d-block w-100" alt="...">
+									    <img src="/uploads/<?= $imgs[0] ?>" class="d-block w-100" alt="...">
 									</div>
 									<div class="carousel-item">
-										<img src="../../../../images/products/<?= $imgs[0] ?>" class="d-block w-100" alt="...">
+										<img src="/uploads/<?= $imgs[0] ?>" class="d-block w-100" alt="...">
 									</div>
 								</div>
 								<button class="carousel-control-prev" type="button" data-bs-target="#imagesDetailItem" data-bs-slide="prev">

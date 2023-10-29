@@ -89,6 +89,35 @@ $(document).ready(async function() {
 	if(closeAlertBtn.length > 0) {
 		setTimeout(() => {
 			closeAlertBtn.trigger('click');
-		}, 400);
+		}, 1000);
+	}
+
+	// insert image upon upload image files
+	const inputFilesElement = $('input[type="file"]');
+	const demoImgsElement = $('input[type="file"] + .demo-imgs');
+
+	inputFilesElement.on('change', event => {
+		const fileObject = event.target.files;
+
+		let imgs = '';
+		const files = Object.keys(fileObject).map(key => fileObject[key]);
+
+		files.forEach(file => {
+			let fileUrl = URL.createObjectURL(file);
+			imgs += `
+					<div class="col col-md-2 mt-2">
+						<img src="${fileUrl}" width="100%" alt="">
+					</div>`;
+		})
+
+		demoImgsElement.html(imgs);
+	})
+
+	// show modal confirm delete product
+	const inputConfirmDelete = $('#confirm-delete');
+	const idDelete = parseInt(inputConfirmDelete.val());
+	if(idDelete) {
+		const confirmDeleteBtn = $('[data-bs-target="#delete-item"]');
+		confirmDeleteBtn.trigger('click');
 	}
 })

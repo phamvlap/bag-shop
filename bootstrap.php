@@ -5,8 +5,8 @@ use App\PDOFactory;
 require_once __DIR__ . '/vendor/autoload.php';
 
 session_start();
-// session_destroy();
 
+// autoload file .env
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 

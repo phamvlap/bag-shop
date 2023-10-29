@@ -28,7 +28,7 @@ const renderItems = (items = []) => {
 						<div class="col-md-10 text-center">
 							<div class="row">
 								<div class="col-md-2">
-									<img src="/images/products/${imgs[0] ? imgs[0] :'1-1.jpg'}" width="100%" alt="">
+									<img src="/uploads/${imgs[0] ? imgs[0] :'1-1.jpg'}" width="100%" alt="">
 								</div>
 								<div class="col-md-10 d-flex my-auto">
 									<h4 class="m-0 cart-item-title fw-bolder text-start">${item.name}</h4>
@@ -76,7 +76,7 @@ const renderCart = async () => {
 
 const getItemData = async (id_product) => {
 	let item = {};
-	await fetch('http://goodstore.localhost/fetch/product/get_item.php', {
+	await fetch('http://bagshop.localhost/fetch/product/get_item.php', {
 		method: 'POST',
 		dataType: 'json',
 		body: JSON.stringify({id: id_product}),	
@@ -190,7 +190,7 @@ let cart = {
 			--this.count;
 			this.setItems();
 			setCartIconCount();
-			window.location.href = 'http://goodstore.localhost/cart';
+			window.location.href = 'http://bagshop.localhost/cart';
 		}
 	},
 

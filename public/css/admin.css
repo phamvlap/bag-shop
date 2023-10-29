@@ -1,0 +1,45 @@
+/* login */
+#admin-login, #admin-login input  {
+	font-size: 1.6rem;
+}
+
+/* nav bar */
+#admin-home .navbar a {
+	font-size: 1.6rem;
+}
+
+/* content */
+#admin-home .content {
+	font-size: 1.6rem;
+}
+
+.vertical-center {
+	vertical-align: middle;
+}
+
+.table-product tbody td {
+	height: 60px;
+}
+
+.table-product a {
+	color: var(--white-text);
+	font-size: 1.4rem;
+}
+
+/* additional form */
+.additional-form form {
+	width: 50%;
+	font-size: 1.6rem;
+}
+
+.additional-form input {
+	height: 100%;
+}
+
+.additional-form input, .additional-form select, .additional-form textarea, .additional-form option {
+	font-size: 1.6rem;
+}
+
+.additional-form input[type="file"] {
+	height: 40px;
+}

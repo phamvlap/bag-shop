@@ -29,3 +29,9 @@ function setIntoSESSION(array $data): void {
 		$_SESSION[$key] = $value;
 	}
 }
+
+function purgeSESSION(string $key) {
+	if(isset($_SESSION[$key])) {
+		unset($_SESSION[$key]);
+	}
+}

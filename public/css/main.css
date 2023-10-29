@@ -225,6 +225,7 @@ div[id^="product_"]:hover {
 	font-style: italic;
 	font-size: 1.4rem;
 	color: red;
+	text-align: center;
 }
 
 /*Optional account*/
@@ -434,6 +435,6 @@ div[id^="product_"]:hover {
 }
 
 /* modal */
-#request-login .modal-body {
+#request-login .modal-body, #delete-item .modal-body {
 	font-size: 1.6rem;
 }

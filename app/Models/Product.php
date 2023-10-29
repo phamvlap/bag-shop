@@ -33,7 +33,9 @@ class Product extends Model {
 		];
 		if($this->id_product === -1) {
 			parent::set(self::TABLE_NAME, $product);
+			$this->id_product = $this->getPDO()->lastInsertId();
 		}
+		return ($this->id_product !== -1);
 	}
 
 	public function all() {
@@ -48,12 +50,12 @@ class Product extends Model {
 		return parent::getByProps(self::TABLE_NAME, ['type' => $type]);
 	}
 
-	public function edit(int $id, array $newProduct) {
-		return parent::update(self::TABLE_NAME, 'id_product', $id, $newProduct);
+	public function edit(int $id, array $updatedFields) {
+		return parent::update(self::TABLE_NAME, 'id_product', $id, $updatedFields);
 	}
 
 	public function remove(int $id) {
-		parent::delete(self::TABLE_NAME, 'id_product', $id);	
+		return parent::delete(self::TABLE_NAME, 'id_product', $id);	
 	}
 
 }

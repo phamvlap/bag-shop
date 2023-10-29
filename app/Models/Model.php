@@ -73,7 +73,7 @@ class Model {
 
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindValue(":$idName", $id);
-		$stmt->execute();
+		return $stmt->execute();
 	}
 
 	public function isExistRecord(string $table, string $idName, int $id) {
