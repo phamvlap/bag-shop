@@ -43,3 +43,12 @@
 .additional-form input[type="file"] {
 	height: 40px;
 }
+
+/* filter products form */
+#filter-products-form h4 {
+	font-size: 2.0rem;
+}
+#filter-products-form label, 
+#filter-products-form select,#filter-products-form option {
+	font-size: 1.6rem;
+}

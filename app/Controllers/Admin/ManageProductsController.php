@@ -234,4 +234,107 @@ class ManageProductsController extends Controller {
 			'new-images' => $newImages
 		];
 	}
+
+	public function showFilter() {
+		redirectTo('/admin');
+	}
+
+	public function filter() {
+		$keys = ['filter-type', 'filter-price', 'filter-date'];
+		$data = $this->filterData(keys: $keys, data: $_POST);
+
+		$productModel = new Product();
+
+		if($data['filter-type'] === 'none' && $data['filter-price'] === 'none' && $data['filter-date'] === 'none') {
+			redirectTo('/admin', [
+				'message-success' => 'Không có bộ lọc nào được chọn'
+			]);
+		}
+		else {
+			if($data['filter-type'] !== 'none' && $data['filter-price'] === 'none' && $data['filter-date'] === 'none') {
+				$type = (int)$data['filter-type'];
+
+				$products = $productModel->findByType(type: $type);
+
+				renderPage('/admin/index.php', [
+					'filter-type' => $type, 
+					'products' => $products
+				]);
+			}
+			if($data['filter-type'] === 'none' && $data['filter-price'] !== 'none' && $data['filter-date'] === 'none') {
+				$products = $productModel->getWithOrder(orders: ['price' => $data['filter-price']]);
+				
+				renderPage('/admin/index.php', [
+					'filter-price' => $data['filter-price'], 
+					'products' => $products
+				]);
+			}
+			if($data['filter-type'] === 'none' && $data['filter-price'] === 'none' && $data['filter-date'] !== 'none') {
+				$products = $productModel->getWithOrder(orders: ['updated_at' => $data['filter-date']]);
+				
+				renderPage('/admin/index.php', [
+					'filter-date' => $data['filter-date'], 
+					'products' => $products
+				]);
+			}
+			if($data['filter-type'] !== 'none' && $data['filter-price'] !== 'none' && $data['filter-date'] === 'none') {
+				$products = $productModel->getByTypeWithOrder(
+					type: (int)$data['filter-type'], 
+					orders: ['price' => $data['filter-price']]
+				);
+				
+				renderPage('/admin/index.php', [
+					'filter-type' => $data['filter-type'], 
+					'filter-price' => $data['filter-price'], 
+					'products' => $products
+				]);
+			}
+			if($data['filter-type'] !== 'none' && $data['filter-price'] === 'none' && $data['filter-date'] !== 'none') {
+				$products = $productModel->getByTypeWithOrder(
+					type: (int)$data['filter-type'], 
+					orders: ['updated_at' => $data['filter-date']]
+				);
+				
+				renderPage('/admin/index.php', [
+					'filter-type' => $data['filter-type'], 
+					'filter-date' => $data['filter-date'], 
+					'products' => $products
+				]);
+			}
+			if($data['filter-type'] === 'none' && $data['filter-price'] !== 'none' && $data['filter-date'] !== 'none') {
+				$products = $productModel->getWithOrder(orders: [
+					'price' => $data['filter-price'],
+					'updated_at' => $data['filter-date']
+				]);
+				
+				renderPage('/admin/index.php', [
+					'filter-price' => $data['filter-price'], 
+					'filter-date' => $data['filter-date'], 
+					'products' => $products
+				]);
+			}
+			if($data['filter-type'] !== 'none' && $data['filter-price'] !== 'none' && $data['filter-date'] !== 'none') {
+				$products = $productModel->getByTypeWithOrder(
+					type: (int)$data['filter-type'],  
+					orders: [
+						'price' => $data['filter-price'],
+						'updated_at' => $data['filter-date']
+					]
+				);
+				
+				renderPage('/admin/index.php', [
+					'filter-type' => $data['filter-type'], 
+					'filter-price' => $data['filter-price'], 
+					'filter-date' => $data['filter-date'], 
+					'products' => $products
+				]);
+			}
+		}
+	}
+
+	public function print(array $data) {
+		echo "<pre>";
+		var_dump($data);
+		echo "</pre>";
+	}
 }

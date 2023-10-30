@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Model;
+use PDO;
 
 class Product extends Model {
 	const TABLE_NAME = 'products';
@@ -58,4 +59,40 @@ class Product extends Model {
 		return parent::delete(self::TABLE_NAME, 'id_product', $id);	
 	}
 
+	public function getWithOrder(array $orders): array {
+		$tableName = self::TABLE_NAME;
+
+		$arrOrders = [];
+		foreach($orders as $key => $value) {
+			array_push($arrOrders, "$key $value");
+		}
+
+		$strOrder = join(', ', $arrOrders);
+
+		$query = "select * from {$tableName} order by {$strOrder}";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getByTypeWithOrder(int $type, array $orders): array {
+		$tableName = self::TABLE_NAME;
+
+		$arrOrders = [];
+		foreach($orders as $key => $value) {
+			array_push($arrOrders, "$key $value");
+		}
+
+		$strOrder = join(', ', $arrOrders);
+
+		$query = "select * from {$tableName} where type = :type order by {$strOrder}";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':type', $type, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 }

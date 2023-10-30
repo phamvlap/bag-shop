@@ -24,3 +24,11 @@ $router->post(
 	'/admin/product/delete/(\d+)',
 	'App\Controllers\Admin\ManageProductsController@destroy'
 );
+$router->get(
+	'/admin/product/filter',
+	'App\Controllers\Admin\ManageProductsController@showFilter'
+);
+$router->post(
+	'/admin/product/filter',
+	'App\Controllers\Admin\ManageProductsController@filter'
+);
