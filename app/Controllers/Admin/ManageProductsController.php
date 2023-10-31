@@ -373,10 +373,4 @@ class ManageProductsController extends Controller {
 			renderPage('/admin/index.php', $payLoads);
 		}
 	}
-
-	public function print(array $data) {
-		echo "<pre>";
-		var_dump($data);
-		echo "</pre>";
-	}
 }
