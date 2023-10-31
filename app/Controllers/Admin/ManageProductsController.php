@@ -3,7 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\Controller;
-use App\Models\Product;
+use App\Models\{Product, Paginator};
 
 class ManageProductsController extends Controller {
 	public function create() {
@@ -137,7 +137,7 @@ class ManageProductsController extends Controller {
 		$item = $productModel->findByID(id: $id);
 
 		if($item) {
-			redirectTo('/admin', [
+			renderPage('/admin/index.php', [
 				'delete-item' => $item
 			]);
 		}
@@ -236,7 +236,36 @@ class ManageProductsController extends Controller {
 	}
 
 	public function showFilter() {
-		redirectTo('/admin');
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 5;
+		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
+
+		$paginator = new Paginator(
+			recordsPerPage: $limit, 
+			totalRecords: count($_SESSION['filter-data']), 
+			currentPage: $page
+		);
+
+		$recordOffset = $paginator->getRecordOffset();
+
+		$renderData = [];
+		for($i = $recordOffset; $i < min(count($_SESSION['filter-data']), $recordOffset + $limit); ++$i) {
+			array_push($renderData, $_SESSION['filter-data'][$i]);
+		}
+
+		$pages = $paginator->getPages();
+
+		$pagination = [
+			'limit' => $limit,
+			'prevPage' => $paginator->getPrevPage(),
+			'currPage' => $paginator->getCurrPage(),
+			'nextPage' => $paginator->getNextPage(),
+			'pages' => $pages
+		];
+
+		renderPage('/admin/index.php', [
+			'products' => $renderData,
+			'filter-pagination' => $pagination
+		]);
 	}
 
 	public function filter() {
@@ -255,62 +284,29 @@ class ManageProductsController extends Controller {
 				$type = (int)$data['filter-type'];
 
 				$products = $productModel->findByType(type: $type);
-
-				renderPage('/admin/index.php', [
-					'filter-type' => $type, 
-					'products' => $products
-				]);
 			}
 			if($data['filter-type'] === 'none' && $data['filter-price'] !== 'none' && $data['filter-date'] === 'none') {
 				$products = $productModel->getWithOrder(orders: ['price' => $data['filter-price']]);
-				
-				renderPage('/admin/index.php', [
-					'filter-price' => $data['filter-price'], 
-					'products' => $products
-				]);
 			}
 			if($data['filter-type'] === 'none' && $data['filter-price'] === 'none' && $data['filter-date'] !== 'none') {
 				$products = $productModel->getWithOrder(orders: ['updated_at' => $data['filter-date']]);
-				
-				renderPage('/admin/index.php', [
-					'filter-date' => $data['filter-date'], 
-					'products' => $products
-				]);
 			}
 			if($data['filter-type'] !== 'none' && $data['filter-price'] !== 'none' && $data['filter-date'] === 'none') {
 				$products = $productModel->getByTypeWithOrder(
 					type: (int)$data['filter-type'], 
 					orders: ['price' => $data['filter-price']]
 				);
-				
-				renderPage('/admin/index.php', [
-					'filter-type' => $data['filter-type'], 
-					'filter-price' => $data['filter-price'], 
-					'products' => $products
-				]);
 			}
 			if($data['filter-type'] !== 'none' && $data['filter-price'] === 'none' && $data['filter-date'] !== 'none') {
 				$products = $productModel->getByTypeWithOrder(
 					type: (int)$data['filter-type'], 
 					orders: ['updated_at' => $data['filter-date']]
 				);
-				
-				renderPage('/admin/index.php', [
-					'filter-type' => $data['filter-type'], 
-					'filter-date' => $data['filter-date'], 
-					'products' => $products
-				]);
 			}
 			if($data['filter-type'] === 'none' && $data['filter-price'] !== 'none' && $data['filter-date'] !== 'none') {
 				$products = $productModel->getWithOrder(orders: [
 					'price' => $data['filter-price'],
 					'updated_at' => $data['filter-date']
-				]);
-				
-				renderPage('/admin/index.php', [
-					'filter-price' => $data['filter-price'], 
-					'filter-date' => $data['filter-date'], 
-					'products' => $products
 				]);
 			}
 			if($data['filter-type'] !== 'none' && $data['filter-price'] !== 'none' && $data['filter-date'] !== 'none') {
@@ -321,14 +317,60 @@ class ManageProductsController extends Controller {
 						'updated_at' => $data['filter-date']
 					]
 				);
-				
-				renderPage('/admin/index.php', [
-					'filter-type' => $data['filter-type'], 
-					'filter-price' => $data['filter-price'], 
-					'filter-date' => $data['filter-date'], 
-					'products' => $products
-				]);
 			}
+
+			$payLoads = [];
+			if($data['filter-type'] !== 'none') {
+				$payLoads['filter-type'] = (int)$data['filter-type'];
+			}
+			else {
+				$payLoads['filter-type'] = 'none';
+			}
+			if($data['filter-price'] !== 'none') {
+				$payLoads['filter-price'] = $data['filter-price'];
+			}
+			else {
+				$payLoads['filter-price'] = 'none';
+			}
+			if($data['filter-date'] !== 'none') {
+				$payLoads['filter-date'] = $data['filter-date'];
+			}
+			else {
+				$payLoads['filter-date'] = 'none';
+			}
+
+			$_SESSION['filter-data'] = $products;
+			$_SESSION['filter-status'] = true;
+
+			$renderData = [];
+			for($i = 0; $i < min(count($products), 5); ++$i) {
+				array_push($renderData, $products[$i]);
+			}
+
+			$payLoads['products'] = $renderData;
+
+			$limit = 5;
+			$page = 1;
+
+			$paginator = new Paginator(
+				recordsPerPage: $limit, 
+				totalRecords: count($_SESSION['filter-data']), 
+				currentPage: $page
+			);
+
+			$pages = $paginator->getPages();
+
+			$pagination = [
+				'limit' => $limit,
+				'prevPage' => $paginator->getPrevPage(),
+				'currPage' => $paginator->getCurrPage(),
+				'nextPage' => $paginator->getNextPage(),
+				'pages' => $pages
+			];
+
+			$payLoads['filter-pagination'] = $pagination;
+
+			renderPage('/admin/index.php', $payLoads);
 		}
 	}
 

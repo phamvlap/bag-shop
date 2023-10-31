@@ -52,3 +52,8 @@
 #filter-products-form select,#filter-products-form option {
 	font-size: 1.6rem;
 }
+
+/*pagination*/
+#admin-home .pagination a {
+	font-size: 1.6rem;
+}

@@ -95,4 +95,28 @@ class Product extends Model {
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
+
+	public function count(): int {
+		$tableName = self::TABLE_NAME;
+
+		$query = "select count(*) from {$tableName}";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->execute();
+
+		return $stmt->fetchColumn();
+	}
+
+	public function paginate(int $offset = 0, int $limit = 10): array {
+		$tableName = self::TABLE_NAME;
+
+		$query = "select * from {$tableName} limit :offset, :limit";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 }

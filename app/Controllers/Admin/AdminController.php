@@ -3,16 +3,42 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\Controller;
-use App\Models\Product;
+use App\Models\{Product, Paginator};
 
 class AdminController extends Controller {
 
 	public function index() {
-		$productModel = new Product();
-		$products = $productModel->all();
+		purgeSESSION('filter-type');
+		purgeSESSION('filter-price');
+		purgeSESSION('filter-date');
+		purgeSESSION('filter-data');
+		purgeSESSION('filter-status');
 
+		$productModel = new Product();
+
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 5;
+		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
+
+		$paginator = new Paginator(
+			recordsPerPage: $limit, 
+			totalRecords: $productModel->count(), 
+			currentPage: $page
+		);
+
+		$products = $productModel->paginate(offset: $paginator->getRecordOffset(), limit: $paginator->getRecordsPerPage());
+		$pages = $paginator->getPages();
+
+		$pagination = [
+			'limit' => $limit,
+			'prevPage' => $paginator->getPrevPage(),
+			'currPage' => $paginator->getCurrPage(),
+			'nextPage' => $paginator->getNextPage(),
+			'pages' => $pages
+		];
+		
 		renderPage('/admin/index.php', [
-			'products' => $products
+			'products' => $products,
+			'pagination' => $pagination
 		]);
 	}
 

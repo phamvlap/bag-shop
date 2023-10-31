@@ -2,11 +2,12 @@
 
 <div id="admin-home" class="container-fluid p-0">
 	<!-- navbar -->
-	<?php require_once __DIR__ . '/../navbar.php' ?>
+	<?php require_once __DIR__ . '/../components/navbar.php' ?>
 
 	<div class="d-flex flex-column align-items-center mt-5 additional-form">
 		<h2 class="m-0">Thêm sản phẩm mới</h2>
 
+		<!-- form login into admin -->
 		<form class="mt-4" action="/admin/product/add" method="post" enctype="multipart/form-data">
 			<div class="row mb-3">
 				<label for="item-name" class="col-sm-2 col-form-label">Tên sản phẩm: </label>
