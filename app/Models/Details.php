@@ -31,6 +31,7 @@ class Details extends Model {
 	}
 
 	public function save() {
+		$res = true;
 		foreach($this->products as $product) {
 			$detail = [
 				'id_invoice' => $this->invoice['id_invoice'],
@@ -38,8 +39,12 @@ class Details extends Model {
 				'count' => $product['count']
 			];
 
-			parent::set(self::TABLE_NAME, $detail);
+			$res = parent::set(self::TABLE_NAME, $detail);
+			if($res === false) {
+				break;
+			}
 		}
+		return $res;
 	}
 
 	public function getListItem() {

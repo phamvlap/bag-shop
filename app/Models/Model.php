@@ -35,7 +35,7 @@ class Model {
 		foreach($keys as $key) {
 			$stmt->bindValue(":$key", $record[$key]);
 		}
-		$stmt->execute();
+		return $stmt->execute();
 	}
 
 	public function getAll(string $table): array {

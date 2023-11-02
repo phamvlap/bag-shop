@@ -15,33 +15,54 @@ $(document).ready(async function() {
 	const preorderBtn = $('#preorder-btn');
 
 	if(preorderBtn) {
-		preorderBtn.on('click', (event) => {
+		preorderBtn.on('click', async (event) => {
 			event.preventDefault();
 
-			const isExistUser = $('[name="is-exist-user"]').val();
-			console.log(isExistUser);
-			if(isExistUser === 'not-found') {
-				const requestLoginBtn = $('[data-bs-target="#request-login"]');
-				requestLoginBtn.trigger('click');
+			const detailOrder = cart.getCartOrder();
+
+			if(detailOrder.items.length > 0) {
+				const isExistUser = $('[name="is-exist-user"]').val();
+			
+				if(isExistUser === 'not-found') {
+					const requestLoginBtn = $('[data-bs-target="#request-login"]');
+					requestLoginBtn.trigger('click');
+				}
+				else {
+					fetch('/checkout/view', {
+						method: 'POST',
+						dataType: 'json',
+						body: JSON.stringify(detailOrder),	
+						headers: {
+							'Content-Type': 'application/json'
+						}	
+					})
+
+					window.location.href = '/checkout/view';
+				}
 			}
 			else {
-				const detailOrder = cart.getCartOrder();
+				const cartHeadingElement = $('.cart > .cart-heading');
+				const alertHtml = `<div class="row">
+				<div class="alert alert-danger d-flex align-items-center mt-3 mb-0 col col-md-4 offset-md-4 justify-content-center" role="alert">
+				        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+				        <div>Bạn chưa chọn sản phẩm nào!</div>
+				    </div>
+				</div>`;
 
-				fetch('/checkout/view', {
-					method: 'POST',
-					dataType: 'json',
-					body: JSON.stringify(detailOrder),	
-					headers: {
-						'Content-Type': 'application/json'
-					}	
-				})
+				const alertElement = $('<div></div>');
+				alertElement.html(alertHtml);
 
-				window.location.href = '/checkout/view';
+				alertElement.insertAfter(cartHeadingElement);
+
+				await setTimeout(() => {
+					alertElement.prop('hidden', true)
+				}, 1400);
 			}
+			
 		})
 	}
 
-	// checkout handle
+	// checkout handler
 	const checkoutBtn = $('#checkout-btn');
 
 	if(checkoutBtn) {
@@ -60,7 +81,31 @@ $(document).ready(async function() {
 			})
 			// .then(respone => respone.json())
 			// .then(data => console.log(data));
+
+			window.location.href = '/checkout/view';
 		})
+	}
+
+	// order handler
+	const statusOrderInputElement = $('input[name="status-order"]');
+
+	const statusOrder = statusOrderInputElement.val();
+
+	if(statusOrder === 'success') {
+		cart.deleteSelectedItems();
+
+		const alertOrderBtn = $('[data-bs-target="#alert-order"]');
+
+		if(alertOrderBtn) {
+			alertOrderBtn.trigger('click');
+		}	
+	}
+	else if(statusOrder === 'failed') {
+		const alertOrderBtn = $('[data-bs-target="#alert-order"]');
+
+		if(alertOrderBtn) {
+			alertOrderBtn.trigger('click');
+		}	
 	}
 
 	// register success account 
@@ -70,16 +115,6 @@ $(document).ready(async function() {
 		await setTimeout(() => {
 			window.location.href = '/user/signin';
 		}, 600);
-	}
-
-	// check user is exist
-	const isExistUser = $('[name="is-exist-user"]').val();
-	if(isExistUser === 'not-found') {
-		const preorderBtn = $('#preorder-btn');
-		preorderBtn.on('click', () => {
-			const requestLoginBtn = $('[data-bs-target="#request-login"]');
-			requestLoginBtn.trigger('click');
-		})
 	}
 
 	// close alert button when update profile user

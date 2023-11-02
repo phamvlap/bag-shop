@@ -43,6 +43,7 @@ class CartController {
 
 	public function store() {
 		$data = json_decode(file_get_contents('php://input'));
+		$status = true;
 
 		$content = [
 			'status' => 0,
@@ -52,7 +53,7 @@ class CartController {
 		$invoice = new Invoice();
 
 		$invoice->fill($content);
-		$invoice->add();
+		$status = $invoice->add();
 
 		$idInvoice = $invoice->getID();
 
@@ -68,6 +69,17 @@ class CartController {
 		$detailsModel = new Details();
 
 		$detailsModel->fill($idInvoice, $details);
-		// $detailsModel->save();
+		$status = $detailsModel->save();
+
+		$message = '';
+		if($status) {
+			$message = 'Đặt hàng thành công';
+		}
+		else {
+			$message = 'Thất bại trong việc đặt hàng. Vui lòng kiểm tra lại thông tin đặt hàng';
+		}
+
+		$_SESSION['status-order'] = $status;
+		$_SESSION['message-order'] = $message;
 	}
 }

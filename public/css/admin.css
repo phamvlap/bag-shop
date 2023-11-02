@@ -88,3 +88,8 @@
 .nav-link.active-status {
 	background-color: var(--active-navbar-link);
 }
+
+/* modal alert order */
+#alert-order .modal-body {
+	font-size: 1.6rem;
+}

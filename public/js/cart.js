@@ -316,6 +316,17 @@ let cart = {
 		return bill;
 	},
 
+	deleteSelectedItems() {
+		this.listItems.forEach((item, index) => {
+			if(item.selected) {
+				this.listItems.delete(index);
+				--this.count;
+				setCartIconCount();
+			}
+		})
+		this.setItems();
+	},
+
 	async run() {
 		await cart.init();
 		const itemButtons = $('[id^=product_] .btn');

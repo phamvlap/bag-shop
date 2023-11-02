@@ -1,4 +1,5 @@
 <?php require_once __DIR__ . '/components/head.php'; ?>
+<?php require_once __DIR__ . '/components/symbol.php'; ?>
 
 <div class="container p-0">
 	<!-- Header -->
@@ -9,6 +10,9 @@
 	<div class="container p-0 content">
 		<div class="cart">
 			<h2 class="bg-white text-center m-0 p-3 cart-heading fw-bold">Giỏ hàng của tôi</h2>
+
+			<!-- alert no chosen items -->
+
 			<div class="cart-body">
 				<div class="row bg-white mt-4 mx-0 p-2 cart-item">
 					<div class="col-md-6">
@@ -87,10 +91,10 @@
 	hidden
 >
 
-<!-- Button trigger modal -->
+<!-- Button trigger modal request login -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#request-login" hidden></button>
 
-<!-- Modal -->
+<!-- Modal request login -->
 <div class="modal fade" id="request-login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">

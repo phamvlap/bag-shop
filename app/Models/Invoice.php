@@ -31,6 +31,8 @@ class Invoice extends Model {
 
 		parent::set(self::TABLE_NAME, $invoice);
 		$this->id_invoice = $this->getPDO()->lastInsertId();
+
+		return $this->id_invoice !== -1;
 	}
 
 	public function all() {
