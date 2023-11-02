@@ -8,8 +8,8 @@
 			</li>
 
 			<?php foreach($_SESSION['filter-pagination']['pages'] as $page): ?> 
-				<li class="page-item <?php echo ($_SESSION['filter-pagination']['currPage'] === $page) ? 'active' : '' ?> ">
-					<a class="page-link px-4 py-3" href="/admin/product/filter?page=<?= $page ?>&limit=5">
+				<li class="page-item">
+					<a class="page-link px-4 py-3 <?php echo ($_SESSION['filter-pagination']['currPage'] === $page) ? 'active-status' : '' ?> " href="/admin/product/filter?page=<?= $page ?>&limit=5">
 						<?= $page ?>
 					</a>
 				</li>
@@ -29,8 +29,8 @@
 			</li>
 
 			<?php foreach($_SESSION['pagination']['pages'] as $page): ?> 
-				<li class="page-item <?php echo ($_SESSION['pagination']['currPage'] === $page) ? 'active' : '' ?> ">
-					<a class="page-link px-4 py-3" href="/admin?page=<?= $page ?>&limit=5">
+				<li class="page-item">
+					<a class="page-link px-4 py-3 <?php echo ($_SESSION['pagination']['currPage'] === $page) ? 'active-status' : '' ?> " href="/admin?page=<?= $page ?>&limit=5">
 						<?= $page ?>
 					</a>
 				</li>

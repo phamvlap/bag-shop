@@ -1,15 +1,20 @@
 <div class="row align-item-center header rounded-bottom">
 	<div class="col-md-2 text-center">
 		<a href="/home">
-			<img class="logo" src="../../../../images/logo.jpeg" alt="">
+			<img class="logo" src="/images/logo.jpeg" alt="">
 		</a>
 	</div>
 
 	<div class="col-md-7 d-flex align-items-center">
 		<div class="w-100">
-			<form class="row bg-white rounded-2" action="/search" method="post">
-				<input class="col-md-10 py-2 px-3 border-0 border-end rounded-start" type="text" placeholder="Nhập sản phẩm tìm kiếm...">
+			<form class="row bg-white rounded-2 position-relative" action="/search" method="get">
+				<input name="key" id="search-input" class="col-md-10 py-2 px-3 border-0 border-end rounded-start" type="text" placeholder="Nhập sản phẩm tìm kiếm...">
 				<button type="submit" class="col-md-2 btn btn-light border-0 search-btn">Tìm kiếm</button>
+
+				<div class="position-absolute bg-white p-3 rounded-2 search-hint" hidden>
+					<h4 class="m-0"><strong>Sản phẩm gợi ý</strong></h4>
+					<ul class="list-unstyled m-0"></ul>
+				</div>
 			</form>
 		</div>
 	</div>

@@ -1,10 +1,10 @@
-/* login */
-#admin-login, #admin-login input  {
-	font-size: 1.6rem;
+:root {
+	--bg-navbar: #494949;
+	--active-navbar-link: #5f9909;
 }
 
-/* nav bar */
-#admin-home .navbar a {
+/* login */
+#admin-login, #admin-login input  {
 	font-size: 1.6rem;
 }
 
@@ -56,4 +56,35 @@
 /*pagination*/
 #admin-home .pagination a {
 	font-size: 1.6rem;
+}
+
+/* navbar */
+.navbar {
+	background-color: var(--primary-bg-color);
+
+}
+.navbar a {
+	font-size: 2.0rem;
+	color: var(--white-text);
+	font-weight: 700;
+}
+
+.navbar a:hover {
+	color: var(--white-text);
+	filter: brightness(80%);
+}
+
+.navbar .title {
+	color: var(--white-text);
+	font-size: 2.6rem;
+	text-transform: uppercase;
+}
+
+.page-link.active-status {
+	background-color: var(--active-navbar-link);
+	color: var(--white-text);
+}
+
+.nav-link.active-status {
+	background-color: var(--active-navbar-link);
 }

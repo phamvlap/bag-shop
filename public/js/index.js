@@ -27,7 +27,7 @@ $(document).ready(async function() {
 			else {
 				const detailOrder = cart.getCartOrder();
 
-				fetch('http://goodstore.localhost/checkout/view', {
+				fetch('/checkout/view', {
 					method: 'POST',
 					dataType: 'json',
 					body: JSON.stringify(detailOrder),	
@@ -35,10 +35,8 @@ $(document).ready(async function() {
 						'Content-Type': 'application/json'
 					}	
 				})
-				// .then(respone => respone.json())
-				// .then(data => console.log(data));
 
-				window.location.href = 'http://goodstore.localhost/checkout/view';
+				window.location.href = '/checkout/view';
 			}
 		})
 	}
@@ -52,7 +50,7 @@ $(document).ready(async function() {
 
 			const detailOrder = cart.getCartOrder();
 
-			fetch('http://goodstore.localhost/checkout/order', {
+			fetch('/checkout/order', {
 				method: 'POST',
 				dataType: 'json',
 				body: JSON.stringify(detailOrder),	
@@ -70,7 +68,7 @@ $(document).ready(async function() {
 	if(successRegister.val() === 'success') {
 		console.log('check');
 		await setTimeout(() => {
-			window.location.href = 'http://goodstore.localhost/user/signin';
+			window.location.href = '/user/signin';
 		}, 600);
 	}
 
@@ -120,4 +118,14 @@ $(document).ready(async function() {
 		const confirmDeleteBtn = $('[data-bs-target="#delete-item"]');
 		confirmDeleteBtn.trigger('click');
 	}
+
+	// highlight type of product
+	const typeProductElements = $('a[href^="/home?type="]');
+	
+	typeProductElements.each((index, element) => {
+		if(window.location.href.includes($(element).prop('href'))) {
+			$(element).addClass('highlight-option');
+		}
+	});
+	
 })

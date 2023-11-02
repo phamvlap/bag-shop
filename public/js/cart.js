@@ -76,7 +76,7 @@ const renderCart = async () => {
 
 const getItemData = async (id_product) => {
 	let item = {};
-	await fetch('http://bagshop.localhost/fetch/product/get_item.php', {
+	await fetch('/get-item', {
 		method: 'POST',
 		dataType: 'json',
 		body: JSON.stringify({id: id_product}),	
@@ -190,7 +190,7 @@ let cart = {
 			--this.count;
 			this.setItems();
 			setCartIconCount();
-			window.location.href = 'http://bagshop.localhost/cart';
+			window.location.href = '/cart';
 		}
 	},
 

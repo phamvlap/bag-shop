@@ -119,4 +119,39 @@ class Product extends Model {
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
+
+	public function getNewestProducts(int $quantity = 3): array {
+		$tableName = self::TABLE_NAME;
+
+		$query = "select * from {$tableName} order by updated_at desc limit :quantity";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':quantity', $quantity, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function search(string $name, array $orders = []) {
+		$tableName = self::TABLE_NAME;
+
+		$arrOrders = [];
+		foreach($orders as $key => $value) {
+			array_push($arrOrders, "$key $value");
+		}
+		$strOrder = join(', ', $arrOrders);
+
+		$order = " order by {$strOrder}";
+
+		$query = "select * from {$tableName} where name like '%{$name}%'";
+
+		if(count($orders) > 0) {
+			$query .= $order;
+		}
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 }
