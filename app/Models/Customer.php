@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Model;
 
 class Customer extends Model {
-	const TABLE_NAME = 'customers';
+	private string $tableName = 'customers';
 
 	private $id_customer = -1, $name, $username, $password, $phone_number, $gender, $email, $address;
 
@@ -38,29 +38,29 @@ class Customer extends Model {
 		];
 		
 		if($this->id_customer === -1){
-			parent::set(self::TABLE_NAME, $customer);
+			parent::set($this->tableName, $customer);
 			$this->id_customer = $this->getPDO()->lastInsertId();
 		}
 	}
 
 	public function all() {
-		return parent::getAll(self::TABLE_NAME);
+		return parent::getAll($this->tableName);
 	}
 
 	public function findByID(int $id) {
-		return parent::getByID(self::TABLE_NAME, 'id_customer', $id);
+		return parent::getByID($this->tableName, 'id_customer', $id);
 	}
 
 	public function findByProps(array $props) {
-		return parent::getByProps(self::TABLE_NAME, $props); 
+		return parent::getByProps($this->tableName, $props); 
 	}
 
 	public function edit(int $id, array $newInfo) {
-		return parent::update(self::TABLE_NAME, 'id_customer', $id, $newInfo);
+		return parent::update($this->tableName, 'id_customer', $id, $newInfo);
 	}
 
 	public function remove(int $id) {
-		parent::delete(self::TABLE_NAME, 'id_customer', $id);
+		parent::delete($this->tableName, 'id_customer', $id);
 	}
 
 	public function matchPassword(string $pwd) {

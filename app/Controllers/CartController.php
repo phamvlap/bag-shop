@@ -47,7 +47,8 @@ class CartController {
 
 		$content = [
 			'status' => 0,
-			'total' => $data->total
+			'total' => $data->listItems->total,
+			'method_payment' => $data->methodPayment
 		];
 
 		$invoice = new Invoice();
@@ -58,7 +59,7 @@ class CartController {
 		$idInvoice = $invoice->getID();
 
 		$details = [];
-		$items = $data->items;
+		$items = $data->listItems->items;
 		foreach($items as $item) {
 			array_push($details, [
 				'id' => $item->id_product,

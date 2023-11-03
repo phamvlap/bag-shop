@@ -3,7 +3,7 @@ $(document).ready(async function() {
 	const userAccountOptions = $('#profile-user li > a');
 
 	userAccountOptions.each((index, element) => {
-		if($(element).prop('href') === window.location.href) {
+		if(window.location.href.includes($(element).prop('href'))) {
 			$(element).addClass('highlight-option');
 		}
 	});
@@ -70,19 +70,32 @@ $(document).ready(async function() {
 			event.preventDefault();
 
 			const detailOrder = cart.getCartOrder();
+			const methodPaymentOpt = $('input[name="method-payment"]:checked');
+			
+			if(methodPaymentOpt.length > 0) {
+				fetch('/checkout/order', {
+					method: 'POST',
+					dataType: 'json',
+					body: JSON.stringify({
+						listItems: detailOrder,
+						methodPayment: methodPaymentOpt.val()
+					}),	
+					headers: {
+						'Content-Type': 'application/json'
+					}	
+				})
+				// .then(respone => respone.json())
+				// .then(data => console.log(data));
 
-			fetch('/checkout/order', {
-				method: 'POST',
-				dataType: 'json',
-				body: JSON.stringify(detailOrder),	
-				headers: {
-					'Content-Type': 'application/json'
-				}	
-			})
-			// .then(respone => respone.json())
-			// .then(data => console.log(data));
-
-			window.location.href = '/checkout/view';
+				window.location.href = '/checkout/view';
+			}
+			else {
+				const lastPaymentOpt = $('input[name="method-payment"]:last');
+				const divLastPaymentOpt = lastPaymentOpt.closest('div');
+				const errorElement = $('<div class="error text-start px-3">Bạn chưa chọn hình thức thanh toán</div>');
+				
+				errorElement.insertAfter(divLastPaymentOpt);
+			}
 		})
 	}
 

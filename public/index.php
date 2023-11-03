@@ -16,6 +16,9 @@ require_once __DIR__ . '/../app/routes/product.php';
 // routes of customer
 require_once __DIR__ . '/../app/routes/customer.php';
 
+// routes of invoice
+require_once __DIR__ . '/../app/routes/invoice.php';
+
 // routes of cart
 require_once __DIR__ . '/../app/routes/cart.php';
 

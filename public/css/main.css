@@ -420,7 +420,7 @@ div[id^="product_"]:hover {
 	background-color: var(--secondary-bg-color);
 }
 
-.invoice p {
+.invoice div {
 	font-size: 1.6rem;
 }
 
@@ -452,4 +452,31 @@ div[id^="product_"]:hover {
 
 .search-hint .title, .search-hint .price {
 	font-size: 1.6rem;
+}
+
+/* invoices */
+.invoice .sumary {
+	--max-lines: 2;
+	display: -webkit-box;
+	-webkit-line-clamp: var(--max-lines);
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* checkout */
+.preorder-body .preorder-items {
+	background-color: var(--secondary-bg-color);
+}
+
+/* detail invoice */
+.detail-invoice h4 {
+	font-size: 2.0rem;
+}
+
+.detail-invoice {
+	font-size: 1.6rem;
+}
+
+.detail-invoice .section {
+	background-color: var(--secondary-bg-color);
 }

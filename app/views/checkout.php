@@ -9,7 +9,7 @@
 
 	<div class="container p-0 content">
 		<div class="row m-0 cart">
-			<div class="col col-md-10 offset-md-1 bg-white rounded-2">
+			<div class="col col-md-8 offset-md-2 bg-white rounded-2">
 				<h2 class="text-center m-0 p-3 cart-heading fw-bold">Xác nhận đặt hàng</h2>
 				<!-- user -->
 				<div class="p-3 cart-info-user">
@@ -37,45 +37,70 @@
 
 				<!-- items -->
 				<div class="p-3 cart-body preorder-body">
-					<h3 class="m-0 px-4"><strong>Chi tiết sản phẩm:</strong></h3>
+					<h3 class="m-0 px-4"><strong>Thông tin sản phẩm:</strong></h3>
 
-					<table class="table table-striped table-hover mt-4 border border-secondary">
-						<thead>
-							<tr class="table-light">
-								<th scope="col" class="text-center">STT</th>
-								<th scope="col" class="text-center">Sản phẩm</th>
-								<th scope="col" class="text-center">Giá</th>
-								<th scope="col" class="text-center">Số lượng</th>
-								<th scope="col" class="text-center">Tổng tạm thời</th>
-							</tr>
-						</thead>
+					<!-- list items -->
+					<?php foreach($_SESSION['rows'] as $row): ?>
+						<div class="row justify-content-between p-3 rounded-3 mt-3 preorder-items">
+							<div class="col col-md-6">
+								<div class="row">
+									<div class="col col-md-3">
+										<?php $image = explode(';', $row['images'])[0]; ?>
+										<img src="/uploads/<?= $image ?>" alt="" width="100%" height="72px">
+									</div>
+									<div class="col col-md-9"><?= $htmlspecialchars($row['name']) ?></div>
+								</div>
+							</div>
+							<div class="col col-md-3">
+								<div class="row">
+									<div class="col col-md-6">Giá:</div>
+									<div class="col col-md-6 text-end"><?= $row['price'] ?></div>
+								</div>
+								<div class="row">
+									<div class="col col-md-6">Số lượng:</div>
+									<div class="col col-md-6 text-end"><?= $row['count'] ?></div>
+								</div>
+								<div class="row">
+									<div class="col col-md-6">Tạm tính:</div>
+									<div class="col col-md-6 text-end">
+										<strong>
+											<?php 
+												$tmpTotal = $row['price'] * $row['count'];
+												echo $tmpTotal;
+											?>
+										</strong>
+										<span>đ</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					<?php endforeach ?>
 
-						<tbody>
-							<?php $count = 1; ?>
-							<?php foreach($_SESSION['rows'] as $row): ?>
-								<tr>
-									<td class="text-center">
-										<?php 
-											echo $count;
-											++$count;
-										?>
-									</td>
-									<td><?= $htmlspecialchars($row['name']) ?></td>
-									<td class="text-center"><?= $row['price'] ?></td>
-									<td class="text-center"><?= $row['count'] ?></td>
-									<td class="text-center">
-										<?php 
-											$tmpTotal = $row['price'] * $row['count'];
-											echo $tmpTotal;
-										?>
-									</td>
-								</tr>
-							<?php endforeach ?>
-						</tbody>
-					</table>
+					<div class="py-3">
+						<h3 class="m-0 px-4"><strong>Hình thức thanh toán:</strong></h3>
+
+						<div class="py-1 px-3">
+							<input 
+								id="on-site"
+								type="radio" 
+								name="method-payment" 
+								value="on-site"
+							>
+							<label class="form-check-label" for="on-site">Thanh toán khi nhận hàng</label>
+						</div>
+						<div class="py-1 px-3">
+							<input 
+								id="deposit"
+								type="radio" 
+								name="method-payment" 
+								value="deposit" 
+							>
+							<label class="form-check-label" for="deposit">Thanh toán bằng hình thức chuyển khoản</label>
+						</div>
+					</div>
 
 					<!-- cart payment -->
-					<div class="row mx-0 mt-4 rounded-2 p-3">
+					<div class="row mx-0 mt-2 rounded-2 p-3">
 						<div class="col col-md-6 offset-md-6 payment">
 							<div class="row py-2">
 								<p class="col col-md-8 m-0">Tổng thanh toán tạm thời: </p>
@@ -138,7 +163,6 @@
 			}
 		}
 	?>"
-	hidden
 >
 
 <!-- Button trigger modal alert order -->

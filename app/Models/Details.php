@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Models\{Model, Invoice, Product};
+use PDO;
 
 class Details extends Model {
-	const TABLE_NAME = 'details';
+	private string $tableName = 'details';
 
 	private $invoice, $products = [];
 
@@ -39,7 +40,7 @@ class Details extends Model {
 				'count' => $product['count']
 			];
 
-			$res = parent::set(self::TABLE_NAME, $detail);
+			$res = parent::set($this->tableName, $detail);
 			if($res === false) {
 				break;
 			}
@@ -53,5 +54,15 @@ class Details extends Model {
 
 	public function getInvoice() {
 		return $this->invoice;
+	}
+
+	public function getListItemsFromDB(int $id_invoice) {
+		$query = "select products.*, details.count from details join products on details.id_product = products.id_product where details.id_invoice = :id_invoice";
+
+		$stmt = $this->getPDO()->prepare($query);	
+		$stmt->bindValue(':id_invoice', $id_invoice, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 }

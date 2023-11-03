@@ -5,7 +5,7 @@
 			<a href="/user/profile" class="d-block p-2 rounded-2">Thông tin tài khoản</a>
 		</li>
 		<li class="mt-1">
-			<a href="/user/history" class="d-block p-2 rounded-2">Đơn hàng của tôi</a>
+			<a href="/user/history-order" class="d-block p-2 rounded-2">Đơn hàng của tôi</a>
 		</li>
 	</ul>
 </div>

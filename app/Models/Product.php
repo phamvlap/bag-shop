@@ -6,7 +6,7 @@ use App\Models\Model;
 use PDO;
 
 class Product extends Model {
-	const TABLE_NAME = 'products';
+	private string $tableName = 'products';
 	
 	private $id_product = -1, $name, $describes, $images, $type, $updated_at, $price;
 	
@@ -33,35 +33,33 @@ class Product extends Model {
 			'price' => $this->price
 		];
 		if($this->id_product === -1) {
-			parent::set(self::TABLE_NAME, $product);
+			parent::set($this->tableName, $product);
 			$this->id_product = $this->getPDO()->lastInsertId();
 		}
 		return ($this->id_product !== -1);
 	}
 
 	public function all() {
-		return parent::getAll(self::TABLE_NAME);
+		return parent::getAll($this->tableName);
 	}
 
 	public function findByID(int $id) {
-		return parent::getByID(self::TABLE_NAME, 'id_product', $id);
+		return parent::getByID($this->tableName, 'id_product', $id);
 	}
 
 	public function findByType(int $type) {
-		return parent::getByProps(self::TABLE_NAME, ['type' => $type]);
+		return parent::getByProps($this->tableName, ['type' => $type]);
 	}
 
 	public function edit(int $id, array $updatedFields) {
-		return parent::update(self::TABLE_NAME, 'id_product', $id, $updatedFields);
+		return parent::update($this->tableName, 'id_product', $id, $updatedFields);
 	}
 
 	public function remove(int $id) {
-		return parent::delete(self::TABLE_NAME, 'id_product', $id);	
+		return parent::delete($this->tableName, 'id_product', $id);	
 	}
 
 	public function getWithOrder(array $orders): array {
-		$tableName = self::TABLE_NAME;
-
 		$arrOrders = [];
 		foreach($orders as $key => $value) {
 			array_push($arrOrders, "$key $value");
@@ -69,7 +67,7 @@ class Product extends Model {
 
 		$strOrder = join(', ', $arrOrders);
 
-		$query = "select * from {$tableName} order by {$strOrder}";
+		$query = "select * from {$this->tableName} order by {$strOrder}";
 
 		$stmt = $this->getPDO()->prepare($query);
 		$stmt->execute();
@@ -78,8 +76,6 @@ class Product extends Model {
 	}
 
 	public function getByTypeWithOrder(int $type, array $orders): array {
-		$tableName = self::TABLE_NAME;
-
 		$arrOrders = [];
 		foreach($orders as $key => $value) {
 			array_push($arrOrders, "$key $value");
@@ -87,7 +83,7 @@ class Product extends Model {
 
 		$strOrder = join(', ', $arrOrders);
 
-		$query = "select * from {$tableName} where type = :type order by {$strOrder}";
+		$query = "select * from {$this->tableName} where type = :type order by {$strOrder}";
 
 		$stmt = $this->getPDO()->prepare($query);
 		$stmt->bindValue(':type', $type, PDO::PARAM_INT);
@@ -97,9 +93,7 @@ class Product extends Model {
 	}
 
 	public function count(): int {
-		$tableName = self::TABLE_NAME;
-
-		$query = "select count(*) from {$tableName}";
+		$query = "select count(*) from {$this->tableName}";
 
 		$stmt = $this->getPDO()->prepare($query);
 		$stmt->execute();
@@ -108,9 +102,7 @@ class Product extends Model {
 	}
 
 	public function paginate(int $offset = 0, int $limit = 10): array {
-		$tableName = self::TABLE_NAME;
-
-		$query = "select * from {$tableName} limit :offset, :limit";
+		$query = "select * from {$this->tableName} limit :offset, :limit";
 
 		$stmt = $this->getPDO()->prepare($query);
 		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -121,9 +113,7 @@ class Product extends Model {
 	}
 
 	public function getNewestProducts(int $quantity = 3): array {
-		$tableName = self::TABLE_NAME;
-
-		$query = "select * from {$tableName} order by updated_at desc limit :quantity";
+		$query = "select * from {$this->tableName} order by updated_at desc limit :quantity";
 
 		$stmt = $this->getPDO()->prepare($query);
 		$stmt->bindValue(':quantity', $quantity, PDO::PARAM_INT);
@@ -133,8 +123,6 @@ class Product extends Model {
 	}
 
 	public function search(string $name, array $orders = []) {
-		$tableName = self::TABLE_NAME;
-
 		$arrOrders = [];
 		foreach($orders as $key => $value) {
 			array_push($arrOrders, "$key $value");
@@ -143,7 +131,7 @@ class Product extends Model {
 
 		$order = " order by {$strOrder}";
 
-		$query = "select * from {$tableName} where name like '%{$name}%'";
+		$query = "select * from {$this->tableName} where name like '%{$name}%'";
 
 		if(count($orders) > 0) {
 			$query .= $order;

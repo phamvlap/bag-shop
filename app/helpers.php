@@ -35,3 +35,32 @@ function purgeSESSION(string $key) {
 		unset($_SESSION[$key]);
 	}
 }
+
+function retrieveDay(int $day) {
+	$res = '';
+
+	switch($day) {
+		case 0: 
+			$res = 'Chủ nhật';
+			break;
+		case 1: 
+			$res = 'Thứ hai';
+			break;
+		case 2: 
+			$res = 'Thứ ba';
+			break;
+		case 3: 
+			$res = 'Thứ tư';
+			break;
+		case 4: 
+			$res = 'Thứ năm';
+			break;
+		case 5: 
+			$res = 'Thứ sáu';
+			break;
+		case 6: 
+			$res = 'Thứ bảy';
+			break;
+	}
+	return $res;
+}
