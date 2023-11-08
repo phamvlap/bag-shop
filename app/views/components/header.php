@@ -27,7 +27,7 @@
 						
 					</div>
 					<div class="p-1">
-						<p class="m-0"><?php echo $_SESSION['user']['username'] ?></p>
+						<p class="m-0"><?php echo $htmlspecialchars($_SESSION['user']['username']) ?></p>
 					</div>
 					<div class="position-absolute bg-white rounded-2 overflow-hidden optional-account">
 						<ul class="m-0 p-0 list-unstyled">

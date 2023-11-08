@@ -38,10 +38,4 @@ class InvoicesController {
 
 		renderPage('/detail_order.php', ['invoice' => $invoice]);
 	}
-
-	public function print(array $data) {
-		echo "<pre>";
-		print_r($data);
-		echo "</pre>";
-	}
 }

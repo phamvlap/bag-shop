@@ -119,6 +119,9 @@
 
 				</div>
 
+				<!-- pagination -->
+				<?php require_once __DIR__ . '/components/paginator.php'; ?>
+
 				<!-- footer -->
 				<div id="footer" class="container mt-3 bg-white rounded-top-2">
 					<?php require_once __DIR__ . '/components/footer.php'; ?>

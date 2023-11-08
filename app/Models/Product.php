@@ -101,6 +101,16 @@ class Product extends Model {
 		return $stmt->fetchColumn();
 	}
 
+	public function countByType(int $type): int {
+		$query = "select count(*) from {$this->tableName} where type = :type";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':type', $type, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchColumn();
+	}
+
 	public function paginate(int $offset = 0, int $limit = 10): array {
 		$query = "select * from {$this->tableName} limit :offset, :limit";
 
@@ -138,6 +148,37 @@ class Product extends Model {
 		}
 
 		$stmt = $this->getPDO()->prepare($query);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function paginateWithType(int $type, int $offset = 0, int $limit = 10): array {
+		$query = "select * from {$this->tableName} where type = :type limit :offset, :limit";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':type', $type, PDO::PARAM_INT);
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function paginateWithTypeAndOrder(int $type, int $offset = 0, int $limit = 10, array $orders = []) {
+		$arrOrders = [];
+		foreach($orders as $key => $value) {
+			array_push($arrOrders, "$key $value");
+		}
+
+		$strOrder = join(', ', $arrOrders);
+
+		$query = "select * from {$this->tableName} where type = :type order by {$strOrder} limit :offset, :limit";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':type', $type, PDO::PARAM_INT);
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
 		$stmt->execute();
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);

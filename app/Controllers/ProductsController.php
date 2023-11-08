@@ -2,19 +2,46 @@
 
 namespace App\Controllers;
 
-use App\Models\Product;
+use App\Models\{Product, Paginator};
 
 class ProductsController {
 	
 	public function index() {
 		purgeSESSION('search-input');
 
+		$productModel = new Product();
+
 		$type = (isset($_GET['type']) && is_numeric($_GET['type'])) ? (int)$_GET['type'] : false;
 		$requestOrder = (isset($_GET['price'])) ? $_GET['price'] : false;
 
 		$orderPrice = '';
 
-		$product = new Product();
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 12;
+		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
+
+		$totalPages = 0;
+		if(isset($type) && $type) {
+			$totalPages = $productModel->countByType(type: $type);
+		}
+		else {
+			$totalPages = $productModel->count();
+		}
+
+		$paginator = new Paginator(
+			recordsPerPage: $limit, 
+			totalRecords: $totalPages, 
+			currentPage: $page
+		);
+
+		$pages = $paginator->getPages(length: min($paginator->getTotalPages(), 3));
+
+		$pagination = [
+			'limit' => $limit,
+			'prevPage' => $paginator->getPrevPage(),
+			'currPage' => $paginator->getCurrPage(),
+			'nextPage' => $paginator->getNextPage(),
+			'pages' => $pages
+		];
 
 		if(isset($type) && $type !== false) {
 			if(isset($requestOrder) && $requestOrder !== false) {
@@ -25,27 +52,31 @@ class ProductsController {
 					$orderPrice = 'desc';
 				}
 
-				$products = $product->getByTypeWithOrder(type: $type, orders: ['price' => $orderPrice]);
+				$products = $productModel->paginateWithTypeAndOrder(type: $type, offset: $paginator->getRecordOffset(), limit: $limit, orders: ['price' => $orderPrice]);
 			}
 			else {
-				$products = $product->findByType(type: $type);
+				$products = $productModel->paginateWithType(type: $type, offset: $paginator->getRecordOffset(), limit: $limit);
 			}
 
 			renderPage('/home.php', [
 				'products' => $products,
-				'select-by-type' => true
+				'select-by-type' => true,
+				'type' => $type,
+				'price' => $orderPrice,
+				'home-pagination' => $pagination
 			]);
 		}
 		else {
 			purgeSESSION('select-by-type');
 			
-			$products = $product->all();
+			$products = $productModel->paginate(offset: $paginator->getRecordOffset(), limit: $paginator->getRecordsPerPage());
 
-			$newestProducts = $product->getNewestProducts();
+			$newestProducts = $productModel->getNewestProducts();
 
 			renderPage('/home.php', [
 				'products' => $products,
-				'newest-products' => $newestProducts
+				'newest-products' => $newestProducts,
+				'home-pagination' => $pagination
 			]);
 		}
 	}

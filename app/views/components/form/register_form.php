@@ -13,21 +13,23 @@
     hidden
 >
 
-<?php if(isset($_SESSION['old'])): ?>
-    <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-        <div><?= getOnceSession('failed') ?></div>
-    </div>
-<?php endif ?>
+<?php 
+    if(isset($_SESSION['old'])) {
+        echo '
+        <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div>' . getOnceSession('failed') . '</div>
+        </div>' ;
+    }
 
-<?php if(isset($_SESSION['success'])): ?>
-    <div class="alert alert-success d-flex align-items-center mt-3" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#check-circle-fill"/></svg>
-        <div><?= getOnceSession('success') ?></div>
-    </div>
-<?php endif ?>
-
-<?php $htmlspecialchars = 'htmlspecialchars' ?>
+    if(isset($_SESSION['success'])) {
+        echo '
+        <div class="alert alert-success d-flex align-items-center mt-3" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#check-circle-fill"/></svg>
+            <div>' . getOnceSession('success') . '</div>
+        </div>';
+    }
+?>
 
 <form id="form-signup" class="row g-3 p-3" method="post" action="/user/register">
     <div class="form-group col-12">

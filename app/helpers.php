@@ -64,3 +64,9 @@ function retrieveDay(int $day) {
 	}
 	return $res;
 }
+
+function pr(array $a) {
+	echo "<pre>";
+	print_r($a);
+	echo "</pre>";
+}

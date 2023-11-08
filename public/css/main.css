@@ -148,6 +148,14 @@ div[id^="product_"]:hover {
 	font-size: 1.6rem;
 }
 
+.copyright a {
+	color: var(--primary-bg-color);
+}
+
+.copyright a:hover {
+	filter: brightness(80%);
+}
+
 .slogan i {
 	color: var(--primary-bg-color);
 }
@@ -479,4 +487,14 @@ div[id^="product_"]:hover {
 
 .detail-invoice .section {
 	background-color: var(--secondary-bg-color);
+}
+
+/* 404 not found */
+.not-found-404 {
+	font-size: 2.8rem;
+}
+
+/*pagination*/
+nav[aria-label='Page navigation'] .pagination a {
+	font-size: 1.6rem;
 }

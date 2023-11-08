@@ -53,11 +53,6 @@
 	font-size: 1.6rem;
 }
 
-/*pagination*/
-#admin-home .pagination a {
-	font-size: 1.6rem;
-}
-
 /* navbar */
 .navbar {
 	background-color: var(--primary-bg-color);

@@ -65,4 +65,8 @@ class Paginator {
 	public function getRecordOffset(): int {
 		return $this->recordOffset;
 	}
+
+	public function getTotalPages() {
+		return $this->totalPages;
+	}
 }
