@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\{Product, Paginator};
+use App\Models\{Product, Paginator, Comment};
 
 class ProductsController {
 	
@@ -83,10 +83,17 @@ class ProductsController {
 
 	public function viewItem(int $id) {
 		$productModel = new Product();
+		$commentModel = new Comment();
 
 		$item = $productModel->findByID($id);
+		$comments = $commentModel->getNewestByItem($id);
 
-		renderPage('/item.php', ['item' => $item]);
+		$payLoad = [
+			...$item,
+			'comments' => $comments
+		];
+
+		renderPage('/item.php', ['item' => $payLoad]);
 	}
 
 	public function getHint() {

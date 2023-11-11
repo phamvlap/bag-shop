@@ -256,15 +256,14 @@ div[id^="product_"]:hover {
 }
 
 /*Show detail item*/
-.detail-item, .detail-item button {
+.detail-item .quantity-item div {
+	width: 64px;
+}
+
+.detail-item .quantity-item input {
 	font-size: 1.6rem;
+	width: 100%;
 }
-
-.quantity-btns input {
-	width: 3.2rem;
-	height: 2.4rem;
-}
-
 .detail-item h3, .detail-item strong {
 	font-size: 2.6rem;
 }
@@ -273,7 +272,7 @@ div[id^="product_"]:hover {
 	font-size: 1.8rem;
 }
 
-.describe h3 {
+.describe h3, .comment-container h3 {
 	font-size: 2.0rem;
 }
 
@@ -315,6 +314,10 @@ div[id^="product_"]:hover {
 
 .cart-empty h3 {
 	font-size: 2.4rem;
+}
+
+.quantity-btns .current-quantity {
+	width: 36px;
 }
 
 /* Cart info user  */
@@ -497,4 +500,39 @@ div[id^="product_"]:hover {
 /*pagination*/
 nav[aria-label='Page navigation'] .pagination a {
 	font-size: 1.6rem;
+}
+
+/*comment form*/
+
+#comment-form input, #comment-form textarea {
+	font-size: 1.6rem;
+}
+
+/*comment*/
+.comment-container i {
+	font-size: 2.8rem;
+	color: #4c4b4c;
+}
+
+.comment-container h4 {
+	color: #4c4b4c;
+}
+
+.comment-container h4+p {
+	font-size: 1.2rem;
+	color: #626366;
+}
+
+.comment-container p {
+	font-size: 1.5rem;
+}
+
+.comment-container .more-comments, .comment-container .less-comments {
+	font-size: 1.5rem;
+	color: blue;
+}
+
+.comment-container .more-comments:hover, .comment-container .less-comments:hover {
+	color: #4405aa;
+	cursor: pointer;
 }

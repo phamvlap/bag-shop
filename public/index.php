@@ -31,4 +31,7 @@ require_once __DIR__ . '/../app/routes/manage_products.php';
 // routes of error
 require_once __DIR__ . '/../app/routes/error.php';
 
+// routes of comments
+require_once __DIR__ . '/../app/routes/comment.php';
+
 $router->run();
