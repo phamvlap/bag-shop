@@ -34,4 +34,7 @@ require_once __DIR__ . '/../app/routes/error.php';
 // routes of comments
 require_once __DIR__ . '/../app/routes/comment.php';
 
+// routes of home
+require_once __DIR__ . '/../app/routes/home.php';
+
 $router->run();

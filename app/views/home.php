@@ -21,7 +21,7 @@
 						<div id="notify-search" class="mt-2 mb-3">
 							<div class="bg-white rounded-2 p-3">
 								<?php 
-									$count = count($_SESSION['products']);
+									$count = $_SESSION['search-result-count'];
 
 									if($count > 0) {
 										echo "<span>Tìm thấy <strong>{$count}</strong> sản phẩm phù hợp với từ khóa \"</span><strong>{$_SESSION['search-input']}</strong>\"";
@@ -79,9 +79,16 @@
 						</div>
 					<?php endif ?>
 
-					<?php if(!isset($_SESSION['search-input'])): ?>
+					
 						<div id="products" class="row products p-3 mt-3 mx-0 bg-white">
-							<h2 class="m-0"><strong>GỢI Ý HÔM NAY</strong></h2>
+							<?php 
+								if(!isset($_SESSION['search-input'])) {
+									echo '<h2 class="m-0"><strong>GỢI Ý HÔM NAY</strong></h2>';
+								}
+								else {
+									echo '<h2 class="m-0"><strong>SẢN PHẨM GỢI Ý</strong></h2>';
+								}
+							?>
 
 							<!-- products -->
 							<?php foreach($_SESSION['products'] as $product): ?>
@@ -115,7 +122,6 @@
 								</div>
 							<?php endforeach ?>
 						</div>
-					<?php endif ?>
 
 				</div>
 

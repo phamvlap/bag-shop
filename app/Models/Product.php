@@ -183,4 +183,38 @@ class Product extends Model {
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
+
+	public function countSearchResult(string $name): int {
+		$query = "select count(*) from {$this->tableName} where name like '%{$name}%'";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->execute();
+
+		return $stmt->fetchColumn();
+	}
+
+	public function paginateWithSearch(string $name, array $orders = [], int $offset = 0, int $limit = 12) {
+		$arrOrders = [];
+		foreach($orders as $key => $value) {
+			array_push($arrOrders, "$key $value");
+		}
+		$strOrder = join(', ', $arrOrders);
+
+		$order = " order by {$strOrder}";
+
+		$query = "select * from {$this->tableName} where name like '%{$name}%'";
+
+		if(count($orders) > 0) {
+			$query .= $order;
+		}
+
+		$query .= " limit :offset, :limit";
+
+		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 }

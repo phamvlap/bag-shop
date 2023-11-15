@@ -175,29 +175,4 @@ $(document).ready(async function() {
 			$(element).addClass('highlight-option');
 		}
 	});
-
-	// add product from detail item page
-	const priceItem = $('.detail-item .price');
-	const inputQuantityElement = $('.quantity-item input');
-	const tmpPriceElement = $('.detail-item .tmp-price-item');
-
-	const price = parseInt(priceItem.text());
-
-	inputQuantityElement.on('change', () => {
-		let quantity = parseInt(inputQuantityElement.val());
-
-		tmpPriceElement.text(price * quantity);
-	})
-
-	const addItemBtn = $('.detail-item .add-item-btn');
-	addItemBtn.on('click', async () => {
-		const currentURL = window.location.href;
-		const idItem = parseInt(currentURL.slice(currentURL.lastIndexOf('/') + 1));
-		const item = await getItemData(idItem);
-		item.count = parseInt(inputQuantityElement.val());
-
-		cart.addItems(item);
-
-		console.log(item);
-	})
 })

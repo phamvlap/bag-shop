@@ -22,8 +22,34 @@
 
 					<div class="row me-0">
 						<div class="col-md-8">
-							<div>
-							    <img src="/uploads/<?= $imgs[0] ?>" class="d-block w-100 rounded-2" alt="..." style="height: 420px">
+							<div class="row m-0 images-item">
+								<div class="col col-md-2 p-0 pe-2 list-images-item position-relative" style="height: 420px">
+									<div>
+										<?php for($i = 0; $i < min(count($imgs), 4); ++$i): ?>
+											<?php 
+												$img = $imgs[$i];
+												$activeClass = ($i === 0) ? 'active-image-item' : '';
+											?>
+											<img src="/uploads/<?= $img ?>" class="d-block w-100 rounded-2 mb-2 <?= $activeClass ?>" alt="..." height="100px">
+										<?php endfor ?>
+									</div>
+
+									<div class="position-absolute top-0 w-100 d-flex justify-content-center mt-2">
+										<div class="bg-secondary rounded-circle" hidden>
+											<i class="fa-solid fa-chevron-up p-3"></i>
+										</div>
+									</div>
+
+									<div class="position-absolute bottom-0 w-100 d-flex justify-content-center mb-3">
+										<div class="bg-secondary rounded-circle" <?php echo (count($imgs) > 4) ? '' : 'hidden' ?>>
+											<i class="fa-solid fa-chevron-down p-3"></i>
+										</div>
+									</div>
+
+								</div>
+								<div class="col col-md-10 p-0 ps-2 showing-image">
+									<img src="/uploads/<?= $imgs[0] ?>" class="d-block w-100 rounded-2" alt="..." style="height: 420px">
+								</div>
 							</div>
 							<div class="p-4 mt-3 bg-white describe">
 								<h3 class="fw-bold">Mô tả sản phẩm</h3>
@@ -116,8 +142,6 @@
 							</div>
 						</div>
 					</div>
-
-					
 
 				</div>
 

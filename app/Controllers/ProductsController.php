@@ -19,17 +19,17 @@ class ProductsController {
 		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 12;
 		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
 
-		$totalPages = 0;
+		$totalRecords = 0;
 		if(isset($type) && $type) {
-			$totalPages = $productModel->countByType(type: $type);
+			$totalRecords = $productModel->countByType(type: $type);
 		}
 		else {
-			$totalPages = $productModel->count();
+			$totalRecords = $productModel->count();
 		}
 
 		$paginator = new Paginator(
 			recordsPerPage: $limit, 
-			totalRecords: $totalPages, 
+			totalRecords: $totalRecords, 
 			currentPage: $page
 		);
 
@@ -107,14 +107,17 @@ class ProductsController {
 	}
 
 	public function search() {
+		purgeSESSION('select-by-type');
 		$productModel = new Product();
 
 		$key = isset($_GET['key']) ? $_GET['key'] : '';
 		$requestOrder = (isset($_GET['price'])) ? $_GET['price'] : false;
+		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 12;
 
 		$orderPrice = '';
 
-		if(isset($requestOrder) && $requestOrder !== false) {
+		if(isset($requestOrder) && $requestOrder) {
 			if($requestOrder === 'up') {
 				$orderPrice = 'asc';
 			}
@@ -123,12 +126,32 @@ class ProductsController {
 			}
 		}
 
-		$products = $productModel->search(name: $key, orders: ['price' => $orderPrice]);
-		
+		$totalRecords = $productModel->countSearchResult(name: $key);
+
+		$paginator = new Paginator(
+			recordsPerPage: $limit, 
+			totalRecords: $totalRecords, 
+			currentPage: $page
+		);
+
+		$products = $productModel->paginateWithSearch(name: $key, orders: ['price' => $orderPrice], offset: $paginator->getRecordOffset(), limit: $limit);
+
+		$pages = $paginator->getPages(length: min($paginator->getTotalPages(), 3));
+
+		$pagination = [
+			'limit' => $limit,
+			'prevPage' => $paginator->getPrevPage(),
+			'currPage' => $paginator->getCurrPage(),
+			'nextPage' => $paginator->getNextPage(),
+			'pages' => $pages
+		];
+
 		renderPage('/home.php', [
-			'search-input' => $key,
-			'products' => $products
-		]);
+				'search-input' => $key,
+				'search-result-count' => $totalRecords,
+				'products' => $products,
+				'search-pagination' => $pagination
+			]);
 	}
 
 	public function getItem() {

@@ -93,16 +93,16 @@ $(document).ready(function() {
 		event.stopPropagation();
 	})
 
-	// prevent default submit form when input value length less than or equal 1 (enter)
+	// prevent default submit form when input value length less 1 (enter)
 	searchInput.on('keydown', (event) => {
-		if(event.keyCode === 13 && searchInput.val().length <= 1) {
+		if(event.keyCode === 13 && searchInput.val().length < 1) {
 			event.preventDefault();
 		}
 	})
 
-	// prevent default submit form when input value length less than or equal 1 (click)
+	// prevent default submit form when input value length less 1 (click)
 	searchFormElement.on('submit', () => {
-		if(searchInput.val().length <= 1) {
+		if(searchInput.val().length < 1) {
 			event.preventDefault();
 		}
 	})

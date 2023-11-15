@@ -536,3 +536,13 @@ nav[aria-label='Page navigation'] .pagination a {
 	color: #4405aa;
 	cursor: pointer;
 }
+
+/* image item */
+.active-image-item {
+	border: 1px solid red;
+}
+
+/* list images item */
+.list-images-item i {
+	font-size: 1.6rem;
+}

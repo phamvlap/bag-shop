@@ -10,6 +10,7 @@
 	<!-- <script type="text/javascript" src="/public/js/contact_form.js"></script> -->
 	<script type="text/javascript" src="/js/update_user_form.js"></script>
 	<script type="text/javascript" src="/js/comment.js"></script>
+	<script type="text/javascript" src="/js/item.js"></script>
 
 	<script type="text/javascript" src="/js/cart.js"></script>
 	
