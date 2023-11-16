@@ -56,7 +56,7 @@ class Product extends Model {
 	}
 
 	public function remove(int $id) {
-		return parent::delete($this->tableName, 'id_product', $id);	
+		return parent::delete($this->tableName, 'id_product', $id);
 	}
 
 	public function getWithOrder(array $orders): array {

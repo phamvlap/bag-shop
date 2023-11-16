@@ -65,6 +65,11 @@ class CartController {
 				'id' => $item->id_product,
 				'count' => $item->count
 			]);
+
+			$productModel = new Product();
+			$pastQuantity = $productModel->findByID(id: $item->id_product)['sold_quantity'];
+			$currQuantity = $pastQuantity + $item->count;
+			$productModel->edit($item->id_product, ['sold_quantity' => $currQuantity]);
 		}
 
 		$detailsModel = new Details();

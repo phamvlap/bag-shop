@@ -1,7 +1,8 @@
 <div class="row align-item-center header rounded-bottom">
-	<div class="col-md-2 text-center">
-		<a href="/home">
-			<img class="logo" src="/images/logo.jpeg" alt="">
+	<div class="col-md-2 text-center d-flex align-items-center justify-content-center logo-shop">
+		<a href="/home" class="d-block d-flex align-items-center">
+			<i class="fa-solid fa-store"></i>
+			<span class="px-2"><?= APP_NAME ?></span>
 		</a>
 	</div>
 

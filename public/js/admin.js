@@ -9,4 +9,11 @@ $(document).ready(function() {
 		}
 	});
 
+	// show modal confirm delete product
+	const inputConfirmDelete = $('#confirm-delete');
+	const idDelete = parseInt(inputConfirmDelete.val());
+	if(idDelete) {
+		const confirmDeleteBtn = $('[data-bs-target="#delete-item"]');
+		confirmDeleteBtn.trigger('click');
+	}
 })

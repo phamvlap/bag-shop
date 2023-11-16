@@ -1,15 +1,7 @@
 <?php require_once __DIR__ . '/../components/head.php'; ?>
+<?php require_once __DIR__ . '/../components/symbol.php'; ?>
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-    </symbol>
-    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-    </symbol>
-</svg>
-
-<div id="admin-home" class="container-fluid p-0">
+<div id="admin-home" class="container p-0">
 	<!-- navbar -->
 	<?php require_once __DIR__ . '/components/navbar.php' ?>
 
@@ -38,15 +30,15 @@
 			</div>
 		</div>
 
-		<div class="p-4">
+		<div>
 			<div class="row align-items-center">
-				<div class="col col-md-4">
+				<div class="col col-md-3">
 					<a href="/admin/product/add" class="btn btn-fill-primary">
 						<i class="fa-solid fa-plus"></i>
 						<span>Thêm sản phẩm</span>
 					</a>
 				</div>
-				<div class="col col-md-8">
+				<div class="col col-md-9">
 					<!-- filter -->
 
 					<?php require_once __DIR__ . '/components/filter.php'; ?>
@@ -55,18 +47,16 @@
 		</div>
 
 		<!-- table products -->
-		<div class="mx-4">
+		<div class="mt-3">
 			<table class="table table-striped table-product">
 				<thead>
 					<tr style="width: 100%">
-						<th scope="col" class="text-center" style="width: 3%">STT</th>
-						<th scope="col" class="text-center" style="width: 10%">Hình ảnh</th>
-						<th scope="col" class="text-center" style="width: 20%">Tên sản phẩm</th>
-						<th scope="col" class="text-center" style="width: 28%">Mô tả</th>
-						<th scope="col" class="text-center" style="width: 7%">Loại sản phẩm</th>
+						<th scope="col" class="text-center" style="width: 5%">STT</th>
+						<th scope="col" class="text-center" style="width: 20%">Hình ảnh</th>
+						<th scope="col" class="text-center" style="width: 30%">Tên sản phẩm</th>
+						<th scope="col" class="text-center" style="width: 15%">Loại sản phẩm</th>
 						<th scope="col" class="text-center" style="width: 10%">Giá bán (đ)</th>
-						<th scope="col" class="text-center" style="width: 12%">Ngày cập nhật</th>
-						<th scope="col" class="text-center" style="width: 10%">Thao tác</th>
+						<th scope="col" class="text-center" style="width: 35%">Thao tác</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -89,7 +79,6 @@
 								?>
 							</td>
 							<td scope="col"><?= $htmlspecialchars($product['name']) ?></td>
-							<td scope="col"><?= $htmlspecialchars($product['describes']) ?></td>
 							<td scope="col" class="text-center">
 								<?php 
 									$type = $product['type'];
@@ -114,21 +103,23 @@
 								?>
 							</td>
 							<td scope="col" class="text-center"><?= $htmlspecialchars($product['price']) ?></td>
-							<td scope="col" class="text-center">
-								<?php
-									$date = explode(' ', $product['updated_at']);
-									echo $date[1] . ' ' . $htmlspecialchars(date('d-m-Y', strtotime($date[0])));
-								?>
-							</td>
 							<td scope="col" class="text-center vertical-center">
-								<a href="/admin/product/edit/<?= $htmlspecialchars($product['id_product']) ?>" class="btn btn-warning">
-									<i class="fa-solid fa-pen"></i>
-									<span>Sửa</span>
-								</a>
-								<a href="/admin/product/delete/<?= $htmlspecialchars($product['id_product']) ?>" class="btn btn-danger ms-2">
-									<i class="fa-regular fa-trash-can"></i>
-									<span>Xóa</span>
-								</a>
+								<div class="p-2">
+									<a href="/admin/product/view/<?= $htmlspecialchars($product['id_product']) ?>" class="btn btn-info">
+										<i class="fa-solid fa-circle-info"></i>
+										<span>Xem chi tiết</span>
+									</a>
+								</div>
+								<div class="p-2">
+									<a href="/admin/product/edit/<?= $htmlspecialchars($product['id_product']) ?>" class="btn btn-warning">
+										<i class="fa-solid fa-pen"></i>
+										<span>Sửa</span>
+									</a>
+									<a href="/admin/product/delete/<?= $htmlspecialchars($product['id_product']) ?>" class="btn btn-danger ms-2">
+										<i class="fa-regular fa-trash-can"></i>
+										<span>Xóa</span>
+									</a>
+								</div>
 							</td>
 						</tr>
 
@@ -142,6 +133,9 @@
 
 	<!-- pagination -->
 	<?php require_once __DIR__ . '/components/paginator.php'; ?>;
+
+	<!-- copyright -->
+	<?php require_once __DIR__ . '/../components/copyright.php'; ?>;
 
 </div>
 
@@ -179,7 +173,7 @@
 				<span> không ?</span>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<a href="/admin/product" class="btn btn-secondary" style="font-size: 1.6rem;">Đóng</a>
 				<form action="/admin/product/delete/<?= $htmlspecialchars($_SESSION['delete-item']['id_product']) ?>" method="post">
 					<button type="submit" class="btn btn-fill-primary order-btn">Xóa</button>
 				</form>

@@ -32,3 +32,7 @@ $router->post(
 	'/admin/product/filter',
 	'App\Controllers\Admin\ManageProductsController@filter'
 );
+$router->get(
+	'/admin/product/view/(\d+)',
+	'App\Controllers\Admin\ManageProductsController@viewItem'
+);

@@ -1,13 +1,58 @@
 <?php require_once __DIR__ . '/../../components/head.php'; ?>
 
-<div id="admin-home" class="container-fluid p-0">
+<div id="admin-home" class="container p-0">
 	<!-- navbar -->
-	<?php require_once __DIR__ . '/../navbar.php' ?>
+	<?php require_once __DIR__ . '/../components/navbar.php' ?>
 
 	<div class="d-flex flex-column align-items-center mt-5 additional-form">
-		<h2 class="m-0">Cập nhật sản phẩm</h2>
+		<?php
+			$uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : false;
+			$isEditing = strpos($uri, '/admin/product/edit/') !== false;
 
-		<form class="mt-4" action="/admin/product/edit/<?= $_SESSION['item']['id_product'] ?>" method="post" enctype="multipart/form-data">
+			if($isEditing) {
+				echo '<h2 class="m-0"><strong>Cập nhật sản phẩm</strong></h2>';
+			}
+			else {
+				echo '
+				<div class="row w-100">
+					<a href="/admin/product" class="d-block col col-md-2 d-flex align-items-center justify-content-center btn btn-light" style="font-size: 1.8rem">
+						<i class="fa-regular fa-circle-left"></i>
+						<span class="px-2">Quay lại</span>
+					</a>
+					<div class="col col-md-4 offset-md-2 d-flex align-items-center justify-content-center">
+						<h2 class="m-0"><strong>Thông tin chi tiết sản phẩm</strong></h2>
+					</div>
+					<div class="col col-md-2 offset-md-2 text-end">
+						<a href="/admin/product/edit/' . $htmlspecialchars($_SESSION['item']['id_product']) . '" class="btn btn-warning edit-btn">
+							<i class="fa-solid fa-pen"></i>
+							<span>Chỉnh sửa</span>
+						</a>
+					</div>
+				</div>';
+			}
+		?>
+
+		<form class="mt-4 w-100" action="/admin/product/edit/<?= $_SESSION['item']['id_product'] ?>" method="post" enctype="multipart/form-data">
+			<div 
+				class="row mb-3" 
+				<?php 
+					echo $isEditing ? 'hidden' : '';
+				?>
+			>
+				<label for="" class="col-sm-2 col-form-label">Lần cập nhật mới nhất: </label>
+				<div class="col-sm-10">
+					<input 
+						type="text" 
+						class="form-control" 
+						value="<?php
+							$date = explode(' ', $_SESSION['item']['updated_at']);
+							echo $date[1] . ' ' . $htmlspecialchars(date('d-m-Y', strtotime($date[0])));
+						?>" 
+						disabled 
+						readonly
+					>
+				</div>
+			</div>
 			<div class="row mb-3">
 				<label for="item-name" class="col-sm-2 col-form-label">Tên sản phẩm: </label>
 				<div class="col-sm-10">
@@ -23,7 +68,10 @@
 							else {
 								echo $htmlspecialchars($_SESSION['item']['name']);
 							}
-						?>"
+						?>" 
+						<?php 
+							echo $isEditing ? '' : ' disabled readonly';
+						?>
 					>
 				</div>
 				<div class="mt-2 error">
@@ -43,6 +91,9 @@
 						class="form-control" 
 						cols="30" 
 						rows="6"
+						<?php 
+							echo $isEditing ? '' : ' disabled readonly';
+						?>
 					><?php 
 						if(isset($_SESSION['old']['item-desc'])) {
 							echo $htmlspecialchars($_SESSION['old']['item-desc']);
@@ -76,6 +127,9 @@
 								echo $htmlspecialchars($_SESSION['item']['price']);
 							}
 						?>"
+						<?php 
+							echo $isEditing ? '' : ' disabled readonly';
+						?>
 					>
 				</div>
 				<div class="mt-2 error">
@@ -89,7 +143,14 @@
 			<div class="row mb-3">
 				<label for="item-type" class="col-sm-2 col-form-label">Loại sản phẩm: </label>
 				<div class="col-sm-10">
-					<select id="item-type" name="item-type" class="form-select">
+					<select 
+						id="item-type" 
+						name="item-type" 
+						class="form-select" 
+						<?php 
+							echo $isEditing ? '' : ' disabled readonly';
+						?>
+					>
 						<option value="0" selected>--Chọn--</option>
 						<option 
 							value="1"
@@ -169,6 +230,9 @@
 						name="item-files[]" 
 						value="<?= $htmlspecialchars($_SESSION['item']['images']) ?>"
 						multiple
+						<?php 
+							echo $isEditing ? '' : 'hidden';
+						?>
 					>
 					<div class="row demo-imgs">
 						<?php 
@@ -190,9 +254,18 @@
 					?>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary">Cập nhật</button>
+			<div 
+				class="b-3 text-center mt-5" 
+				<?php 
+					echo $isEditing ? '' : 'hidden';
+				?>
+			>
+				<button type="submit" class="btn btn-fill-primary">Cập nhật</button>
+			</div>
 		</form>
 	</div>
+
+	<?php require_once __DIR__ . '/../../components/copyright.php'; ?>
 
 </div>
 

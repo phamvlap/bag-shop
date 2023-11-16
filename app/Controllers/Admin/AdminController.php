@@ -8,6 +8,13 @@ use App\Models\{Product, Paginator};
 class AdminController extends Controller {
 
 	public function index() {
+		purgeSESSION('invoices-pagination');
+		purgeSESSION('filter-invoices-pagination');
+
+		if(!isset($_SESSION['admin'])) {
+			redirectTo('/admin');
+		}
+		
 		purgeSESSION('filter-type');
 		purgeSESSION('filter-price');
 		purgeSESSION('filter-date');
@@ -43,7 +50,12 @@ class AdminController extends Controller {
 	}
 
 	public function create() {
-		renderPage('/admin/login.php');
+		if(!isset($_SESSION['admin'])) {
+			renderPage('/admin/login.php');
+		}
+		else {
+			redirectTo('/admin/product');
+		}
 	}
 
 	public function store() {
@@ -72,6 +84,15 @@ class AdminController extends Controller {
 		if(count($errors) > 0) {
 			renderPage('/admin/login.php', ['admin-errors' => $errors]);
 		}
+		else {
+			$admin['email'] = $data['admin-email'];
+			redirectTo('/admin/product', ['admin' => $admin]);
+		}
+	}
+
+	public function destroy() {
+		session_unset();
+		session_destroy();
 
 		redirectTo('/admin');
 	}

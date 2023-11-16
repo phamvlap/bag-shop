@@ -58,11 +58,7 @@ class Customer extends Model {
 	public function edit(int $id, array $newInfo) {
 		return parent::update($this->tableName, 'id_customer', $id, $newInfo);
 	}
-
-	public function remove(int $id) {
-		parent::delete($this->tableName, 'id_customer', $id);
-	}
-
+	
 	public function matchPassword(string $pwd) {
 		return password_verify($this->password, $pwd);
 	}

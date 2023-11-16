@@ -28,6 +28,9 @@ require_once __DIR__ . '/../app/routes/admin.php';
 // routes of manage products
 require_once __DIR__ . '/../app/routes/manage_products.php';
 
+// routes of manage invoices
+require_once __DIR__ . '/../app/routes/manage_invoices.php';
+
 // routes of error
 require_once __DIR__ . '/../app/routes/error.php';
 

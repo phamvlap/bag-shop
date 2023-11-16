@@ -1,13 +1,18 @@
 :root {
 	--hight-header: 60px;
-	--primary-bg-color: #496a1d;
+/*	color */
+	--primary-bg-color: #007272;
 	--secondary-bg-color: #f3f5fe;
-	--white-text: white;
-	--primary-text-color: #323235;
-	--hover-bg-color: #e5e5e5;
+	--white-text: #fff;
+	--primary-text-color: #3d3d3d;
+	--hover-bg-color: #d8d8d8;
+/*	font */
+	--font-family: 'Roboto', sans-serif;
 }
 
 * {
+	margin: 0;
+	padding: 0;
 	box-sizing: border-box;
 }
 
@@ -15,7 +20,33 @@ html {
 	font-size: 62.5%;
 }
 
+/*fonts*/
+@font-face {
+    font-family: Roboto;
+    src: url('/fonts/Roboto-Light.ttf');
+    font-weight: 300;
+}
+@font-face {
+    font-family: Roboto;
+    src: url('/fonts/Roboto-Regular.ttf');
+    font-weight: 400;
+}
+@font-face {
+    font-family: Roboto;
+    src: url('/fonts/Roboto-Medium.ttf');
+    font-weight: 500;
+}
+@font-face {
+    font-family: Roboto;
+    src: url('/fonts/Roboto-Bold.ttf');
+    font-weight: 700;
+}
+
+/* intial body */
 body {
+	font-family: var(--font-family);
+	font-size: 1.6rem;
+	color: var(--primary-text-color);
 	background-color: var(--secondary-bg-color);
 }
 

@@ -159,14 +159,6 @@ $(document).ready(async function() {
 		demoImgsElement.html(imgs);
 	})
 
-	// show modal confirm delete product
-	const inputConfirmDelete = $('#confirm-delete');
-	const idDelete = parseInt(inputConfirmDelete.val());
-	if(idDelete) {
-		const confirmDeleteBtn = $('[data-bs-target="#delete-item"]');
-		confirmDeleteBtn.trigger('click');
-	}
-
 	// highlight type of product
 	const typeProductElements = $('a[href^="/home?type="]');
 	

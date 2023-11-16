@@ -48,7 +48,7 @@ class Model {
 		$query = "select * from $table where $idName = :$idName;";
 
 		$stmt = $this->pdo->prepare($query);
-		$stmt->bindValue(":$idName", $id);
+		$stmt->bindValue(":$idName", $id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -72,7 +72,7 @@ class Model {
 		$query = "delete from $table where $idName = :$idName";
 
 		$stmt = $this->pdo->prepare($query);
-		$stmt->bindValue(":$idName", $id);
+		$stmt->bindValue(":$idName", $id, PDO::PARAM_INT);
 		return $stmt->execute();
 	}
 

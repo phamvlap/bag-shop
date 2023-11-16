@@ -147,14 +147,14 @@ class ManageProductsController extends Controller {
 		$productModel = new Product();
 		$item = $productModel->findByID(id: $id);
 
-		if($productModel->remove(id: $id)) {
-			redirectTo('/admin', [
+		if($productModel->remove($id)) {
+			redirectTo('/admin/product', [
 				'message-success' => "Xóa sản phẩm {$item['name']} thành công"
 			]);
 		}
 		else {
-			redirectTo('/admin', [
-				'message-failed' => "Thất bại khi Xóa sản phẩm {$item['name']}"
+			redirectTo('/admin/product', [
+				'message-failed' => "Thất bại khi xóa sản phẩm {$item['name']}"
 			]);
 		}
 	}
@@ -269,6 +269,8 @@ class ManageProductsController extends Controller {
 	}
 
 	public function filter() {
+		purgeSESSION('filter-invoices-pagination');
+
 		$keys = ['filter-type', 'filter-price', 'filter-date'];
 		$data = $this->filterData(keys: $keys, data: $_POST);
 
@@ -372,5 +374,14 @@ class ManageProductsController extends Controller {
 
 			renderPage('/admin/index.php', $payLoads);
 		}
+	}
+
+	public function viewItem(int $id) {
+		$product = new Product();
+		$item = $product->findByID(id: $id);
+
+		renderPage('/admin/product/edit.php', [
+			'item' => $item
+		]);
 	}
 }

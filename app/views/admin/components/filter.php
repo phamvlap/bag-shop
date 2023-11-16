@@ -1,5 +1,5 @@
 <form action="/admin/product/filter" id="filter-products-form" class="row align-items-center" method="post">
-	<h4 class="col col-md-2 m-0"><strong>Lọc theo:</strong></h4>
+	<h4 class="col col-md-1 m-0"><strong>Lọc theo:</strong></h4>
 
 	<div class="col col-md-3">
 		<div class="input-group">
@@ -89,7 +89,7 @@
 			</select>
 		</div>
 	</div>
-	<div class="col col-md-1">
+	<div class="col col-md-2 text-center">
 		<button class="btn btn-fill-primary" style="padding-left: 10px; padding-right: 10px">Áp dụng</button>
 	</div>
 

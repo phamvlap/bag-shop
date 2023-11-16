@@ -1,12 +1,15 @@
 /*Header*/
 .header {
 	height: var(--hight-header);
-	font-size: 1.6rem;
 	background-color: var(--primary-bg-color);
 }
 
-.logo {
-	height: var(--hight-header);
+.logo-shop i {
+	font-size: 3.6rem;
+}
+
+.logo-shop span {
+	font-size: 2.4rem;
 }
 
 #cart {
@@ -35,9 +38,10 @@
 }
 
 .search-btn:hover {
-	background-color: #90e8f9;
+	background-color: var(--hover-bg-color);
 }
 
+/* account section */
 #sign-up::before {
 	content: "";
 	position: absolute;

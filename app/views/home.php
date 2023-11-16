@@ -64,7 +64,7 @@
 																<?= $product['price'] ?>
 																<span><u>đ</u></span>
 															</strong>
-															<p class="m-0">Đã bán 100</p>
+															<p class="m-0">Đã bán <?= $product['sold_quantity'] ?></p>
 														</div>
 													</a>
 													<div class="text-center">
@@ -111,7 +111,7 @@
 														<?= $product['price'] ?>
 														<span><u>đ</u></span>
 													</strong>
-													<p class="m-0">Đã bán 100</p>
+													<p class="m-0">Đã bán <?= $product['sold_quantity'] ?></p>
 												</div>
 											</a>
 											<div class="text-center">

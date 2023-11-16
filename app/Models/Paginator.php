@@ -69,4 +69,8 @@ class Paginator {
 	public function getTotalPages() {
 		return $this->totalPages;
 	}
+
+	public function getTotalRecords() {
+		return $this->totalRecords;
+	}
 }
