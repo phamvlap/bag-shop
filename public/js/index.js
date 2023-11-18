@@ -1,6 +1,6 @@
 $(document).ready(async function() {
 	// Highlight options in my account
-	const userAccountOptions = $('#profile-user li > a');
+	const userAccountOptions = $('.history-order-sidebar li > a');
 
 	userAccountOptions.each((index, element) => {
 		if(window.location.href.includes($(element).prop('href'))) {
@@ -71,8 +71,12 @@ $(document).ready(async function() {
 
 			const detailOrder = cart.getCartOrder();
 			const methodPaymentOpt = $('input[name="method-payment"]:checked');
+			const lastPaymentOpt = $('input[name="method-payment"]:last');
+			const divLastPaymentOpt = lastPaymentOpt.closest('div');
+			const addressUserElement = $('.cart-info-user > div:last');
+			const addressUser = addressUserElement.children('strong').text();
 			
-			if(methodPaymentOpt.length > 0) {
+			if(methodPaymentOpt.length > 0 && addressUser !== '') {
 				fetch('/checkout/order', {
 					method: 'POST',
 					dataType: 'json',
@@ -90,11 +94,19 @@ $(document).ready(async function() {
 				window.location.href = '/checkout/view';
 			}
 			else {
-				const lastPaymentOpt = $('input[name="method-payment"]:last');
-				const divLastPaymentOpt = lastPaymentOpt.closest('div');
-				const errorElement = $('<div class="error text-start px-3">Bạn chưa chọn hình thức thanh toán</div>');
-				
-				errorElement.insertAfter(divLastPaymentOpt);
+				divLastPaymentOpt.next().remove();
+				addressUserElement.children('strong').next().remove();
+
+				if(methodPaymentOpt.length === 0) {
+					const errorElement = $('<div class="error text-start px-3">Bạn chưa chọn hình thức thanh toán</div>');
+					
+					errorElement.insertAfter(divLastPaymentOpt);
+				}
+				if(addressUser === '') {
+					const errorElement = $('<div class="col col-md-10 offset-md-2 error text-start px-3">Vui lòng cập nhật thông tin địa chỉ của mình tại mục tài khoản của tôi</div>');
+
+					errorElement.insertAfter(addressUserElement.children('strong'));
+				}
 			}
 		})
 	}
@@ -167,4 +179,12 @@ $(document).ready(async function() {
 			$(element).addClass('highlight-option');
 		}
 	});
+
+	// destroy order
+	const destroyOrderBtn = $('.section > .destroy-order');
+
+	destroyOrderBtn.on('click', () => {
+		const destroyOrderBtn = $('button[data-bs-target="#confirm-destroy-order"]');
+		destroyOrderBtn.trigger('click');
+	})
 })

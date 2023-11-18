@@ -1,4 +1,4 @@
-<div class="col col-md-3 p-3">
+<div class="col col-md-3 p-3 history-order-sidebar">
 	<h3 class="m-0 text-center"><strong><?php echo $htmlspecialchars($_SESSION['user']['username']) ?></strong></h3>
 	<ul class="list-unstyled m-0 mt-4">
 		<li>

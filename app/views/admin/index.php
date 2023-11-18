@@ -30,7 +30,21 @@
 			</div>
 		</div>
 
-		<div>
+		<!-- search product by name -->
+		<div class="row">
+			<div class="col col-md-6 offset-md-3 d-flex align-items-center">
+				<div class="w-100">
+					<form class="row bg-white rounded-pill overflow-hidden" id="admin-search-form" action="/admin/product/search" method="get">
+						<input name="key" class="col-md-11 py-3 px-4 border-0 border-end rounded-start" type="text" placeholder="Nhập sản phẩm tìm kiếm...">
+						<button type="submit" class="col-md-1 btn btn-light border-0 d-flex justify-content-center align-items-center">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="mt-5">
 			<div class="row align-items-center">
 				<div class="col col-md-3">
 					<a href="/admin/product/add" class="btn btn-fill-primary">
@@ -39,8 +53,7 @@
 					</a>
 				</div>
 				<div class="col col-md-9">
-					<!-- filter -->
-
+					<!-- filter products -->
 					<?php require_once __DIR__ . '/components/filter.php'; ?>
 				</div>
 			</div>
@@ -132,10 +145,10 @@
 	</div>
 
 	<!-- pagination -->
-	<?php require_once __DIR__ . '/components/paginator.php'; ?>;
+	<?php require_once __DIR__ . '/components/paginator.php'; ?>
 
 	<!-- copyright -->
-	<?php require_once __DIR__ . '/../components/copyright.php'; ?>;
+	<?php require_once __DIR__ . '/../components/copyright.php'; ?>
 
 </div>
 

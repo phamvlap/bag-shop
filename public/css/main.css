@@ -110,6 +110,8 @@ div[id^="product_"]:hover {
 
 /*Item*/
 .item-title {
+	font-size: 1.6rem;
+	line-height: 1.8rem;
 	height: 36px;
     overflow: hidden;
     display: -webkit-box;
@@ -501,11 +503,6 @@ div[id^="product_"]:hover {
 	font-size: 2.8rem;
 }
 
-/*pagination*/
-nav[aria-label='Page navigation'] .pagination a {
-	font-size: 1.6rem;
-}
-
 /*comment form*/
 
 #comment-form input, #comment-form textarea {
@@ -549,4 +546,24 @@ nav[aria-label='Page navigation'] .pagination a {
 /* list images item */
 .list-images-item i {
 	font-size: 1.6rem;
+}
+
+/* destroy order */
+.section .destroy-order {
+	color: red;
+}
+
+.section .destroy-order:hover {
+	cursor: pointer;
+	filter: brightness(80%);
+}
+
+/* search bar */
+#admin-search-form {
+	border: 2px solid var(--primary-bg-color);
+}
+
+#admin-search-form i {
+	font-size: 2.0rem;
+	color: var(--primary-bg-color);
 }

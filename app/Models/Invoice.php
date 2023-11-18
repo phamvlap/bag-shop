@@ -74,6 +74,10 @@ class Invoice extends Model {
 		return parent::update($this->tableName, 'id_invoice', $id_invoice, ['status' => 1]);
 	}
 
+	public function destroyInvoice(int $id_invoice) {
+		return parent::update($this->tableName, 'id_invoice', $id_invoice, ['status' => -1]);
+	}
+
 	public function countAll(): int {
 		$query = "select count(*) from {$this->tableName}";
 

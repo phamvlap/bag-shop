@@ -109,3 +109,23 @@ button[type] {
 	color: var(--primary-bg-color);
 	filter: brightness(90%);
 }
+
+/* pagination */
+nav[aria-label='Page navigation'] .pagination a {
+	font-size: 1.6rem;
+}
+
+.pagination .page-link:hover {
+	color: var(--primary-bg-color);
+}
+
+/* active pagination */
+.page-link.active-status {
+	background-color: var(--primary-bg-color);
+	color: var(--white-text);
+}
+
+/* active navbar */
+.nav-link.active-navbar-status {
+	background-color: #50a09c;
+}

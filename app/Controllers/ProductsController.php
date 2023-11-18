@@ -52,7 +52,7 @@ class ProductsController {
 					$orderPrice = 'desc';
 				}
 
-				$products = $productModel->paginateWithTypeAndOrder(type: $type, offset: $paginator->getRecordOffset(), limit: $limit, orders: ['price' => $orderPrice]);
+				$products = $productModel->paginateWithFilter(filters: ['type' => $type], orders: ['price' => $orderPrice], limit: $limit, offset: $paginator->getRecordOffset());
 			}
 			else {
 				$products = $productModel->paginateWithType(type: $type, offset: $paginator->getRecordOffset(), limit: $limit);

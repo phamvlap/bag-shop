@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+	// validate phone number
 	$.validator.addMethod('checkPhoneNumber', function(value, element) {
 		return this.optional(element) || /([\+84|84|0]+(3|5|7|8|9|1[2|6|8|9]))+([0-9]{8})\b/.test(value);
 	}, 'Số điện thoại không hợp lệ');

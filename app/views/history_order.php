@@ -1,4 +1,5 @@
 <?php require_once __DIR__ . '/components/head.php'; ?>
+<?php require_once __DIR__ . '/components/symbol.php'; ?>
 
 <div class="container p-0">
 	<!-- Header -->
@@ -8,11 +9,30 @@
 
 	<div class="container content">
 		<div class="row">	
-			<div id="profile-user" class="row bg-white m-0 p-3">
+			<div id="history-purchase" class="row bg-white m-0 p-3">
 				<?php require_once __DIR__ . '/components/customer/sidebar.php'; ?>
 
 				<div class="col col-md-9 p-3">
 					<h3 class="m-0">Đơn hàng của tôi</h3>
+
+					<?php 
+						if(isset($_SESSION['success-order-destroy'])) {
+							echo '
+							<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+								<strong>' . $_SESSION['success-order-destroy'] . '</strong>
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>';
+							unset($_SESSION['success-order-destroy']);
+						}
+						if(isset($_SESSION['failed-order-destroy'])) {
+							echo '
+							<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+								<strong>' . $_SESSION['failed-order-destroy'] . '</strong>
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>';
+							unset($_SESSION['failed-order-destroy']);
+						}
+					?>
 
 					<?php foreach($_SESSION['invoices'] as $invoice): ?>
 						<div class="row invoice p-4 mx-0 mt-3">
@@ -26,8 +46,11 @@
 										if((int)$invoice['status'] === 1) {
 											echo '<strong style="color: green">Đơn hàng đã được duyệt</strong>';
 										}
-										else {
+										elseif((int)$invoice['status'] === 0) {
 											echo '<strong style="color: orange">Đơn hàng đang chờ duyệt</strong>';
+										}
+										elseif((int)$invoice['status'] === -1) {
+											echo '<strong style="color: red">Đơn hàng đã hủy</strong>';
 										}
 									?>
 								</p>

@@ -165,25 +165,6 @@ class Product extends Model {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function paginateWithTypeAndOrder(int $type, int $offset = 0, int $limit = 10, array $orders = []) {
-		$arrOrders = [];
-		foreach($orders as $key => $value) {
-			array_push($arrOrders, "$key $value");
-		}
-
-		$strOrder = join(', ', $arrOrders);
-
-		$query = "select * from {$this->tableName} where type = :type order by {$strOrder} limit :offset, :limit";
-
-		$stmt = $this->getPDO()->prepare($query);
-		$stmt->bindValue(':type', $type, PDO::PARAM_INT);
-		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-	}
-
 	public function countSearchResult(string $name): int {
 		$query = "select count(*) from {$this->tableName} where name like '%{$name}%'";
 
@@ -211,6 +192,99 @@ class Product extends Model {
 		$query .= " limit :offset, :limit";
 
 		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function paginateWithFilter(array $orders, array $filters, int $offset = 0, int $limit = 10) {
+		$arrFilters = [];
+		foreach($filters as $key => $value) {
+			array_push($arrFilters, " $key = :$key");
+		}
+		$strFilters = join(', ', $arrFilters);
+
+		$arrOrders = [];
+		foreach($orders as $key => $value) {
+			array_push($arrOrders, "$key $value");
+		}
+		$strOrder = join(', ', $arrOrders);
+
+		$query = "select * from {$this->tableName}";
+		if(count($filters) > 0) {
+			$query .= " where {$strFilters}";
+		}
+		if(count($orders) > 0) {
+			$query .= " order by {$strOrder}";
+		}
+		$query .= " limit :offset, :limit";
+
+		$stmt = $this->getPDO()->prepare($query);
+		if(count($filters) > 0) {
+			foreach($filters as $key => $value) {
+				$stmt->bindValue(":{$key}", $value);
+			}
+		}
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function countFilterResult(array $filters = []): int {
+		$arrFilters = [];
+		foreach($filters as $key => $value) {
+			array_push($arrFilters, "$key = :$key");
+		}
+		$strFilters = join(' and', $arrFilters);
+
+		$query = "select count(*) from {$this->tableName}";
+		if(count($filters) > 0) {
+			$query .= " where {$strFilters}";
+		}
+
+		$stmt = $this->getPDO()->prepare($query);
+		if(count($filters) > 0) {
+			foreach($filters as $key => $value) {
+				$stmt->bindValue(":$key", $value);
+			}
+		}
+		$stmt->execute();
+
+		return $stmt->fetchColumn();
+	}
+
+	public function searchWithFilter(string $name, array $orders, array $filters, int $offset = 0, int $limit = 10) {
+		$arrFilters = [];
+		foreach($filters as $key => $value) {
+			array_push($arrFilters, " $key = :$key");
+		}
+		$strFilters = join(', ', $arrFilters);
+
+		$arrOrders = [];
+		foreach($orders as $key => $value) {
+			array_push($arrOrders, "$key $value");
+		}
+		$strOrder = join(', ', $arrOrders);
+
+		$query = "select * from {$this->tableName} where name like '%{$name}%'";
+		if(count($filters) > 0) {
+			$query .= " and {$strFilters}";
+		}
+		if(count($orders) > 0) {
+			$query .= " order by {$strOrder}";
+		}
+		$query .= " limit :offset, :limit";
+
+		$stmt = $this->getPDO()->prepare($query);
+		if(count($filters) > 0) {
+			foreach($filters as $key => $value) {
+				$stmt->bindValue(":{$key}", $value);
+			}
+		}
 		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
 		$stmt->execute();

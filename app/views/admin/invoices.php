@@ -44,11 +44,14 @@
 							<td scope="col" class="text-center"><?= $htmlspecialchars($invoice['total']) ?></td>
 							<td scope="col" class="text-center">
 								<?php
-									if((int)$invoice['status'] === 0) {
+									if((int)$invoice['status'] === 1) {
+										echo '<span style="color: green">Đã duyệt</span>';
+									}
+									elseif((int)$invoice['status'] === 0) {
 										echo '<span style="color: orange">Đang chờ duyệt</span>';
 									}
-									else {
-										echo '<span style="color: green">Đã được duyệt</span>';
+									elseif((int)$invoice['status'] === -1) {
+										echo '<span style="color: red">Đã hủy</span>';
 									}
 								?>
 							</td>

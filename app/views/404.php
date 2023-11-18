@@ -10,7 +10,10 @@
 		<div class="row">
 
 			<div class="text-center p-5 not-found-404">
-				<p class="m-0"><strong>KHÔNG TÌM THẤY ĐƯỜNG DẪN NÀY</strong></p>
+				<?php 
+					$uri = $_SERVER['REQUEST_URI'];
+				?>
+				<p class="m-0"><strong>KHÔNG TÌM THẤY ĐƯỜNG DẪN <?php echo "\"$uri\"" ?></strong></p>
 				<a href="/" class="btn btn-outline-primary">
 					<div>
 						<i class="fa-solid fa-house"></i>

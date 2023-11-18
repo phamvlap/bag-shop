@@ -18,7 +18,7 @@
 		</li>
 		<li>
 			<a href="/home?type=4" class="d-block text-decoration-none py-3 px-2 rounded-2 type-product">
-				<span>Balo Laptop</span>
+				<span>Balo laptop</span>
 			</a>
 		</li>
 	</ul>

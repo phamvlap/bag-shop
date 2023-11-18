@@ -67,27 +67,18 @@
 .navbar a {
 	font-size: 2.0rem;
 	color: var(--white-text);
-	font-weight: 700;
 }
 
 .navbar a:hover {
 	color: var(--white-text);
-	filter: brightness(80%);
+	filter: brightness(90%);
 }
 
 .navbar .title {
 	color: var(--white-text);
-	font-size: 2.6rem;
+	font-size: 2.4rem;
+	font-weight: 500;
 	text-transform: uppercase;
-}
-
-.page-link.active-status {
-	background-color: var(--active-navbar-link);
-	color: var(--white-text);
-}
-
-.nav-link.active-status {
-	background-color: var(--active-navbar-link);
 }
 
 /* modal alert order */
@@ -97,18 +88,27 @@
 
 /* admin account */
 .admin-account i {
-	font-size: 2.2rem;
+	font-size: 1.6rem;
 }
 
 .admin-account h4 {
 	font-size: 1.8rem;
 }
 
-.admin-account .admin-logout {
+.admin-logout span {
 	font-size: 1.6rem;
+}
+
+.admin-account .admin-logout {
+	z-index: 10;
 	display: none;
 }
 
 .admin-account:hover .admin-logout {
 	display: block;
+}
+
+/* logged account */
+.admin-account .logout-account-section {
+	color: var(--white-text);
 }

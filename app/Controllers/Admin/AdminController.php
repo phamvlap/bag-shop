@@ -8,18 +8,15 @@ use App\Models\{Product, Paginator};
 class AdminController extends Controller {
 
 	public function index() {
+		purgeSESSION('pagination');
+		purgeSESSION('filter-pagination');
+		purgeSESSION('search-pagination');
 		purgeSESSION('invoices-pagination');
 		purgeSESSION('filter-invoices-pagination');
 
 		if(!isset($_SESSION['admin'])) {
 			redirectTo('/admin');
 		}
-		
-		purgeSESSION('filter-type');
-		purgeSESSION('filter-price');
-		purgeSESSION('filter-date');
-		purgeSESSION('filter-data');
-		purgeSESSION('filter-status');
 
 		$productModel = new Product();
 

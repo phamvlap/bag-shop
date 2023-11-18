@@ -14,10 +14,5 @@ $router->post(
 );
 $router->get(
 	'/admin/invoice/filter',
-	'App\Controllers\Admin\ManageInvoicesController@showFilter'
-);
-$router->post(
-	'/admin/invoice/filter',
 	'App\Controllers\Admin\ManageInvoicesController@filter'
 );
-

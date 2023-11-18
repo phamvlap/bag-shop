@@ -4,7 +4,13 @@
 			<li class="page-item <?php echo $_SESSION['home-pagination']['prevPage'] ? '' : 'disabled' ?>">
 				<?php
 					if(isset($_SESSION['price']) && $_SESSION['price']) {
-						$href = "/home?type={$_SESSION['type']}&price={$_SESSION['price']}&page={$_SESSION['home-pagination']['prevPage']}&limit=12";
+						if($_SESSION['price'] === 'asc') {
+							$orderPrice = 'up';
+						}
+						elseif($_SESSION['price'] === 'desc') {
+							$orderPrice = 'down';
+						}
+						$href = "/home?type={$_SESSION['type']}&price={$orderPrice}&page={$_SESSION['home-pagination']['prevPage']}&limit=12";
 					}
 					else {
 						$href = "/home?type={$_SESSION['type']}&page={$_SESSION['home-pagination']['prevPage']}&limit=12";
@@ -19,7 +25,13 @@
 				<li class="page-item">
 					<?php
 						if(isset($_SESSION['price']) && $_SESSION['price']) {
-							$href = "/home?type={$_SESSION['type']}&price={$_SESSION['price']}&page={$page}&limit=12";
+							if($_SESSION['price'] === 'asc') {
+								$orderPrice = 'up';
+							}
+							elseif($_SESSION['price'] === 'desc') {
+								$orderPrice = 'down';
+							}
+							$href = "/home?type={$_SESSION['type']}&price={$orderPrice}&page={$page}&limit=12";
 						}
 						else {
 							$href = "/home?type={$_SESSION['type']}&page={$page}&limit=12";
@@ -34,7 +46,13 @@
 			<li class="page-item <?php echo $_SESSION['home-pagination']['nextPage'] ? '' : 'disabled' ?>">
 				<?php
 					if(isset($_SESSION['price']) && $_SESSION['price']) {
-						$href = "/home?type={$_SESSION['type']}&price={$_SESSION['price']}&page={$_SESSION['home-pagination']['nextPage']}&limit=12";
+						if($_SESSION['price'] === 'asc') {
+							$orderPrice = 'up';
+						}
+						elseif($_SESSION['price'] === 'desc') {
+							$orderPrice = 'down';
+						}
+						$href = "/home?type={$_SESSION['type']}&price={$orderPrice}&page={$_SESSION['home-pagination']['nextPage']}&limit=12";
 					}
 					else {
 						$href = "/home?type={$_SESSION['type']}&page={$_SESSION['home-pagination']['nextPage']}&limit=12";

@@ -8,6 +8,9 @@ use App\Models\{Invoice, Details, Paginator};
 class ManageInvoicesController extends Controller {
 
 	public function index() {
+		if(!isset($_SESSION['admin'])) {
+			redirectTo('/admin');
+		}
 		$invoiceModel = new Invoice();
 
 		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 10;
@@ -67,17 +70,17 @@ class ManageInvoicesController extends Controller {
 		purgeSESSION('invoices-pagination');
 
 		$keys = ['filter-invoice-date', 'filter-invoice-total', 'filter-invoice-status'];
-		$data = $this->filterData(keys: $keys, data: $_POST);
+		$data = $this->filterData(keys: $keys, data: $_GET);
 
+		$filters = [];
 		$orders = [];
+
 		if(isset($data['filter-invoice-date']) && $data['filter-invoice-date'] !== 'none') {
 			$orders['created_at'] = $data['filter-invoice-date'];
 		}
 		if(isset($data['filter-invoice-total']) && $data['filter-invoice-total'] !== 'none') {
 			$orders['total'] = $data['filter-invoice-total'];
 		}
-
-		$filters = [];
 		if(isset($data['filter-invoice-status']) && $data['filter-invoice-status'] !== 'none') {
 			$filters['status'] = $data['filter-invoice-status'];
 		}
@@ -111,8 +114,6 @@ class ManageInvoicesController extends Controller {
 		];
 
 		renderPage('/admin/invoices.php', [
-			'total-invoices' => $paginator->getTotalRecords(),
-			'request-filters' => [...$filters, ...$orders],
 			'invoices' => $invoices,
 			'filter-invoices-pagination' => $pagination
 		]);

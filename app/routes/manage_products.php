@@ -26,13 +26,13 @@ $router->post(
 );
 $router->get(
 	'/admin/product/filter',
-	'App\Controllers\Admin\ManageProductsController@showFilter'
-);
-$router->post(
-	'/admin/product/filter',
 	'App\Controllers\Admin\ManageProductsController@filter'
 );
 $router->get(
 	'/admin/product/view/(\d+)',
 	'App\Controllers\Admin\ManageProductsController@viewItem'
+);
+$router->get(
+	'/admin/product/search',
+	'App\Controllers\Admin\ManageProductsController@search'
 );

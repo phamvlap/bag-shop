@@ -31,7 +31,7 @@
 					</div>
 					<div class="row m-0 p-2">
 						<span class="col col-md-2 p-0">Địa chỉ: </span>
-						<strong class="cold-block col col-md-10"><?php echo $htmlspecialchars($_SESSION['user']['address']) ?></strong>
+						<strong class="col col-md-10"><?php echo $htmlspecialchars($_SESSION['user']['address']) ?></strong>
 					</div>
 				</div>
 

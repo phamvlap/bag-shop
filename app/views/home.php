@@ -14,7 +14,7 @@
 			</div>
 
 			<div class="col-md-10 p-0">
-				<div class="ms-2">
+				<div>
 
 					<!-- search result -->
 					<?php if(isset($_SESSION['search-input'])): ?>

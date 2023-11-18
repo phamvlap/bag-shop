@@ -42,7 +42,7 @@ class ProfileController extends Controller {
 		$respone = [];
 
 		if(isset($data['current-password'])){
-			if(!password_verify($customer['password'], password_hash($data['current-password'], PASSWORD_DEFAULT))) {
+			if(!password_verify($data['current-password'], $customer['password'])) {
 				$respone = [
 					'status' => false,
 					'message' => "Cập nhật $text thất bại! Vui lòng thử lại!"

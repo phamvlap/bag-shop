@@ -38,4 +38,17 @@ class InvoicesController {
 
 		renderPage('/detail_order.php', ['invoice' => $invoice]);
 	}
+
+	public function destroy(int $id) {
+		$invoiceModel = new Invoice();
+
+		if($invoiceModel->destroyInvoice($id)) {
+			$message = "Hủy đơn hàng #{$id} thành công";
+			redirectTo('/user/history-order', ['success-order-destroy' => $message]);
+		}
+		else {
+			$message = "Thất bại trong việc hủy đơn hàng #{$id} ";
+			redirectTo('/user/history-order', ['failed-order-destroy' => $message]);
+		}
+	}
 }

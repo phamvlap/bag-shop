@@ -1,4 +1,12 @@
-<form action="/admin/product/filter" id="filter-products-form" class="row align-items-center" method="post">
+<?php 
+	$filters = [];
+
+	$filters['filter-type'] = isset($_GET['filter-type']) ? $_GET['filter-type'] : false;
+	$filters['filter-price'] = isset($_GET['filter-price']) ? $_GET['filter-price'] : false;
+	$filters['filter-updated_at'] = isset($_GET['filter-date']) ? $_GET['filter-date'] : false;
+?>
+
+<form action="/admin/product/filter" id="filter-products-form" class="row align-items-center" method="get">
 	<h4 class="col col-md-1 m-0"><strong>Lọc theo:</strong></h4>
 
 	<div class="col col-md-3">
@@ -9,7 +17,7 @@
 				<option 
 					value="1"
 					<?php 
-						if(isset($_SESSION['filter-type']) && (int)$_SESSION['filter-type'] === 1) 
+						if(isset($filters['filter-type']) && (int)$filters['filter-type'] === 1) 
 							echo "selected"; 
 						else echo '';
 					?>
@@ -17,7 +25,7 @@
 				<option 
 					value="2"
 					<?php 
-						if(isset($_SESSION['filter-type']) && (int)$_SESSION['filter-type'] === 2) 
+						if(isset($filters['filter-type']) && (int)$filters['filter-type'] === 2) 
 							echo "selected"; 
 						else echo '';
 					?>
@@ -25,7 +33,7 @@
 				<option 
 					value="3"
 					<?php 
-						if(isset($_SESSION['filter-type']) && (int)$_SESSION['filter-type'] === 3) 
+						if(isset($filters['filter-type']) && (int)$filters['filter-type'] === 3) 
 							echo "selected"; 
 						else echo '';
 					?>
@@ -33,7 +41,7 @@
 				<option 
 					value="4"
 					<?php 
-						if(isset($_SESSION['filter-type']) && (int)$_SESSION['filter-type'] === 4) 
+						if(isset($filters['filter-type']) && (int)$filters['filter-type'] === 4) 
 							echo "selected"; 
 						else echo '';
 					?>
@@ -49,7 +57,7 @@
 				<option 
 					value="desc"
 					<?php 
-						if(isset($_SESSION['filter-price']) && $_SESSION['filter-price'] === 'desc') 
+						if(isset($filters['filter-price']) && $filters['filter-price'] === 'desc') 
 							echo "selected"; 
 						else echo '';
 					?>
@@ -57,7 +65,7 @@
 				<option 
 					value="asc"
 					<?php 
-						if(isset($_SESSION['filter-price']) && $_SESSION['filter-price'] === 'asc') 
+						if(isset($filters['filter-price']) && $filters['filter-price'] === 'asc') 
 							echo "selected"; 
 						else echo '';
 					?>
@@ -73,7 +81,7 @@
 				<option 
 					value="desc"
 					<?php 
-						if(isset($_SESSION['filter-date']) && $_SESSION['filter-date'] === 'desc') 
+						if(isset($filters['filter-updated_at']) && $filters['filter-updated_at'] === 'desc') 
 							echo "selected"; 
 						else echo '';
 					?>
@@ -81,7 +89,7 @@
 				<option 
 					value="asc"
 					<?php 
-						if(isset($_SESSION['filter-date']) && $_SESSION['filter-date'] === 'asc') 
+						if(isset($filters['filter-updated_at']) && $filters['filter-updated_at'] === 'asc') 
 							echo "selected"; 
 						else echo '';
 					?>
