@@ -120,11 +120,11 @@ $(document).ready(function() {
 				const urlObj = new URL(currentUrl);
 				const searchKey = urlObj.searchParams.get('key');
 
-				const navigateUrl = `${currentPathname}?key=${searchKey}&${queryUrl}`;
+				const navigateUrl = `/admin/product/search?key=${searchKey}&${queryUrl}`;
 				window.location.assign(navigateUrl);
 			}
 			else {
-				const navigateUrl = `${currentPathname}?${queryUrl}`;
+				const navigateUrl = `/admin/product/filter?${queryUrl}`;
 				window.location.assign(navigateUrl);
 			}
 		}

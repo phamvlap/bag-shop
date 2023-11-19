@@ -20,8 +20,8 @@ class CommentsController extends Controller {
 		$comment = new Comment();
 
 		$fillableData = [
-			'name' => $data['comment_name'],
-			'phone_number' => $data['comment_phone_number'],
+			'user_name' => $data['comment_name'],
+			'user_phone_number' => $data['comment_phone_number'],
 			'content' => $data['comment_content'],
 			'id_product' => $_SESSION['item']['id_product']
 		];	

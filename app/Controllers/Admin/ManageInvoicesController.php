@@ -6,6 +6,7 @@ use App\Controllers\Controller;
 use App\Models\{Invoice, Details, Paginator};
 
 class ManageInvoicesController extends Controller {
+	private int $numberOfInvoicesPerPage = 10;
 
 	public function index() {
 		if(!isset($_SESSION['admin'])) {
@@ -13,7 +14,7 @@ class ManageInvoicesController extends Controller {
 		}
 		$invoiceModel = new Invoice();
 
-		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 10;
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : $this->numberOfInvoicesPerPage;
 		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 
@@ -27,7 +28,7 @@ class ManageInvoicesController extends Controller {
 		$pages = $paginator->getPages();
 
 		$pagination = [
-			'limit' => $limit,
+			'limit' => $paginator->getRecordsPerPage(),
 			'prevPage' => $paginator->getPrevPage(),
 			'currPage' => $paginator->getCurrPage(),
 			'nextPage' => $paginator->getNextPage(),
@@ -85,7 +86,7 @@ class ManageInvoicesController extends Controller {
 			$filters['status'] = $data['filter-invoice-status'];
 		}
 
-		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 10;
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : $this->numberOfInvoicesPerPage;
 		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 		$invoiceModel = new Invoice();
@@ -106,7 +107,7 @@ class ManageInvoicesController extends Controller {
 		$pages = $paginator->getPages();
 
 		$pagination = [
-			'limit' => $limit,
+			'limit' => $paginator->getRecordsPerPage(),
 			'prevPage' => $paginator->getPrevPage(),
 			'currPage' => $paginator->getCurrPage(),
 			'nextPage' => $paginator->getNextPage(),
@@ -138,7 +139,7 @@ class ManageInvoicesController extends Controller {
 			$filters['status'] = $data['status'];
 		}
 
-		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 10;
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : $this->numberOfInvoicesPerPage;
 		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 		$invoiceModel = new Invoice();
@@ -159,7 +160,7 @@ class ManageInvoicesController extends Controller {
 		$pages = $paginator->getPages();
 
 		$pagination = [
-			'limit' => $limit,
+			'limit' => $paginator->getRecordsPerPage(),
 			'prevPage' => $paginator->getPrevPage(),
 			'currPage' => $paginator->getCurrPage(),
 			'nextPage' => $paginator->getNextPage(),

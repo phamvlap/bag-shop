@@ -25,7 +25,7 @@
 
 					<form id="admin-form" class="row g-3 p-3" method="post" action="/admin/login">
 					    <div class="col-12">
-					        <label for="admin-email" class="form-label fw-bold">Email (admin@gmail.com): </label>
+					        <label for="admin-email" class="form-label fw-bold">Email: </label>
 					        <input 
 					            name="admin-email" 
 					            type="text" 
@@ -46,7 +46,7 @@
 					    </div>
 
 						<div class="col-12">
-							<label for="admin-password" class="form-label fw-bold">Mật khẩu (admin123): </label>
+							<label for="admin-password" class="form-label fw-bold">Mật khẩu: </label>
 							<input 
 					            name="admin-password" 
 					            type="password" 

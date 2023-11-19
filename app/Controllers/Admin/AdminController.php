@@ -6,6 +6,7 @@ use App\Controllers\Controller;
 use App\Models\{Product, Paginator};
 
 class AdminController extends Controller {
+	private int $numberOfItemsPerPage = 8;
 
 	public function index() {
 		purgeSESSION('pagination');
@@ -20,7 +21,7 @@ class AdminController extends Controller {
 
 		$productModel = new Product();
 
-		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 5;
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : $this->numberOfItemsPerPage;
 		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 		$paginator = new Paginator(
@@ -33,7 +34,7 @@ class AdminController extends Controller {
 		$pages = $paginator->getPages();
 
 		$pagination = [
-			'limit' => $limit,
+			'limit' => $paginator->getRecordsPerPage(),
 			'prevPage' => $paginator->getPrevPage(),
 			'currPage' => $paginator->getCurrPage(),
 			'nextPage' => $paginator->getNextPage(),
@@ -74,7 +75,7 @@ class AdminController extends Controller {
 		if($data['admin-password'] === '') {
 			$errors['admin-password'] = 'Mật khẩu không được bỏ trống';
 		}
-		elseif($data['admin-password'] !== 'admin123') {
+		elseif($data['admin-password'] !== 'admin@123') {
 			$errors['admin-password'] = 'Mật khẩu không chính xác';
 		}
 

@@ -8,11 +8,14 @@ $router->get(
 	'/admin/product',
 	'App\Controllers\Admin\AdminController@index'
 );
+$router->get(
+	'/admin/login',
+	'App\Controllers\Admin\AdminController@create'
+);
 $router->post(
 	'/admin/login',
 	'App\Controllers\Admin\AdminController@store'
 );
-
 $router->get(
 	'/admin/destroy',
 	'App\Controllers\Admin\AdminController@destroy'

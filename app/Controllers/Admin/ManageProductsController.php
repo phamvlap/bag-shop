@@ -6,7 +6,7 @@ use App\Controllers\Controller;
 use App\Models\{Product, Paginator};
 
 class ManageProductsController extends Controller {
-	private int $numberOfItemsPerPage = 5;
+	private int $numberOfItemsPerPage = 8;
 
 	public function create() {
 		renderPage('/admin/product/add.php');

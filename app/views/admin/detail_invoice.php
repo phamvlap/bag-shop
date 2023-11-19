@@ -35,7 +35,12 @@
 											Đơn hàng đã được duyệt
 											</strong>';
 									}
-									else {
+									elseif((int)$_SESSION['invoice']['status'] === -1) {
+										echo '<strong style="font-size: 1.6rem; color: red" class="ps-1">
+											Đơn hàng đã hủy
+											</strong>';
+									}
+									elseif((int)$_SESSION['invoice']['status'] === 0) {
 										echo '<strong style="font-size: 1.6rem; color: orange" class="ps-1">
 											Đơn hàng đang chờ duyệt
 											</strong>';
@@ -116,7 +121,12 @@
 								<div class="col col-md-3">
 									<div class="row">
 										<div class="col col-md-6">Giá:</div>
-										<div class="col col-md-6 text-end"><?= $item['price'] ?> đ</div>
+										<div class="col col-md-6 text-end">
+											<?php 
+												$money = formatMoney((int)$item['price']);
+												echo "$money đ";
+											?>
+										</div>
 									</div>
 									<div class="row">
 										<div class="col col-md-6">Số lượng:</div>
@@ -126,7 +136,10 @@
 										<div class="col col-md-6">Tạm tính:</div>
 										<div class="col col-md-6 text-end">
 											<strong>
-												<?php echo $item['price'] * $item['count']; ?>
+												<?php
+													$tmpPrice = $item['price'] * $item['count']; 
+													echo formatMoney($tmpPrice);
+												?>
 											</strong>
 											<span>đ</span>
 										</div>
@@ -139,7 +152,9 @@
 							<div class="row py-2 fw-bold">
 								<p class="col col-md-8 m-0">Tổng tiền: </p>
 								<p class="col col-md-4 m-0 text-end">
-									<span><?= $_SESSION['invoice']['total'] ?></span> 
+									<span>
+										<?php  echo formatMoney($_SESSION['invoice']['total']); ?>
+									</span> 
 									<span>đ</span>
 								</p>
 							</div>

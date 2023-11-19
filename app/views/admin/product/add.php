@@ -1,6 +1,6 @@
 <?php require_once __DIR__ . '/../../components/head.php'; ?>
 
-<div id="admin-home" class="container-fluid p-0">
+<div id="admin-home" class="container p-0">
 	<!-- navbar -->
 	<?php require_once __DIR__ . '/../components/navbar.php' ?>
 
@@ -8,7 +8,7 @@
 		<h2 class="m-0">Thêm sản phẩm mới</h2>
 
 		<!-- form login into admin -->
-		<form class="mt-4" action="/admin/product/add" method="post" enctype="multipart/form-data">
+		<form class="mt-4 w-100" action="/admin/product/add" method="post" enctype="multipart/form-data">
 			<div class="row mb-3">
 				<label for="item-name" class="col-sm-2 col-form-label">Tên sản phẩm: </label>
 				<div class="col-sm-10">
@@ -139,7 +139,9 @@
 					?>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary">Thêm</button>
+			<div class="d-flex justify-content-center">
+				<button type="submit" class="btn btn-fill-primary">Thêm</button>
+			</div>
 		</form>
 	</div>
 

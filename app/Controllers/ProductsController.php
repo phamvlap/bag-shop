@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\{Product, Paginator, Comment};
 
 class ProductsController {
+	private int $numberOfItemsPerPage = 12;
 	
 	public function index() {
 		purgeSESSION('search-input');
@@ -16,7 +17,7 @@ class ProductsController {
 
 		$orderPrice = '';
 
-		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 12;
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : $this->numberOfItemsPerPage;
 		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 		$totalRecords = 0;
@@ -113,7 +114,7 @@ class ProductsController {
 		$key = isset($_GET['key']) ? $_GET['key'] : '';
 		$requestOrder = (isset($_GET['price'])) ? $_GET['price'] : false;
 		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
-		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : 12;
+		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : $this->numberOfItemsPerPage;
 
 		$orderPrice = '';
 

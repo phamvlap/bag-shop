@@ -7,15 +7,15 @@ use PDO;
 
 class Comment extends Model {
 	private string $tableName = 'comments';
-	private $id_comment = -1, $name, $phone_number, $content, $id_product;
+	private $id_comment = -1, $user_name, $user_phone_number, $content, $id_product;
 
 	public function __construct() {
 		parent::__construct();
 	}
 
 	public function fill(array $data) {
-		$this->name = htmlspecialchars($data['name'] ?? '');
-		$this->phone_number = htmlspecialchars($data['phone_number'] ?? '');
+		$this->user_name = htmlspecialchars($data['user_name'] ?? '');
+		$this->user_phone_number = htmlspecialchars($data['user_phone_number'] ?? '');
 		$this->content = htmlspecialchars($data['content'] ?? '');
 		$this->id_product = htmlspecialchars($data['id_product'] ?? 0);
 
@@ -24,8 +24,8 @@ class Comment extends Model {
 
 	public function add() {
 		$comment = [
-			'name' => $this->name,
-			'phone_number' => $this->phone_number,
+			'user_name' => $this->user_name,
+			'user_phone_number' => $this->user_phone_number,
 			'content' => $this->content,
 			'id_product' => $this->id_product
 		];

@@ -1,6 +1,6 @@
 <?php
 
-use App\PDOFactory;
+use App\Core\PDOFactory;
 
 require_once __DIR__ . '/vendor/autoload.php';
 

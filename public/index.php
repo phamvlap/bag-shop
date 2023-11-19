@@ -1,12 +1,9 @@
 <?php
 
-use App\Models\Product;
-
 require_once __DIR__ . '/../bootstrap.php';
 
-const VIEWS_DIR = __DIR__ . '/../app/views';
-const DOMAIN_NAME = 'http://bagshop.localhost';
 const APP_NAME = 'Bag Shop';
+const MANAGEMENT_SYSTEM_NAME = 'Hệ thống quản lý cửa hàng Bag Shop';
 
 $router = new \Bramus\Router\Router();
 

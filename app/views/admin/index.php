@@ -74,12 +74,10 @@
 				</thead>
 				<tbody>
 					<?php
-						if(isset($_SESSION['filter-status']) && $_SESSION['filter-status']) {
-							$count = ($_SESSION['filter-pagination']['currPage'] - 1) * $_SESSION['filter-pagination']['limit'] + 1;
-						}
-						else {
-							$count = ($_SESSION['pagination']['currPage'] - 1) * $_SESSION['pagination']['limit'] + 1;
-						}
+						$currentPage = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
+						$limit = (isset($_GET['limit']) && is_numeric($_GET['page'])) ? $_GET['limit'] : 8;
+
+						$count = ($currentPage - 1) * $limit + 1;
 					?> 
 
 					<?php foreach($_SESSION['products'] as $product): ?>
@@ -115,7 +113,12 @@
 									echo $typeName;
 								?>
 							</td>
-							<td scope="col" class="text-center"><?= $htmlspecialchars($product['price']) ?></td>
+							<td scope="col" class="text-center">
+								<?php 
+									$money = formatMoney((int)$product['price']);
+									echo $money;
+								?>
+							</td>
 							<td scope="col" class="text-center vertical-center">
 								<div class="p-2">
 									<a href="/admin/product/view/<?= $htmlspecialchars($product['id_product']) ?>" class="btn btn-info">

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light p-0">
-	<div class="container-fluid px-5">
+	<div class="container px-5">
 		<span class="navbar-text title px-2 py-0">
-			Hệ thống quản lý cửa hàng <?= APP_NAME ?>
+			<?= MANAGEMENT_SYSTEM_NAME ?>
 		</span>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>

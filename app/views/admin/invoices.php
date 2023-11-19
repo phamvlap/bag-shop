@@ -14,8 +14,8 @@
 			</div>
 		</div>
 
-		<div class="mt-4">
-			<table class="table table-striped table-invoice">
+		<div class="mt-5">
+			<table class="table table-striped align-middle table-invoice">
 				<thead>
 					<tr style="width: 100%">
 						<th scope="col" class="text-center" style="width: 15%">Mã hóa đơn</th>
@@ -41,7 +41,12 @@
 									echo $date[1] . ' ' . $htmlspecialchars(date('d-m-Y', strtotime($date[0])));
 								?>
 							</td>
-							<td scope="col" class="text-center"><?= $htmlspecialchars($invoice['total']) ?></td>
+							<td scope="col" class="text-center">
+								<?php 
+									$money = formatMoney((int)$invoice['total']);
+									echo $money;
+								?>
+							</td>
 							<td scope="col" class="text-center">
 								<?php
 									if((int)$invoice['status'] === 1) {

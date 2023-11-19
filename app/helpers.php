@@ -65,8 +65,18 @@ function retrieveDay(int $day) {
 	return $res;
 }
 
-function pr(array $a) {
-	echo "<pre>";
-	print_r($a);
-	echo "</pre>";
+function formatMoney(int $money) {
+	$strMoney = (string)$money;
+	$moneyUnits = [];
+
+	for($i = strlen($strMoney) - 1; $i > 0; $i -= 3) {
+		$moneyUnit = '';
+		for($j = max(0, $i - 2); $j <= $i; ++$j) {
+			$moneyUnit .= $strMoney[$j];
+		}
+		array_unshift($moneyUnits, $moneyUnit);
+	}
+
+	$result = join('.', $moneyUnits);
+	return $result;
 }
