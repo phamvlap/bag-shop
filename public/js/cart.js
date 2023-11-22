@@ -17,6 +17,7 @@ const renderItems = (items = []) => {
 		if(item.images) {
 			imgs = item.images.split(';');
 		}
+		console.log(item.price);
 		
 		return `
 			<div class="row bg-white mt-4 mx-0 p-3 cart-item" id="cart-item-${item.id_product}">
@@ -31,7 +32,7 @@ const renderItems = (items = []) => {
 									<img src="/uploads/${imgs[0] ? imgs[0] :'1-1.jpg'}" width="100%" alt="">
 								</div>
 								<div class="col-md-10 d-flex my-auto">
-									<h4 class="m-0 cart-item-title fw-bolder text-start">${item.name}</h4>
+									<h4 class="m-0 cart-item-title text-start">${item.name}</h4>
 								</div>
 							</div>
 						</div>
@@ -40,7 +41,7 @@ const renderItems = (items = []) => {
 				<div class="col-md-6 my-auto">
 					<div>
 						<div class="row">
-							<div class="col-md-3 text-center fw-bolder cart-item-price">${item.price}</div>
+							<div class="col-md-3 text-center fw-bolder cart-item-price">${formatMoney(item.price)}</div>
 							<div class="col-md-3 text-center">
 								<div>
 									<div class="d-inline-flex align-items-center quantity-btns">
@@ -52,7 +53,7 @@ const renderItems = (items = []) => {
 							</div>
 							<div class="col-md-3 text-center">
 								<div class="d-inline-block">
-									<strong class="tmp-price">${item.price * item.count}</strong>
+									<strong class="tmp-price">${formatMoney(item.price * item.count)}</strong>
 									<span>đ</span>
 								</div>
 							</div>
@@ -199,9 +200,9 @@ let cart = {
 		const decreaseBtns = $('.decrease-btn');
 
 		const handlePrice = (currentBtn, quantity) => {
-			const price = parseInt((currentBtn.parents('[id^=cart-item-]')).find('.cart-item-price').text());
+			const price = convertToNumber(currentBtn.parents('[id^=cart-item-]').find('.cart-item-price').text(), ['.']);
 			const tmpPriceElement = (currentBtn.parents('[id^=cart-item-]')).find('.tmp-price');
-			tmpPriceElement.text(parseInt(price * quantity));
+			tmpPriceElement.text(formatMoney(price * quantity));
 		}
 
 		increaseBtns.each((index, incBtn) => {
@@ -295,8 +296,8 @@ let cart = {
 		const cartTotal = $('#cart-total');
 		const cartTmpTotal = $('#cart-tmp-total');
 
-		cartTmpTotal.text(this.total);
-		cartTotal.text(this.chagreCart());
+		cartTmpTotal.text(formatMoney(this.total));
+		cartTotal.text(formatMoney(this.chagreCart()));
 	},
 
 	getCartOrder() {

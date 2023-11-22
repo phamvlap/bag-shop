@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\{Invoice, Details, Product};
 
 class CartController {
-
+	# load cart page
 	public function index() {
 		$isExistUser = true;
 		if(!isset($_SESSION['user']['id_customer'])) {
@@ -14,6 +14,7 @@ class CartController {
 		renderPage('/cart.php', ['is-exist-user' => $isExistUser]);
 	}
 
+	# load items in user's cart
 	public function create() {
 		$data = json_decode(file_get_contents('php://input'));
 
@@ -37,10 +38,12 @@ class CartController {
 		}
 	}
 
+	# show checkout page
 	public function showCheckout() {
 		renderPage(page: '/checkout.php');
 	}
 
+	# store order
 	public function store() {
 		$data = json_decode(file_get_contents('php://input'));
 		$status = true;

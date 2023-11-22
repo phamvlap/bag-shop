@@ -6,7 +6,7 @@ use App\Models\{Model, Customer};
 use PDO;
 
 class Invoice extends Model {
-	private string $tableName = 'invoices';
+	private string $tableName = 'invoices'; # name of table
 
 	private $id_invoice = -1, $created_at, $status, $total, $customer, $method_payment;
 
@@ -14,6 +14,7 @@ class Invoice extends Model {
 		parent::__construct();
 	}
 
+	# fill data for attributes of invoice from external data
 	public function fill(array $data) {
 		$this->status = htmlspecialchars($data['status'] ?? 0);
 		$this->total = htmlspecialchars($data['total'] ?? 0);
@@ -24,6 +25,7 @@ class Invoice extends Model {
 		return $this;
 	}
 
+	# add invoice into invoices table
 	public function add() {
 		$invoice = [
 			'status' => $this->status,
@@ -38,14 +40,17 @@ class Invoice extends Model {
 		return $this->id_invoice !== -1;
 	}
 
+	# get all invoices from products table
 	public function all() {
 		return parent::getAll($this->tableName);
 	}
 
+	# get invoice by ID from invoices table
 	public function findByID(int $id_invoice) {
 		return parent::getByID($this->tableName, 'id_invoice', $id_invoice);
 	}
 
+	# get invoice by ID customer from invoices table
 	public function findByIDCustomer(int $id_customer) {
 		$query = "select * from {$this->tableName} where id_customer = :id_customer order by created_at desc";
 
@@ -56,10 +61,12 @@ class Invoice extends Model {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	# get ID of invoice
 	public function getID(): int {
 		return $this->id_invoice;
 	}
 
+	# get customer by ID invoice from customers and invoices table
 	public function getCustomerByInvoice(int $id_invoice) {
 		$query = "select customers.* from invoices join customers on invoices.id_customer = customers.id_customer where invoices.id_invoice = :id_invoice";
 
@@ -70,14 +77,17 @@ class Invoice extends Model {
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
+	# update status accept for invoices in invoices table
 	public function agreeInvoice(int $id_invoice) {
 		return parent::update($this->tableName, 'id_invoice', $id_invoice, ['status' => 1]);
 	}
 
+	# update status destroy for invoices in invoices table
 	public function destroyInvoice(int $id_invoice) {
 		return parent::update($this->tableName, 'id_invoice', $id_invoice, ['status' => -1]);
 	}
 
+	# count all items in invoices table
 	public function countAll(): int {
 		$query = "select count(*) from {$this->tableName}";
 
@@ -87,6 +97,7 @@ class Invoice extends Model {
 		return $stmt->fetchColumn();
 	}
 
+	# get items with offset and limit in invoices table
 	public function paginate(int $offset = 0, int $limit = 10): array {
 		$query = "select * from {$this->tableName} limit :offset, :limit";
 
@@ -98,6 +109,7 @@ class Invoice extends Model {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	# get items by filters, attribute's order, offset and limit in products table
 	public function paginateWithFilter(array $orders, array $filters, int $offset = 0, int $limit = 10) {
 		$arrFilters = [];
 		foreach($filters as $key => $value) {
@@ -133,6 +145,7 @@ class Invoice extends Model {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	# count search result in invoices table
 	public function countSearchResult(array $filters = []): int {
 		$arrFilters = [];
 		foreach($filters as $key => $value) {

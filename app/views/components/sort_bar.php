@@ -37,10 +37,10 @@
             			}
             		}
             	?>
-                <a href="<?= $href ?>up" class="d-block text-decoration-none py-2">Giá thấp đến cao</a>
+                <a href="<?= $href ?>up" class="d-block text-decoration-none py-2 px-4">Giá thấp đến cao</a>
             </li>
             <li>
-                <a href="<?= $href ?>down" class="d-block text-decoration-none py-2">Giá cao đến thấp</a>
+                <a href="<?= $href ?>down" class="d-block text-decoration-none py-2 px-4">Giá cao đến thấp</a>
             </li>
         </ul>
 	</div>

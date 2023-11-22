@@ -7,8 +7,9 @@ use App\Models\Customer;
 
 class SigninController extends Controller {
 
+	# load login page
 	public function create() {
-		if(isset($_SESSION['user']['id'])) {
+		if(isset($_SESSION['user']['id_customer'])) {
 			redirectTo('/');
 		}
 		else {
@@ -16,6 +17,7 @@ class SigninController extends Controller {
 		}
 	}
 
+	# store login info of user
 	public function store() {
 		$keys = ['username', 'password'];
 		$data = $this->filterData(keys: $keys, data: $_POST);
@@ -51,6 +53,7 @@ class SigninController extends Controller {
 		}	
 	}
 
+	# exit from website
 	public function destroy() {
 		session_unset();
 		session_destroy();

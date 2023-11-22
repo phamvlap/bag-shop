@@ -19,18 +19,22 @@ class Paginator {
 		$this->recordOffset = ($this->currentPage - 1) * $this->recordsPerPage;
 	}
 
+	# get previous page
 	public function getPrevPage(): int|bool {
 		return ($this->currentPage > 1) ? $this->currentPage - 1 : false;
 	}
 
+	# get next page
 	public function getNextPage(): int|bool {
 		return ($this->currentPage < $this->totalPages) ? $this->currentPage + 1 : false;
 	}
 
+	# get current page
 	public function getCurrPage(): int {
 		return $this->currentPage;
 	}
 
+	# get pages depend on needs
 	public function getPages(int $length = 3): array {
 		$halfLength = floor($length / 2);
 		$pageStart = $this->currentPage - $halfLength;
@@ -58,18 +62,22 @@ class Paginator {
 		return $pages;
 	}
 
+	# get records per page
 	public function getRecordsPerPage(): int {
 		return $this->recordsPerPage;
 	}
 
+	# get records record offset
 	public function getRecordOffset(): int {
 		return $this->recordOffset;
 	}
 
+	# get total pages
 	public function getTotalPages() {
 		return $this->totalPages;
 	}
 
+	# get total records
 	public function getTotalRecords() {
 		return $this->totalRecords;
 	}

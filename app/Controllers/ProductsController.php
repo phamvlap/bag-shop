@@ -7,12 +7,11 @@ use App\Models\{Product, Paginator, Comment};
 class ProductsController {
 	private int $numberOfItemsPerPage = 12;
 	
+	# load home page of website
 	public function index() {
-		purgeSESSION('search-input');
-
 		$productModel = new Product();
 
-		$type = (isset($_GET['type']) && is_numeric($_GET['type'])) ? (int)$_GET['type'] : false;
+		$type = (isset($_GET['type'])) ? (int)$_GET['type'] : false;
 		$requestOrder = (isset($_GET['price'])) ? $_GET['price'] : false;
 
 		$orderPrice = '';
@@ -21,7 +20,7 @@ class ProductsController {
 		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 		$totalRecords = 0;
-		if(isset($type) && $type) {
+		if(isset($type) && $type !== false) {
 			$totalRecords = $productModel->countByType(type: $type);
 		}
 		else {
@@ -61,15 +60,10 @@ class ProductsController {
 
 			renderPage('/home.php', [
 				'products' => $products,
-				'select-by-type' => true,
-				'type' => $type,
-				'price' => $orderPrice,
-				'home-pagination' => $pagination
+				'pagination' => $pagination
 			]);
 		}
 		else {
-			purgeSESSION('select-by-type');
-			
 			$products = $productModel->paginate(offset: $paginator->getRecordOffset(), limit: $paginator->getRecordsPerPage());
 
 			$newestProducts = $productModel->getNewestProducts();
@@ -77,11 +71,12 @@ class ProductsController {
 			renderPage('/home.php', [
 				'products' => $products,
 				'newest-products' => $newestProducts,
-				'home-pagination' => $pagination
+				'pagination' => $pagination
 			]);
 		}
 	}
 
+	# show details of item
 	public function viewItem(int $id) {
 		$productModel = new Product();
 		$commentModel = new Comment();
@@ -97,6 +92,7 @@ class ProductsController {
 		renderPage('/item.php', ['item' => $payLoad]);
 	}
 
+	# get hint for search key
 	public function getHint() {
 		$data = json_decode(file_get_contents('php://input'));
 		$searchValue = $data->searchValue;
@@ -107,8 +103,8 @@ class ProductsController {
 		echo json_encode($products);
 	}
 
+	# search items by key
 	public function search() {
-		purgeSESSION('select-by-type');
 		$productModel = new Product();
 
 		$key = isset($_GET['key']) ? $_GET['key'] : '';
@@ -148,13 +144,13 @@ class ProductsController {
 		];
 
 		renderPage('/home.php', [
-				'search-input' => $key,
 				'search-result-count' => $totalRecords,
 				'products' => $products,
-				'search-pagination' => $pagination
+				'pagination' => $pagination
 			]);
 	}
 
+	# get info item from products table
 	public function getItem() {
 		$data = json_decode(file_get_contents('php://input'));
 

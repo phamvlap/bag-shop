@@ -1,5 +1,5 @@
 <div class="row p-3 border-bottom">
-	<div class="col-md d-flex justify-content-center p-1 slogan border-end">
+	<div class="col-md d-flex justify-content-center p-1 border-end">
 		<i class="fa-regular fa-clock"></i>
 		<p class="m-0 ms-3">Giao hàng tận nơi đúng giờ</p>
 	</div>
@@ -18,7 +18,7 @@
 		</ul>
 	</div>
 	<div class="col-md-5">
-		<div class="row about">
+		<div class="row">
 			<div class="col-md-6 p-2">
 				<h3>Về chúng tôi</h3>
 				<ul class="list-unstyled m-0 mt-2 ms-3">
@@ -26,7 +26,7 @@
 						<a href="/about">Giới thiệu</a>
 					</li>
 					<li class="my-2">
-						<a href="/contact">Liên hệ</a>
+						<a href="#">Liên hệ</a>
 					</li>
 					<li class="my-2">
 						<a href="#">Hỏi đáp</a>

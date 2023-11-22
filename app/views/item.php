@@ -35,13 +35,13 @@
 									</div>
 
 									<div class="position-absolute top-0 w-100 d-flex justify-content-center mt-2">
-										<div class="bg-secondary rounded-circle" hidden>
+										<div class="rounded-circle control-images-btns" hidden>
 											<i class="fa-solid fa-chevron-up p-3"></i>
 										</div>
 									</div>
 
 									<div class="position-absolute bottom-0 w-100 d-flex justify-content-center mb-3">
-										<div class="bg-secondary rounded-circle" <?php echo (count($imgs) > 4) ? '' : 'hidden' ?>>
+										<div class="rounded-circle control-images-btns" <?php echo (count($imgs) > 4) ? '' : 'hidden' ?>>
 											<i class="fa-solid fa-chevron-down p-3"></i>
 										</div>
 									</div>
@@ -52,12 +52,12 @@
 								</div>
 							</div>
 							<div class="p-4 mt-3 bg-white describe">
-								<h3 class="fw-bold">Mô tả sản phẩm</h3>
+								<h3 class="fw-bold color-heading">Mô tả sản phẩm</h3>
 								<p class="p-0"><?= $_SESSION['item']['describes'] ?></p>
 							</div>
 
 							<div class="bg-white mx-0 mt-3 p-4 rounded-2 comment-container">
-								<h3 class="fw-bold">Bình luận</h3>
+								<h3 class="fw-bold color-heading">Bình luận</h3>
 
 								<div class="row">
 									<form id="comment-form" class="p-3 pb-4" method="post">
@@ -116,9 +116,11 @@
 						</div>
 						<div class="col-md-4 p-0">
 							<div class="p-4 bg-white rounded-2 detail-item">
-								<h3 class="m-0"><?= $_SESSION['item']['name'] ?></h3>
-								<div class="mt-4">
-									<strong class="price"><?= $_SESSION['item']['price'] ?></strong>
+								<h3 class="m-0 detail-item-name"><?= $_SESSION['item']['name'] ?></h3>
+								<div class="mt-4 detail-item-price color-heading">
+									<strong class="price">
+										<?php echo formatMoney($_SESSION['item']['price']) ?>
+									</strong>
 									<span>đ</span>
 								</div>
 								<div class="mt-4 quantity-item">
@@ -130,7 +132,9 @@
 								<div class="mt-4">
 									<span>Tổng tạm thời:</span>
 									<div class="d-inline-block">
-										<strong class="tmp-price-item"><?= $_SESSION['item']['price'] ?></strong>
+										<strong class="tmp-price-item color-heading">
+											<?php echo formatMoney($_SESSION['item']['price']) ?>
+										</strong>
 										<span>đ</span>
 									</div>
 								</div>
@@ -145,7 +149,7 @@
 
 				</div>
 
-				<!-- Footer -->
+				<!-- footer -->
 				<div id="footer" class="container mt-3 bg-white rounded-top-2">
 					<?php require_once __DIR__ . '/components/footer.php'; ?>
 				</div>

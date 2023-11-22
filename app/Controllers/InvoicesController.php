@@ -6,6 +6,7 @@ use App\Models\{Invoice, Details};
 
 class InvoicesController {
 
+	# show history orders of user
 	public function index() {
 		$invoiceModel = new Invoice();
 		$detailsModel = new Details();
@@ -26,6 +27,7 @@ class InvoicesController {
 		renderPage('/history_order.php', ['invoices' => $invoices]);
 	}
 
+	# show details of order
 	public function detailOrder(int $id) {
 		$invoiceModel = new Invoice();
 		$detailsModel = new Details();
@@ -39,6 +41,7 @@ class InvoicesController {
 		renderPage('/detail_order.php', ['invoice' => $invoice]);
 	}
 
+	# remove order by user
 	public function destroy(int $id) {
 		$invoiceModel = new Invoice();
 

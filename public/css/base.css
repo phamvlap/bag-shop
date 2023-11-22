@@ -59,6 +59,10 @@ input[type] {
 	outline: none;
 }
 
+input[name], textarea[name], select, option {
+	font-size: 1.6rem;
+}
+
 button[type] {
 	font-size: 1.6rem;
 }
@@ -128,4 +132,17 @@ nav[aria-label='Page navigation'] .pagination a {
 /* active navbar */
 .nav-link.active-navbar-status {
 	background-color: #50a09c;
+}
+
+/* color heading */
+.color-heading {
+	color: var(--primary-bg-color);
+}
+
+/* error */
+.error {
+	font-style: italic;
+	font-size: 1.4rem;
+	color: red;
+	text-align: center;
 }

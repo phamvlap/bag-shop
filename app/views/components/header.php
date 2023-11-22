@@ -1,8 +1,8 @@
 <div class="row align-item-center header rounded-bottom">
 	<div class="col-md-2 text-center d-flex align-items-center justify-content-center logo-shop">
 		<a href="/home" class="d-block d-flex align-items-center">
-			<i class="fa-solid fa-store"></i>
-			<span class="px-2"><?= APP_NAME ?></span>
+			<i class="fa-solid fa-store logo-shop-icon"></i>
+			<span class="px-2 logo-shop-name"><?= APP_NAME ?></span>
 		</a>
 	</div>
 
@@ -23,7 +23,7 @@
 	<div class="col-md-2 d-flex align-items-center justify-content-center">
 		<?php if(isset($_SESSION['user']['id_customer'])): ?>
 			<div class="d-flex align-items-center justify-content-center w-100">
-				<div class="d-flex align-items-center justify-content-center position-relative account-logined">
+				<div class="d-flex align-items-center justify-content-center position-relative logined-account">
 					<div class="p-1">
 						
 					</div>

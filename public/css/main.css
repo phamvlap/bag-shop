@@ -1,23 +1,21 @@
-/*Header*/
+/* header*/
 .header {
 	height: var(--hight-header);
 	background-color: var(--primary-bg-color);
 }
 
-.logo-shop i {
+/* logo shop */
+.logo-shop-icon {
 	font-size: 3.6rem;
 }
 
-.logo-shop span {
+.logo-shop-name {
 	font-size: 2.4rem;
 }
 
+/* cart in header */
 #cart {
 	font-size: 2.6rem;
-}
-
-#cart span {
-	font-size: 1.0rem;
 }
 
 #cart:hover {
@@ -33,10 +31,30 @@
 	font-size: 1.2rem;
 }
 
+/* optional account*/
+.optional-account {
+	top: 28px;
+	min-width: 154px;
+	display: none;
+}
+
+.optional-account a:hover {
+	background-color: var(--hover-bg-color);
+}
+
+.logined-account {
+	cursor: pointer;
+}
+
+.logined-account:hover .optional-account {
+	display: block;
+}
+
 .account, #cart a {
 	color: var(--white-text);
 }
 
+/* search bar */
 .search-btn:hover {
 	background-color: var(--hover-bg-color);
 }
@@ -57,23 +75,18 @@
 }
 
 #sign-in:hover, #sign-up:hover {
-	filter: brightness(8 0%);
+	filter: brightness(80%);
 }
 
-/*Error when sign in*/
+/*error while sign in*/
 .error-signin {
 	font-size: 1.5rem;
 	color: red;
 }
-/* Content */
+
+/* content */
 .content {
 	margin-top: calc(var(--hight-header) + 10px);
-}
-
-/*Sidebar*/
-
-.sidebar {
-	font-size: 1.6rem;
 }
 
 .type-product {
@@ -87,19 +100,6 @@
 	background-color: var(--hover-bg-color);
 }
 
-/* Product */
-.banner {
-	height: 260px;
-}
-
-.banner img {
-	height: 260px;
-}
-
-.products {
-	font-size: 1.6rem;
-}
-
 .products img {
 	height: 230px;
 }
@@ -108,9 +108,10 @@ div[id^="product_"]:hover {
 	filter: brightness(106%);
 }
 
-/*Item*/
+/* item*/
 .item-title {
 	font-size: 1.6rem;
+	font-weight: 450;
 	line-height: 1.8rem;
 	height: 36px;
     overflow: hidden;
@@ -125,11 +126,12 @@ div[id^="product_"]:hover {
 
 .item-text strong {
 	font-size: 1.8rem;
+	font-weight: 500;
 }
 
 .item-text span {
 	font-size: 1.4rem;
-	font-weight: 600;
+	font-weight: 500;
 }
 
 .item-text p {
@@ -138,22 +140,19 @@ div[id^="product_"]:hover {
 }
 
 /*footer*/
-#footer li {
-	font-size: 1.5rem;
-}
-
-#footer a {
-	text-decoration: none;
-}
-
 #footer i {
 	font-size: 2.4rem;
 }
 
-.slogan p, .copyright {
-	font-size: 1.6rem;
+#footer i {
+	color: var(--primary-bg-color);
 }
 
+#footer a:hover {
+	color: var(--primary-bg-color);
+}
+
+/* copyright */
 .copyright a {
 	color: var(--primary-bg-color);
 }
@@ -162,42 +161,19 @@ div[id^="product_"]:hover {
 	filter: brightness(80%);
 }
 
-.slogan i {
-	color: var(--primary-bg-color);
-}
-
-.about a:hover {
-	color: var(--primary-bg-color);
-}
-
 /*Sort bar*/
-.sort-bar div {
-	background-color: var(--secondary-bg-color);
-	font-size: 1.6rem;
-	text-align: center;
-}
-
-.sort-bar button {
-	font-size: 1.6rem;
-	color: var(--white-text);
-	background-color: var(--primary-bg-color);
-}
-
-.sort-bar button:active {
-	opacity: 0.8;
-}
-
 .sort-bar .select-sort {
+	background-color: var(--secondary-bg-color);
 	min-width: 200px;
 }
 
-.select-list {
+.select-sort .select-list {
     background-color: var(--secondary-bg-color);
     z-index: 1;
     display: none;
 }
 
-.select-list a:hover {
+.select-sort .select-list a:hover {
 	background-color: var(--hover-bg-color);
 }
 
@@ -205,12 +181,7 @@ div[id^="product_"]:hover {
 	display: block;
 }
 
-/*Notify Search*/
-#notify-search {
-	font-size: 1.6rem;
-}
-
-/*Form signup*/
+/* signup form */
 #form-signup a {
 	color: var(--primary-bg-color);
 }
@@ -219,10 +190,7 @@ div[id^="product_"]:hover {
 	filter: brightness(90%);
 }
 
-#form-signup, #form-signup input {
-	font-size: 1.6rem;
-}
-
+/* signin form */
 #form-signin a {
 	color: var(--primary-bg-color);
 }
@@ -231,76 +199,44 @@ div[id^="product_"]:hover {
 	filter: brightness(90%);
 }
 
-#form-signin, #form-signin input {
-	font-size: 1.6rem;
-}
-
-.error {
-	font-style: italic;
-	font-size: 1.4rem;
-	color: red;
-	text-align: center;
-}
-
-/*Optional account*/
-.optional-account {
-	top: 28px;
-	min-width: 154px;
-	display: none;
-}
-
-.optional-account a:hover {
-	background-color: var(--hover-bg-color);
-}
-
-.account-logined {
-	cursor: pointer;
-}
-
-.account-logined:hover .optional-account {
-	display: block;
-}
-
-/*Show detail item*/
+/* detail item*/
 .detail-item .quantity-item div {
 	width: 64px;
 }
 
 .detail-item .quantity-item input {
-	font-size: 1.6rem;
 	width: 100%;
-}
-.detail-item h3, .detail-item strong {
-	font-size: 2.6rem;
-}
-
-.detail-item span {
-	font-size: 1.8rem;
 }
 
 .describe h3, .comment-container h3 {
 	font-size: 2.0rem;
 }
 
-.describe p {
-	font-size: 1.6rem;
+.detail-item-name {
+	font-weight: 450;
+	font-size: 2.0rem;
 }
 
-/*Cart*/
+.detail-item-price {
+	font-weight: 700;
+	font-size: 2.2rem;
+}
+
+.detail-item-price strong, .detail-item-price span {
+	font-weight: 500;
+}
+
+.detail-item .tmp-price-item {
+	font-size: 2.2rem;
+}
+
+/* cart */
 .cart-heading {
 	font-size: 2.6rem;
 }
 
-.cart-item {
-	font-size: 1.6rem;
-}
-
 .cart-item button {
 	font-size: 1.6rem;
-}
-
-.cart-item-title {
-	font-size: 1.8rem;
 }
 
 .trash-can-btn {
@@ -326,23 +262,9 @@ div[id^="product_"]:hover {
 	width: 36px;
 }
 
-/* Cart info user  */
-.cart-info-user div {
-	font-size: 1.6rem;
-}
-
-/* preorder */
-.preorder-body {
-	font-size: 1.6rem;
-}
-
-/*About*/
+/* about*/
 #about h2 {
 	font-size: 2.8rem;
-}
-
-#about .text {
-	font-size: 1.6rem;
 }
 
 #about .aim h3 {
@@ -367,47 +289,9 @@ div[id^="product_"]:hover {
 	border-left: 2px solid var(--primary-bg-color);
 }
 
-/*Contact*/
-#contact h4 {
-	font-size: 1.8rem;
-}
-
-#contact input, #contact textarea {
-	font-size: 1.6rem;
-}
-
-#contact li {
-	font-size: 1.6rem;
-}
-
-#contact .map a {
-	font-size: 1.4rem;
-}
-
-/*Modal submit contact*/
-
-#submittedContact div {
-	font-size: 1.6rem;
-}
-
-#submittedContact .btn {
-	padding-left: 16px;
-	padding-right: 16px;
-}
-
-/* Payment */
-
-.cart .payment {
-	font-size: 1.6rem;
-}
-
 /*profile user*/
-
 #profile-user h3, #history-purchase h3 {
 	font-size: 2.4rem;
-}
-#profile-user li,  #history-purchase li{
-	font-size: 1.6rem;
 }
 
 #profile-user li a:hover, #history-purchase  li a:hover {
@@ -415,7 +299,6 @@ div[id^="product_"]:hover {
 }
 
 #profile-user .personal-sector, #profile-user .password-sector, #profile-user .address-sector {
-	font-size: 1.6rem;
 	background-color: var(--secondary-bg-color);
 }
 
@@ -423,42 +306,9 @@ div[id^="product_"]:hover {
 	font-size: 2.2rem;
 }
 
-#profile-user input {
-	font-size: 1.6rem;
-}
-
 #profile-user button {
 	color: var(--primary-bg-color);
 	background-color: transparent;
-}
-
-/*History purchase*/
-#history-purchase .invoice {
-	background-color: var(--secondary-bg-color);
-}
-
-.invoice div {
-	font-size: 1.6rem;
-}
-
-/*Modal update info user*/
-#informEditUser .modal-body {
-	font-size: 1.6rem;
-}
-
-/* alert */
-.alert {
-	font-size: 1.6rem;
-}
-
-/* modal */
-#request-login .modal-body, #delete-item .modal-body {
-	font-size: 1.6rem;
-}
-
-/* sort bar */ 
-.sort-bar a {
-	font-size: 1.6rem;
 }
 
 /* hint search */
@@ -468,7 +318,7 @@ div[id^="product_"]:hover {
 }
 
 .search-hint .title, .search-hint .price {
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 }
 
 /* invoices */
@@ -490,10 +340,6 @@ div[id^="product_"]:hover {
 	font-size: 2.0rem;
 }
 
-.detail-invoice {
-	font-size: 1.6rem;
-}
-
 .detail-invoice .section {
 	background-color: var(--secondary-bg-color);
 }
@@ -503,20 +349,14 @@ div[id^="product_"]:hover {
 	font-size: 2.8rem;
 }
 
-/*comment form*/
-
-#comment-form input, #comment-form textarea {
-	font-size: 1.6rem;
-}
-
 /*comment*/
 .comment-container i {
 	font-size: 2.8rem;
-	color: #4c4b4c;
+	color: var(--primary-text-color);
 }
 
 .comment-container h4 {
-	color: #4c4b4c;
+	color: var(--primary-text-color);
 }
 
 .comment-container h4+p {
@@ -540,7 +380,7 @@ div[id^="product_"]:hover {
 
 /* image item */
 .active-image-item {
-	border: 1px solid red;
+	border: 1px solid var(--primary-bg-color);
 }
 
 /* list images item */
@@ -558,12 +398,12 @@ div[id^="product_"]:hover {
 	filter: brightness(80%);
 }
 
-/* search bar */
-#admin-search-form {
-	border: 2px solid var(--primary-bg-color);
+/* control-images-btns */
+.control-images-btns {
+	background-color: rgb(57, 116, 114, 0.8);
+	color: var(--white-text);
 }
 
-#admin-search-form i {
-	font-size: 2.0rem;
-	color: var(--primary-bg-color);
+.control-images-btns:hover {
+	cursor: pointer;
 }

@@ -65,7 +65,12 @@
 												foreach($invoice['details'] as $item) {
 													$sumary .= $item['name'];
 												}
-												$presentImage = explode(';',  $invoice['details'][0]['images'])[0];
+												if(strlen($invoice['details'][0]['images']) > 0) {
+													$presentImage = explode(';',  $invoice['details'][0]['images'])[0];
+												}
+												else {
+													$presentImage = 'no_image.jpg';
+												}
 											?>
 											<div class="col col-md-2">
 												<img src="/uploads/<?= $presentImage ?>" alt="" width="100%" height="46px">

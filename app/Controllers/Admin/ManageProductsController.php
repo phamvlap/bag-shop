@@ -8,10 +8,12 @@ use App\Models\{Product, Paginator};
 class ManageProductsController extends Controller {
 	private int $numberOfItemsPerPage = 8;
 
+	# load item's add page
 	public function create() {
 		renderPage('/admin/product/add.php');
 	}
 
+	# store item into products table
 	public function store() {
 		$keys = ['item-name', 'item-desc', 'item-price', 'item-type'];
 		$data = $this->filterData(keys: $keys, data: $_POST);
@@ -56,6 +58,7 @@ class ManageProductsController extends Controller {
 		}
 	}
 
+	# load item's update page
 	public function edit(int $id) {
 		$product = new Product();
 		$item = $product->findByID(id: $id);
@@ -65,6 +68,7 @@ class ManageProductsController extends Controller {
 		]);
 	}
 
+	# store updated item into products table
 	public function update(int $id) {
 		$productModel = new Product();
 		$item = $productModel->findByID(id: $id);
@@ -98,7 +102,6 @@ class ManageProductsController extends Controller {
 			$updatedFields = [];
 
 			if($item['name'] !== $data['item-name']) {
-				echo "name";
 				$updatedFields['name'] = $data['item-name'];
 			}
 			if($item['describes'] !== $data['item-desc']) {
@@ -134,6 +137,7 @@ class ManageProductsController extends Controller {
 		}		
 	}
 
+	# show confirm delete item
 	public function confirmDelete(int $id) {
 		$productModel = new Product();
 		$item = $productModel->findByID(id: $id);
@@ -145,6 +149,7 @@ class ManageProductsController extends Controller {
 		}
 	}
 
+	# delete item
 	public function destroy(int $id) {
 		$productModel = new Product();
 		$item = $productModel->findByID(id: $id);
@@ -161,6 +166,7 @@ class ManageProductsController extends Controller {
 		}
 	}
 
+	# check form values
 	public function checkValuesForm(array $data) {
 		$errors = [];
 
@@ -237,6 +243,7 @@ class ManageProductsController extends Controller {
 		];
 	}
 
+	# filter products from filter 
 	public function filter() {
 		purgeSESSION('filter-invoices-pagination');
 
@@ -285,6 +292,7 @@ class ManageProductsController extends Controller {
 		]);
 	}
 
+	# show detail item
 	public function viewItem(int $id) {
 		$product = new Product();
 		$item = $product->findByID(id: $id);
@@ -294,6 +302,7 @@ class ManageProductsController extends Controller {
 		]);
 	}
 
+	# search products
 	public function search() {
 		purgeSESSION('pagination');
 

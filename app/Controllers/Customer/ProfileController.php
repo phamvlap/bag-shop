@@ -6,11 +6,12 @@ use App\Controllers\Controller;
 use App\Models\Customer;
 
 class ProfileController extends Controller {
-
+	# load profile user page
 	public function edit() {
 		renderPage('/customer/profile.php');
 	}
 
+	# update profile user
 	public function update() {
 		$keys = ['name', 'username', 'current-password', 'new-password', 'phone_number', 'gender', 'email', 'address'];
 		$data = $this->filterData(keys: $keys, data: $_POST);

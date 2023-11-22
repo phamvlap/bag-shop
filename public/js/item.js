@@ -32,13 +32,15 @@ $(document).ready(async function() {
 		const priceItem = $('.detail-item .price');
 		const inputQuantityElement = $('.quantity-item input');
 		const tmpPriceElement = $('.detail-item .tmp-price-item');
-		const price = parseInt(priceItem.text());
 
 		// change tmp price when changing quantity
 		inputQuantityElement.on('change', () => {
-			let quantity = parseInt(inputQuantityElement.val());
+			const price = convertToNumber(priceItem.text(), ['.']);
+			const quantity = parseInt(inputQuantityElement.val());
 
-			tmpPriceElement.text(price * quantity);
+			const tmpPrice = price * quantity;
+
+			tmpPriceElement.text(formatMoney(tmpPrice));
 		})
 
 		// add product from detail item page

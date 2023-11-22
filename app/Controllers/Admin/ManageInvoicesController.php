@@ -8,6 +8,7 @@ use App\Models\{Invoice, Details, Paginator};
 class ManageInvoicesController extends Controller {
 	private int $numberOfInvoicesPerPage = 10;
 
+	# load invoices's management page
 	public function index() {
 		if(!isset($_SESSION['admin'])) {
 			redirectTo('/admin');
@@ -41,6 +42,7 @@ class ManageInvoicesController extends Controller {
 		]);
 	}
 
+	# show details invoice
 	public function viewInvoice(int $id) {
 		$invoiceModel = new Invoice();
 
@@ -57,6 +59,7 @@ class ManageInvoicesController extends Controller {
 		renderPage('/admin/detail_invoice.php', ['invoice' => $invoice]);
 	}
 
+	# accept order
 	public function store(int $id) {
 		$invoiceModel = new Invoice();
 
@@ -67,6 +70,7 @@ class ManageInvoicesController extends Controller {
 		}
 	}
 
+	# filter invoices from filter
 	public function filter() {
 		purgeSESSION('invoices-pagination');
 
@@ -115,61 +119,6 @@ class ManageInvoicesController extends Controller {
 		];
 
 		renderPage('/admin/invoices.php', [
-			'invoices' => $invoices,
-			'filter-invoices-pagination' => $pagination
-		]);
-	}
-
-	public function showFilter() {
-		purgeSESSION('invoices-pagination');
-
-		$keys = ['created_at', 'total', 'status'];
-		$data = $this->filterData(keys: $keys, data: $_GET);
-
-		$orders = [];
-		if(isset($data['created_at'])) {
-			$orders['created_at'] = $data['created_at'];
-		}
-		if(isset($data['total'])) {
-			$orders['total'] = $data['total'];
-		}
-
-		$filters = [];
-		if(isset($data['status'])) {
-			$filters['status'] = $data['status'];
-		}
-
-		$limit = (isset($_GET['limit']) && is_numeric($_GET['limit'])) ? (int)$_GET['limit'] : $this->numberOfInvoicesPerPage;
-		$page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? (int)$_GET['page'] : 1;
-
-		$invoiceModel = new Invoice();
-
-		$paginator = new Paginator(
-			recordsPerPage: $limit, 
-			totalRecords: $_SESSION['total-invoices'], 
-			currentPage: $page
-		);
-
-		if(count($filters) === 0 && count($orders) === 0) {
-			$invoices = $invoiceModel->paginate(offset: 0, limit: $limit);
-		}
-		else {
-			$invoices = $invoiceModel->paginateWithFilter(filters: $filters, orders: $orders, offset: $paginator->getRecordOffset(), limit: $limit);
-		}
-
-		$pages = $paginator->getPages();
-
-		$pagination = [
-			'limit' => $paginator->getRecordsPerPage(),
-			'prevPage' => $paginator->getPrevPage(),
-			'currPage' => $paginator->getCurrPage(),
-			'nextPage' => $paginator->getNextPage(),
-			'pages' => $pages
-		];
-		
-		renderPage('/admin/invoices.php', [
-			'total-invoices' => $paginator->getTotalRecords(),
-			'request-filters' => [...$filters, ...$orders],
 			'invoices' => $invoices,
 			'filter-invoices-pagination' => $pagination
 		]);

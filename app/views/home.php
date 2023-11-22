@@ -15,9 +15,12 @@
 
 			<div class="col-md-10 p-0">
 				<div>
+					<?php 
+						$uri = $_SERVER['REQUEST_URI'];
+					?>
 
 					<!-- search result -->
-					<?php if(isset($_SESSION['search-input'])): ?>
+					<?php if(strpos($uri, '/search') !== false): ?>
 						<div id="notify-search" class="mt-2 mb-3">
 							<div class="bg-white rounded-2 p-3">
 								<?php 
@@ -35,12 +38,12 @@
 					<?php endif ?>
 
 					<!-- sort bar -->
-					<?php if((isset($_SESSION['select-by-type']) && $_SESSION['select-by-type']) || isset($_SESSION['search-input'])): ?>
+					<?php if(strpos($uri, '/home') !== false && isset($_GET['type']) || strpos($uri, '/search') !== false): ?>
 						<?php require_once __DIR__ . '/components/sort_bar.php'; ?>
 					<?php else: ?>
 						<div class="p-3 mt-2 mx-0 bg-white">
 							<!-- newest products -->
-							<h2 class="m-0"><strong>SẢN PHẨM MỚI NHẤT</strong></h2>
+							<h2 class="m-0"><strong class="color-heading">SẢN PHẨM MỚI NHẤT</strong></h2>
 
 							<div class="m-4">
 								<div class="row justify-content-around rounded-3 py-4" style="background-color: #d1e550;">
@@ -58,11 +61,11 @@
 												</a>
 												<div class="card-body p-3">
 													<a href="/view/item/<?= $product['id_product'] ?>">
-														<h4 class="card-title m-0 item-title"><?= $product['name'] ?></h4>
+														<h4 class="m-0 item-title"><?= $product['name'] ?></h4>
 														<div class="d-flex justify-content-between mt-3 mb-2 item-text">
-															<strong>
-																<?= $product['price'] ?>
-																<span><u>đ</u></span>
+															<strong class="color-heading">
+																<?php echo formatMoney($product['price']) ?>
+																<span>đ</span>
 															</strong>
 															<p class="m-0">Đã bán <?= $product['sold_quantity'] ?></p>
 														</div>
@@ -83,10 +86,10 @@
 						<div id="products" class="row products p-3 mt-3 mx-0 bg-white">
 							<?php 
 								if(!isset($_SESSION['search-input'])) {
-									echo '<h2 class="m-0"><strong>GỢI Ý HÔM NAY</strong></h2>';
+									echo '<h2 class="m-0 color-heading"><strong>GỢI Ý HÔM NAY</strong></h2>';
 								}
 								else {
-									echo '<h2 class="m-0"><strong>SẢN PHẨM GỢI Ý</strong></h2>';
+									echo '<h2 class="m-0 color-heading"><strong>SẢN PHẨM GỢI Ý</strong></h2>';
 								}
 							?>
 
@@ -105,11 +108,11 @@
 										</a>
 										<div class="card-body p-3">
 											<a href="/view/item/<?= $product['id_product'] ?>">
-												<h4 class="card-title m-0 item-title"><?= $product['name'] ?></h4>
+												<h4 class="m-0 item-title"><?= $product['name'] ?></h4>
 												<div class="d-flex justify-content-between mt-3 mb-2 item-text">
-													<strong>
-														<?= $product['price'] ?>
-														<span><u>đ</u></span>
+													<strong class="color-heading">
+														<?php echo formatMoney($product['price']) ?>
+														<span>đ</span>
 													</strong>
 													<p class="m-0">Đã bán <?= $product['sold_quantity'] ?></p>
 												</div>

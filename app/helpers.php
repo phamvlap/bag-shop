@@ -69,7 +69,7 @@ function formatMoney(int $money) {
 	$strMoney = (string)$money;
 	$moneyUnits = [];
 
-	for($i = strlen($strMoney) - 1; $i > 0; $i -= 3) {
+	for($i = strlen($strMoney) - 1; $i >= 0; $i -= 3) {
 		$moneyUnit = '';
 		for($j = max(0, $i - 2); $j <= $i; ++$j) {
 			$moneyUnit .= $strMoney[$j];

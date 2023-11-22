@@ -9,10 +9,6 @@
 }
 
 /* content */
-#admin-home .content {
-	font-size: 1.6rem;
-}
-
 .vertical-center {
 	vertical-align: middle;
 }
@@ -36,23 +32,15 @@
 	height: 100%;
 }
 
-.additional-form input, .additional-form select, .additional-form textarea, .additional-form option {
-	font-size: 1.6rem;
-}
-
 .additional-form input[type="file"] {
 	height: 40px;
 }
 
-.additional-form .edit-btn {
+.edit-btn {
 	font-size: 1.6rem;
 }
 
 /* filter products form */
-#filter-products-form h4, #filter-invoices-form h4 {
-	font-size: 1.6rem;
-}
-
 #filter-products-form label, 
 #filter-products-form select, #filter-products-form option, #filter-invoices-form label, 
 #filter-invoices-form select, #filter-invoices-form option {
@@ -111,4 +99,14 @@
 /* logged account */
 .admin-account .logout-account-section {
 	color: var(--white-text);
+}
+
+/* search bar */
+#admin-search-form {
+	border: 2px solid var(--primary-bg-color);
+}
+
+#admin-search-form i {
+	font-size: 2.0rem;
+	color: var(--primary-bg-color);
 }

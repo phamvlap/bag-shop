@@ -1,139 +1,80 @@
 <nav aria-label="Page navigation" class="mt-4">
 	<ul class="pagination justify-content-center">
-		<?php if(isset($_SESSION['select-by-type']) && $_SESSION['select-by-type']): ?>
-			<li class="page-item <?php echo $_SESSION['home-pagination']['prevPage'] ? '' : 'disabled' ?>">
-				<?php
-					if(isset($_SESSION['price']) && $_SESSION['price']) {
-						if($_SESSION['price'] === 'asc') {
-							$orderPrice = 'up';
-						}
-						elseif($_SESSION['price'] === 'desc') {
-							$orderPrice = 'down';
-						}
-						$href = "/home?type={$_SESSION['type']}&price={$orderPrice}&page={$_SESSION['home-pagination']['prevPage']}&limit=12";
+		<?php 
+			$uri = $_SERVER['REQUEST_URI'];
+
+			if(strpos($uri, '/search') !== false) {
+				$key = isset($_GET['key']) ? $_GET['key'] : '';
+				$orderPrice = isset($_GET['price']) ? $_GET['price'] : false;
+
+				if($orderPrice) {
+					$prevHref = "/search?key={$key}&price={$orderPrice}&page={$_SESSION['pagination']['prevPage']}&limit=12";
+					$preHref = "/search?key={$key}&price={$orderPrice}&";
+					$nextHref = "/search?key={$key}&price={$orderPrice}&page={$_SESSION['pagination']['nextPage']}&limit=12";
+				}
+				else {
+					$prevHref = "/search?key={$key}&page={$_SESSION['pagination']['prevPage']}&limit=12";
+					$preHref = "/search?key={$key}&";
+					$nextHref = "/search?key={$key}&page={$_SESSION['pagination']['nextPage']}&limit=12";
+				}
+			}
+			elseif(strpos($uri, '/home') !== false && isset($_GET['type'])) {
+				$type = (int)$_GET['type'];
+
+				if(isset($_GET['price']) && $_GET['price'] !== '') {
+					if($_SESSION['price'] === 'asc') {
+						$orderPrice = 'up';
 					}
-					else {
-						$href = "/home?type={$_SESSION['type']}&page={$_SESSION['home-pagination']['prevPage']}&limit=12";
+					elseif($_SESSION['price'] === 'desc') {
+						$orderPrice = 'down';
 					}
-				?>
-				<a class="page-link px-4 py-3" href="<?= $href ?>" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
+					$prevHref =  "/home?type={$type}&price={$orderPrice}&page={$_SESSION['pagination']['prevPage']}&limit=12";
+					$preHref =  "/home?type={$type}&price={$orderPrice}&";
+					$nextHref =  "/home?type={$type}&price={$orderPrice}&page={$_SESSION['pagination']['nextPage']}&limit=12";
+				}
+				else {
+					$prevHref =  "/home?type={$type}&page={$_SESSION['pagination']['prevPage']}&limit=12";
+					$preHref =  "/home?type={$type}";
+					$nextHref =  "/home?type={$type}&page={$_SESSION['pagination']['nextPage']}&limit=12";
+				}
+			}
+			else {
+				$prevHref =  "/home?page={$_SESSION['pagination']['prevPage']}&limit=12";
+				$preHref =  "/home?";
+				$nextHref =  "/home?page={$_SESSION['pagination']['nextPage']}&limit=12";
+			}
+		?>
+
+		<li class="page-item <?php echo $_SESSION['pagination']['prevPage'] ? '' : 'disabled' ?>">
+			<a 
+				class="page-link px-4 py-3" 
+				href="<?php echo $prevHref ?>" 
+				aria-label="Previous"
+			>
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+
+		<?php foreach($_SESSION['pagination']['pages'] as $page): ?> 
+			<li class="page-item">
+				<a 
+					class="page-link px-4 py-3 <?php echo ($_SESSION['pagination']['currPage'] === $page) ? 'active-status' : '' ?> " 
+					href="<?php echo "{$preHref}page={$page}&limit=12" ?> "
+				>
+					<?php echo $page ?>
 				</a>
 			</li>
+		<?php endforeach ?>
 
-			<?php foreach($_SESSION['home-pagination']['pages'] as $page): ?> 
-				<li class="page-item">
-					<?php
-						if(isset($_SESSION['price']) && $_SESSION['price']) {
-							if($_SESSION['price'] === 'asc') {
-								$orderPrice = 'up';
-							}
-							elseif($_SESSION['price'] === 'desc') {
-								$orderPrice = 'down';
-							}
-							$href = "/home?type={$_SESSION['type']}&price={$orderPrice}&page={$page}&limit=12";
-						}
-						else {
-							$href = "/home?type={$_SESSION['type']}&page={$page}&limit=12";
-						}
-					?>
-					<a class="page-link px-4 py-3 <?php echo ($_SESSION['home-pagination']['currPage'] === $page) ? 'active-status' : '' ?> " href="<?= $href ?>">
-						<?= $page ?>
-					</a>
-				</li>
-			<?php endforeach ?>
-
-			<li class="page-item <?php echo $_SESSION['home-pagination']['nextPage'] ? '' : 'disabled' ?>">
-				<?php
-					if(isset($_SESSION['price']) && $_SESSION['price']) {
-						if($_SESSION['price'] === 'asc') {
-							$orderPrice = 'up';
-						}
-						elseif($_SESSION['price'] === 'desc') {
-							$orderPrice = 'down';
-						}
-						$href = "/home?type={$_SESSION['type']}&price={$orderPrice}&page={$_SESSION['home-pagination']['nextPage']}&limit=12";
-					}
-					else {
-						$href = "/home?type={$_SESSION['type']}&page={$_SESSION['home-pagination']['nextPage']}&limit=12";
-					}
-				?>
-				<a class="page-link px-4 py-3" href="<?= $href ?>" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-
-		<?php elseif(isset($_SESSION['search-input'])): ?>
-			
-			<li class="page-item <?php echo $_SESSION['search-pagination']['prevPage'] ? '' : 'disabled' ?>">
-				<?php
-					$orderPrice = isset($_GET['price']) ? $_GET['price'] : false;
-					if($orderPrice) {
-						$href = '/search?key='. $_SESSION['search-input'] . '&price=' . $orderPrice . '&page=' . $_SESSION['search-pagination']['prevPage'] . '&limit=12';
-					}
-					else {
-						$href = '/search?key='. $_SESSION['search-input'] . '&page=' . $_SESSION['search-pagination']['prevPage'] . '&limit=12';
-					}
-				?>
-				<a class="page-link px-4 py-3" href="<?= $href ?>" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-
-			<?php foreach($_SESSION['search-pagination']['pages'] as $page): ?> 
-				<?php
-					$orderPrice = isset($_GET['price']) ? $_GET['price'] : false;
-					if($orderPrice) {
-						$href = '/search?key='. $_SESSION['search-input'] . '&price=' . $orderPrice . '&page=' . $page . '&limit=12';
-					}
-					else {
-						$href = '/search?key='. $_SESSION['search-input'] . '&page=' . $page . '&limit=12';
-					}
-				?>
-				<li class="page-item">
-					<a class="page-link px-4 py-3 <?php echo ($_SESSION['search-pagination']['currPage'] === $page) ? 'active-status' : '' ?> " href="<?= $href ?>">
-						<?= $page ?>
-					</a>
-				</li>
-			<?php endforeach ?>
-
-			<li class="page-item <?php echo $_SESSION['search-pagination']['nextPage'] ? '' : 'disabled' ?>">
-				<?php
-					$orderPrice = isset($_GET['price']) ? $_GET['price'] : false;
-					if($orderPrice) {
-						$href = '/search?key='. $_SESSION['search-input'] . '&price=' . $orderPrice . '&page=' . $_SESSION['search-pagination']['nextPage'] . '&limit=12';
-					}
-					else {
-						$href = '/search?key='. $_SESSION['search-input'] . '&page=' . $_SESSION['search-pagination']['nextPage'] . '&limit=12';
-					}
-				?>
-				<a class="page-link px-4 py-3" href="<?= $href ?>" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>			
-
-		<?php else: ?>
-			<li class="page-item <?php echo $_SESSION['home-pagination']['prevPage'] ? '' : 'disabled' ?>">
-				<a class="page-link px-4 py-3" href="/home?page=<?php echo $_SESSION['home-pagination']['prevPage'] ?>&limit=12" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-
-			<?php foreach($_SESSION['home-pagination']['pages'] as $page): ?> 
-				<li class="page-item">
-					<a class="page-link px-4 py-3 <?php echo ($_SESSION['home-pagination']['currPage'] === $page) ? 'active-status' : '' ?> " href="/home?page=<?= $page ?>&limit=12">
-						<?= $page ?>
-					</a>
-				</li>
-			<?php endforeach ?>
-
-			<li class="page-item <?php echo $_SESSION['home-pagination']['nextPage'] ? '' : 'disabled' ?>">
-				<a class="page-link px-4 py-3" href="/home?page=<?php echo $_SESSION['home-pagination']['nextPage'] ?>&limit=12" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-
-		<?php endif ?>
+		<li class="page-item <?php echo $_SESSION['pagination']['nextPage'] ? '' : 'disabled' ?>">
+			<a 
+				class="page-link px-4 py-3" 
+				href="<?php echo $nextHref ?>" 
+				aria-label="Next"
+			>
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
 
 	</ul>
 </nav>

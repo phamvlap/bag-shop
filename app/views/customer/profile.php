@@ -31,20 +31,4 @@
 
 <?php unset($_SESSION['update-user']) ?>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#informEditUser" hidden></button>
-
-<!-- Modal -->
-<div class="modal fade" id="informEditUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body"></div>
-			<div class="modal-footer">
-				<a href="/user" type="button" class="btn btn-fill-primary close">Đóng</a>
-			</div>
-		</div>
-	</div>
-</div>
-
 <?php require_once __DIR__ . '/../components/foot.php'; ?>
-

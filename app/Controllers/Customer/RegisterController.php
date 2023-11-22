@@ -7,8 +7,9 @@ use App\Models\Customer;
 
 class RegisterController extends Controller {
 
+	# load register page
 	public function create() {
-		if($_SESSION['user']['id']) {
+		if($_SESSION['user']['id_customer']) {
 			redirectTo('/');
 		}
 		else {
@@ -16,6 +17,7 @@ class RegisterController extends Controller {
 		}
 	}
 
+	# store info user
 	public function store() {
 		$keys = ['name', 'username', 'phone_number', 'password'];
 		$data = $this->filterData(keys: $keys, data: $_POST);

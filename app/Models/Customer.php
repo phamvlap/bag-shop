@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Model;
 
 class Customer extends Model {
-	private string $tableName = 'customers';
+	private string $tableName = 'customers'; # name of table
 
 	private $id_customer = -1, $name, $username, $password, $phone_number, $gender, $email, $address;
 
@@ -13,6 +13,7 @@ class Customer extends Model {
 		parent::__construct();
 	}
 
+	# fill data for attributes of customer from external data
 	public function fill(array $data) {
 		$this->id_customer = $data['id_customer'] ?? -1;
 		$this->name = htmlspecialchars($data['name'] ?? '');
@@ -26,6 +27,7 @@ class Customer extends Model {
 		return $this;
 	}
 
+	# add customer into customers table
 	public function add() {
 		$customer = [
 			'name' => $this->name,
@@ -43,26 +45,32 @@ class Customer extends Model {
 		}
 	}
 
+	# get all customers from customers table
 	public function all() {
 		return parent::getAll($this->tableName);
 	}
 
+	# get customer by ID from customers table
 	public function findByID(int $id) {
 		return parent::getByID($this->tableName, 'id_customer', $id);
 	}
 
+	# get customer base on attribute's customer from customers table
 	public function findByProps(array $props) {
 		return parent::getByProps($this->tableName, $props); 
 	}
 
+	# update info customer into customers table
 	public function edit(int $id, array $newInfo) {
 		return parent::update($this->tableName, 'id_customer', $id, $newInfo);
 	}
 	
+	# check password is not match
 	public function matchPassword(string $pwd) {
 		return password_verify($this->password, $pwd);
 	}
 
+	# get ID customer
 	public function getID(): int {
 		return $this->id_customer;
 	}

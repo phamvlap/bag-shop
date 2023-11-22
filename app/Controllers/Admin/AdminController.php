@@ -8,6 +8,7 @@ use App\Models\{Product, Paginator};
 class AdminController extends Controller {
 	private int $numberOfItemsPerPage = 8;
 
+	# show admin home page
 	public function index() {
 		purgeSESSION('pagination');
 		purgeSESSION('filter-pagination');
@@ -47,6 +48,7 @@ class AdminController extends Controller {
 		]);
 	}
 
+	# login admin
 	public function create() {
 		if(!isset($_SESSION['admin'])) {
 			renderPage('/admin/login.php');
@@ -56,6 +58,7 @@ class AdminController extends Controller {
 		}
 	}
 
+	# store login admin
 	public function store() {
 		$keys = ['admin-email', 'admin-password'];
 
@@ -87,7 +90,8 @@ class AdminController extends Controller {
 			redirectTo('/admin/product', ['admin' => $admin]);
 		}
 	}
-
+	
+	# extit login admin
 	public function destroy() {
 		session_unset();
 		session_destroy();

@@ -173,7 +173,10 @@
         <button type="submit" class="btn btn-outline-primary">Đăng ký</button>
     </div>
     <div class="col-12 text-center p-0 mt-3">
-        <span>Bạn đã là thành viên của <?= APP_NAME ?> ? </span>
+        <span>
+            Bạn đã là thành viên của 
+            <a href="/home"><?= APP_NAME ?> ?</a>
+        </span>
         <a href="/user/signin">Đăng nhập</a>
     </div>
 </form>

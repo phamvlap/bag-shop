@@ -54,7 +54,9 @@
 							<div class="col col-md-3">
 								<div class="row">
 									<div class="col col-md-6">Giá:</div>
-									<div class="col col-md-6 text-end"><?= $row['price'] ?></div>
+									<div class="col col-md-6 text-end">
+										<?php echo formatMoney($row['price']) ?>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col col-md-6">Số lượng:</div>
@@ -66,7 +68,7 @@
 										<strong>
 											<?php 
 												$tmpTotal = $row['price'] * $row['count'];
-												echo $tmpTotal;
+												echo formatMoney($tmpTotal);
 											?>
 										</strong>
 										<span>đ</span>
@@ -99,13 +101,13 @@
 						</div>
 					</div>
 
-					<!-- cart payment -->
+					<!-- cart -->
 					<div class="row mx-0 mt-2 rounded-2 p-3">
-						<div class="col col-md-6 offset-md-6 payment">
+						<div class="col col-md-6 offset-md-6">
 							<div class="row py-2">
 								<p class="col col-md-8 m-0">Tổng thanh toán tạm thời: </p>
 								<p class="col col-md-4 m-0 text-end">
-									<span id="cart-tmp-total"><?= $_SESSION['total'] ?></span> 
+									<span><?php echo formatMoney($_SESSION['total']) ?></span> 
 									<span>đ</span>
 								</p>
 							</div>
@@ -126,7 +128,9 @@
 							<div class="row py-2 fw-bold">
 								<p class="col col-md-8 m-0">TỔNG THANH TOÁN: </p>
 								<p class="col col-md-4 m-0 text-end">
-									<span><?= $_SESSION['total'] ?></span> 
+									<span>
+										<?php echo formatMoney($_SESSION['total']) ?>
+									</span> 
 									<span>đ</span>
 								</p>
 							</div>

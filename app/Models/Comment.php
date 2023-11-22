@@ -6,13 +6,14 @@ use App\Models\Model;
 use PDO;
 
 class Comment extends Model {
-	private string $tableName = 'comments';
+	private string $tableName = 'comments'; # name of table
 	private $id_comment = -1, $user_name, $user_phone_number, $content, $id_product;
 
 	public function __construct() {
 		parent::__construct();
 	}
 
+	# fill data for attributes of comment from external data
 	public function fill(array $data) {
 		$this->user_name = htmlspecialchars($data['user_name'] ?? '');
 		$this->user_phone_number = htmlspecialchars($data['user_phone_number'] ?? '');
@@ -22,6 +23,7 @@ class Comment extends Model {
 		return $this;
 	}
 
+	# add comment into comments table
 	public function add() {
 		$comment = [
 			'user_name' => $this->user_name,
@@ -38,10 +40,12 @@ class Comment extends Model {
 		return parent::getByID($this->tableName, 'id_comment', $this->id_comment);
 	}
 
+	# get comments by ID product in comment table
 	public function getByItem(int $id_product) {
 		return parent::getByProps($this->tableName, ['id_product' => $id_product]);
 	}
 
+	# get newest comments by ID product in comment table	
 	public function getNewestByItem(int $id_product) {
 		$query = "select * from {$this->tableName} where id_product = :id_product order by created_at desc";
 

@@ -7,6 +7,7 @@ use App\Models\Comment;
 
 class CommentsController extends Controller {
 
+	# store comments
 	public function store() {
 		$sendedData = json_decode(file_get_contents('php://input'));
 

@@ -6,7 +6,7 @@ use App\Models\{Model, Invoice, Product};
 use PDO;
 
 class Details extends Model {
-	private string $tableName = 'details';
+	private string $tableName = 'details'; # name of table
 
 	private $invoice, $products = [];
 
@@ -14,6 +14,7 @@ class Details extends Model {
 		parent::__construct();
 	}
 
+	# fill data for attributes of detail from external data
 	public function fill(int $idInvoice, array $items) {
 		$invoiceModel = new Invoice();
 		$this->invoice = $invoiceModel->findByID($idInvoice);
@@ -31,6 +32,7 @@ class Details extends Model {
 		}
 	}
 
+	# save details into details table
 	public function save() {
 		$res = true;
 		foreach($this->products as $product) {
@@ -48,14 +50,17 @@ class Details extends Model {
 		return $res;
 	}
 
+	# get all items
 	public function getListItem() {
 		return $this->products;
 	}
 
+	# get invoice
 	public function getInvoice() {
 		return $this->invoice;
 	}
 
+	# get all items of an invoice from database
 	public function getListItemsFromDB(int $id_invoice) {
 		$query = "select products.*, details.count from details join products on details.id_product = products.id_product where details.id_invoice = :id_invoice";
 
