@@ -38,7 +38,7 @@ class ManageInvoicesController extends Controller {
 
 		renderPage('/admin/invoices.php', [
 			'invoices' => $invoices,
-			'invoices-pagination' => $pagination
+			'pagination' => $pagination
 		]);
 	}
 
@@ -120,7 +120,7 @@ class ManageInvoicesController extends Controller {
 
 		renderPage('/admin/invoices.php', [
 			'invoices' => $invoices,
-			'filter-invoices-pagination' => $pagination
+			'pagination' => $pagination
 		]);
 	}
 }

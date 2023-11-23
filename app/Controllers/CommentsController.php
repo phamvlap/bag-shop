@@ -9,13 +9,13 @@ class CommentsController extends Controller {
 
 	# store comments
 	public function store() {
-		$sendedData = json_decode(file_get_contents('php://input'));
+		$receivedData = json_decode(file_get_contents('php://input'));
 
 		$keys = ['comment_name', 'comment_phone_number', 'comment_content'];
 		$data = $this->filterData(keys: $keys, data: [
-			'comment_name' => $sendedData->comment_name, 
-			'comment_phone_number' => $sendedData->comment_phone_number,
-			'comment_content' => $sendedData->comment_content
+			'comment_name' => $receivedData->comment_name, 
+			'comment_phone_number' => $receivedData->comment_phone_number,
+			'comment_content' => $receivedData->comment_content
 		]);
 
 		$comment = new Comment();
@@ -31,5 +31,15 @@ class CommentsController extends Controller {
 		$result = $comment->add();
 
 		echo json_encode($result);
+	}
+
+	# like comment
+	public function likeComment() {
+		$receivedData = json_decode(file_get_contents('php://input'));
+
+		$idComment = $receivedData->idComment;
+		
+		$commentModel = new Comment();
+		$commentModel->likeComment(id_comment: $idComment);
 	}
 }

@@ -245,8 +245,6 @@ class ManageProductsController extends Controller {
 
 	# filter products from filter 
 	public function filter() {
-		purgeSESSION('filter-invoices-pagination');
-
 		$keys = ['filter-type', 'filter-price', 'filter-date'];
 		$data = $this->filterData(keys: $keys, data: $_GET);
 
@@ -288,7 +286,7 @@ class ManageProductsController extends Controller {
 
 		renderPage('/admin/index.php', [
 			'products' => $products,
-			'filter-pagination' => $pagination
+			'pagination' => $pagination
 		]);
 	}
 
@@ -304,8 +302,6 @@ class ManageProductsController extends Controller {
 
 	# search products
 	public function search() {
-		purgeSESSION('pagination');
-
 		$productModel = new Product();
 
 		$key = isset($_GET['key']) ? $_GET['key'] : '';
@@ -350,7 +346,7 @@ class ManageProductsController extends Controller {
 
 		renderPage('/admin/index.php', [
 			'products' => $products,
-			'search-pagination' => $pagination
+			'pagination' => $pagination
 		]);
 	}
 }

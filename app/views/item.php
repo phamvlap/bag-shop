@@ -6,6 +6,9 @@
 		<?php require_once __DIR__ . '/components/header.php'; ?>
 	</div>
 
+	<!-- id current user -->
+	<input type="text" name="current-user" value="<?= $_SESSION['user']['id_customer'] ?>" hidden>
+
 	<div class="container content">
 		<div class="row">
 			<!-- sidebar -->
@@ -63,10 +66,24 @@
 									<form id="comment-form" class="p-3 pb-4" method="post">
 										<div class="row">
 											<div class="col">
-												<input type="text" name="comment_name" class="form-control" placeholder="Họ và tên của bạn">
+												<input 
+													type="text" 
+													name="comment_name" 
+													class="form-control" 
+													placeholder="Họ và tên của bạn"
+													value="<?php echo isset($_SESSION['user']['id_customer']) ? $_SESSION['user']['name'] : '' ?>"
+													<?php echo isset($_SESSION['user']['id_customer']) ? 'hidden' : '' ?>
+												>
 											</div>
 											<div class="col">
-												<input type="text" name="comment_phone_number" class="form-control" placeholder="Số điện thoại của bạn">
+												<input 
+													type="text" 
+													name="comment_phone_number" 
+													class="form-control" 
+													placeholder="Số điện thoại của bạn"
+													value="<?php echo isset($_SESSION['user']['id_customer']) ? $_SESSION['user']['phone_number'] : '' ?>"
+													<?php echo isset($_SESSION['user']['id_customer']) ? 'hidden' : '' ?>
+												>
 											</div>
 										</div>
 										<div class="row mt-3">
@@ -91,13 +108,27 @@
 										$day = date('d/m/Y', strtotime($date[0])); 
 									?>
 									<div class="row p-3 comment border-top <?= ($i >= 6) ? 'extra-comment' : '' ?>" <?= ($i >= 6) ? 'hidden' : '' ?>>
+										<input type="text" value="<?= $comment['id_comment'] ?>" hidden>
 										<div class="col col-md-1 text-center">
 											<i class="fa-regular fa-circle-user"></i>
 										</div>
 										<div class="col col-md-11">
-											<h4 class="m-0"><strong>Người dùng</strong></h4>
+											<h4 class="m-0"><strong><?= $comment['user_name'] ?></strong></h4>
 											<p class="m-0 py-2"><?php echo $hour . ' ' . $day ?></p>
 											<p class="m-0 mt-3"><?= $comment['content'] ?></p>
+											<p class="m-0 mt-3">
+												<span class="like-comment-btn">
+													<i class="fa-regular fa-thumbs-up"></i>
+													<span>Thích</span>
+													<span>(</span>
+													<span class="liked-count">
+														<?php
+															echo "{$comment['liked_count']}";
+														?>
+													</span>
+													<span>)</span>
+												</span>
+											</p>
 										</div>
 									</div>
 								<?php endfor ?>
@@ -157,8 +188,7 @@
 			</div>
 		</div>
 	</div>
-	
-	
+		
 </div>
 
 <?php require_once __DIR__ . '/components/foot.php'; ?>

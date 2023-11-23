@@ -378,6 +378,18 @@ div[id^="product_"]:hover {
 	cursor: pointer;
 }
 
+.comment .like-comment-btn i {
+	font-size: 1.4rem;
+}
+
+.comment .like-comment-btn:hover {
+	cursor: pointer;
+}
+
+.comment .like-comment-btn i, .comment .like-comment-btn {
+	color: var(--primary-bg-color);
+}
+
 /* image item */
 .active-image-item {
 	border: 1px solid var(--primary-bg-color);

@@ -73,4 +73,12 @@ class ProfileController extends Controller {
 
 		redirectTo('/user/profile', ["status-$section" => $respone]);
 	}
+
+	public function getInfoUser(int $id_customer) {
+		// $receivedData = json_decode(file_get_contents('php://input'));
+		
+		$customerModel = new Customer();
+
+		echo json_encode($customerModel->findByID(id: $id_customer));
+	}
 }

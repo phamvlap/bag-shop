@@ -55,4 +55,17 @@ class Comment extends Model {
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
+
+	# get comment by ID comment
+	public function findByID(int $id_comment) {
+		return parent::getByID($this->tableName, 'id_comment', $id_comment);
+	}
+
+	# add like for comment
+	public function likeComment(int $id_comment) {
+		$thisComment = $this->findByID(id_comment: $id_comment);
+		$currentLikedCount = $thisComment['liked_count'];
+
+		return parent::update($this->tableName, 'id_comment', $id_comment, ['liked_count' => $currentLikedCount + 1]);
+	}
 }

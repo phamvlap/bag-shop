@@ -1,5 +1,6 @@
 <?php
 
+# redirect to specific page
 function redirectTo(string $url, array $data = []) {
 	setIntoSESSION($data);
 	
@@ -7,12 +8,14 @@ function redirectTo(string $url, array $data = []) {
 	exit;
 }
 
+# load page
 function renderPage(string $page, array $data = []) {
 	setIntoSESSION($data);
 
 	require_once __DIR__ . '/views' . $page;
 }
 
+# get variable in SESSION and delete it
 function getOnceSession(string $name, $default = null) {
 	$value = $default;
 
@@ -24,18 +27,21 @@ function getOnceSession(string $name, $default = null) {
 	return $value;
 }
 
+# set variable into SESSION
 function setIntoSESSION(array $data): void {
 	foreach($data as $key => $value) {
 		$_SESSION[$key] = $value;
 	}
 }
 
+# delete variable in SESSION
 function purgeSESSION(string $key) {
 	if(isset($_SESSION[$key])) {
 		unset($_SESSION[$key]);
 	}
 }
 
+# convert day to Vietnamese day
 function retrieveDay(int $day) {
 	$res = '';
 
@@ -65,6 +71,7 @@ function retrieveDay(int $day) {
 	return $res;
 }
 
+# format money string
 function formatMoney(int $money) {
 	$strMoney = (string)$money;
 	$moneyUnits = [];

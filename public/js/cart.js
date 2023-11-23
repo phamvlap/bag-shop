@@ -17,7 +17,6 @@ const renderItems = (items = []) => {
 		if(item.images) {
 			imgs = item.images.split(';');
 		}
-		console.log(item.price);
 		
 		return `
 			<div class="row bg-white mt-4 mx-0 p-3 cart-item" id="cart-item-${item.id_product}">

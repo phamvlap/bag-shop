@@ -28,3 +28,7 @@ $router->get(
 	'/user/logout',
 	'App\Controllers\Customer\SigninController@destroy'
 );
+$router->post(
+	'/user/get/(\d+)',
+	'App\Controllers\Customer\ProfileController@getInfoUser'
+);

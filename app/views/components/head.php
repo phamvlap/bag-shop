@@ -17,6 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="/libs/fontawesome/css/fontawesome.css">
 	<link rel="stylesheet" type="text/css" href="/libs/fontawesome/css/solid.css">
 	<link rel="stylesheet" type="text/css" href="/libs/fontawesome/css/brands.css">
+	<link rel="stylesheet" type="text/css" href="/libs/fontawesome/css/regular.css">
 
 	<link rel="stylesheet" type="text/css" href="/css/base.css">
 	<link rel="stylesheet" type="text/css" href="/css/main.css">

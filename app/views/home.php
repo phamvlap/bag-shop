@@ -81,8 +81,7 @@
 							</div>
 						</div>
 					<?php endif ?>
-
-					
+			
 						<div id="products" class="row products p-3 mt-3 mx-0 bg-white">
 							<?php 
 								if(!isset($_SESSION['search-input'])) {

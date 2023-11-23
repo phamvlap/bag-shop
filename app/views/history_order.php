@@ -81,7 +81,7 @@
 								</div>
 								<div class="m-0 col col-md-3 text-end">
 									<span>Tổng tiền</span>
-									<span><strong><?= $invoice['total'] ?></strong> đ</span>
+									<span><strong><?php echo formatMoney($invoice['total']) ?></strong> đ</span>
 								</div>
 							</div>
 							<div class="row p-2 mt-2">

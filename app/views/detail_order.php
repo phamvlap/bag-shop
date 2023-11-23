@@ -105,7 +105,7 @@
 									<div class="col col-md-3">
 										<div class="row">
 											<div class="col col-md-6">Giá:</div>
-											<div class="col col-md-6 text-end"><?= $item['price'] ?> đ</div>
+											<div class="col col-md-6 text-end"><?php echo formatMoney($item['price']) ?> đ</div>
 										</div>
 										<div class="row">
 											<div class="col col-md-6">Số lượng:</div>
@@ -115,7 +115,7 @@
 											<div class="col col-md-6">Tạm tính:</div>
 											<div class="col col-md-6 text-end">
 												<strong>
-													<?php echo $item['price'] * $item['count']; ?>
+													<?php echo formatMoney($item['price'] * $item['count']); ?>
 												</strong>
 												<span>đ</span>
 											</div>
@@ -128,14 +128,14 @@
 								<div class="row py-2 fw-bold">
 									<p class="col col-md-8 m-0">Tổng tiền: </p>
 									<p class="col col-md-4 m-0 text-end">
-										<span><?= $_SESSION['invoice']['total'] ?></span> 
+										<span><?php echo formatMoney($_SESSION['invoice']['total']) ?></span> 
 										<span>đ</span>
 									</p>
 								</div>
 								<div class="row py-2 fw-bold">
 									<p class="col col-md-8 m-0">Số tiền đã thanh toán: </p>
 									<p class="col col-md-4 m-0 text-end">
-										<span><?= $_SESSION['invoice']['total'] ?></span> 
+										<span><?php echo formatMoney($_SESSION['invoice']['total']) ?></span> 
 										<span>đ</span>
 									</p>
 								</div>

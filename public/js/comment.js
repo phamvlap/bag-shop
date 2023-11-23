@@ -1,3 +1,4 @@
+// create format Date
 const createDate = (strDate) => {
 	const value = [
 		...strDate.split(' ')[0].split('-'),
@@ -11,15 +12,24 @@ const createDate = (strDate) => {
 	return res;
 }
 
-const createCommentForm = () => {
+// create comment form
+const createCommentForm = (currentUser) => {
 	const html = `<form id="comment-form" class="p-3 pb-4" method="post">
 					<div class="row">
-						<div class="col">
-							<input type="text" name="comment_name" class="form-control" placeholder="Họ và tên của bạn">
-						</div>
-						<div class="col">
-							<input type="text" name="comment_phone_number" class="form-control" placeholder="Số điện thoại của bạn">
-						</div>
+						${currentUser ? `
+							<div class="col">
+								<input type="text" name="comment_name" class="form-control" placeholder="Họ và tên của bạn" value="${currentUser.name}" hidden>
+							</div>
+							<div class="col">
+								<input type="text" name="comment_phone_number" class="form-control" placeholder="Số điện thoại của bạn" value="${currentUser.phone_number}" hidden>
+							</div>` : `
+							<div class="col">
+								<input type="text" name="comment_name" class="form-control" placeholder="Họ và tên của bạn">
+							</div>
+							<div class="col">
+								<input type="text" name="comment_phone_number" class="form-control" placeholder="Số điện thoại của bạn">
+							</div>`
+						}
 					</div>
 					<div class="row mt-3">
 						<div class="col">
@@ -35,8 +45,42 @@ const createCommentForm = () => {
 	return $(html);
 }
 
+// handle like comments 
+const handleLikeComment = () => {
+	const likeCommentBtns = $('.like-comment-btn');
+
+	likeCommentBtns.each((index, likeCommentBtn) => {
+		$(likeCommentBtn).on('click', () => {
+			const iconLike = $(likeCommentBtn).children('i');
+			
+			if(!iconLike.prop('class').includes('liked')) {
+				iconLike.removeClass('fa-regular');
+				iconLike.addClass('fa-solid liked');
+
+				const likedCountElement = $(likeCommentBtn).children('.liked-count');
+				const currentLikedCount = parseInt(likedCountElement.text());
+
+				likedCountElement.text(currentLikedCount + 1);
+
+				const idComment = parseInt($(likeCommentBtn).closest('.comment').children('input').val());
+
+				fetch(`/comment/like`, {
+					method: 'POST',
+					dataType: 'json',
+					body: JSON.stringify({idComment: idComment}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+				// .then((respone) => respone.json())
+				// .then(data => console.log(data)); 
+			}
+		})
+	})
+}
+
 $(document).ready(function() {
-	
+	// validate comment form
 	$('#comment-form').validate({
 		rules: {
 			'comment_name': {
@@ -112,13 +156,23 @@ $(document).ready(function() {
 				if(comment) {
 					const html = `
 								<div class="row p-3 comment border-top">
+									<input type="text" value="${comment.id_comment}" hidden>
 									<div class="col col-md-1 text-center">
 										<i class="fa-regular fa-circle-user"></i>
 									</div>
 									<div class="col col-md-11">
-										<h4 class="m-0"><strong>Người dùng</strong></h4>
+										<h4 class="m-0"><strong>${comment.user_name}</strong></h4>
 										<p class="m-0 py-2">${createDate(comment.created_at)}</p>
 										<p class="m-0 mt-3">${comment.content}</p>
+										<p class="m-0 mt-3">
+											<span class="like-comment-btn">
+												<i class="fa-regular fa-thumbs-up"></i>
+												<span>Thích</span>
+												<span>(</span>
+												<span class="liked-count">0</span>
+												<span>)</span>
+											</span>
+										</p>
 									</div>
 								</div>`;
 					const commentElement = $(html);
@@ -128,7 +182,21 @@ $(document).ready(function() {
 					commentElement.insertAfter(commentFormContainer);
 
 					commentFormContainer.empty();
-					commentFormContainer.append(createCommentForm());
+					
+					const idCurrentUser = $('[name="current-user"]');
+					
+					fetch(`/user/get/${parseInt(idCurrentUser.val())}`, {
+						method: 'POST',
+						dataType: 'json',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					.then((respone) => respone.json())
+					.then(currentUser => {
+						commentFormContainer.append(createCommentForm(currentUser));
+					}); 
+					handleLikeComment();
 				}
 			});
 		}
@@ -137,6 +205,7 @@ $(document).ready(function() {
 	const moreCommentsBtn = $('.more-comments');
 	const lessCommentBtn = $('.less-comments');
 	
+	// expand more comments
 	moreCommentsBtn.on('click', () => {
 		const hiddenCommentElements = $('.extra-comment[hidden]');
 
@@ -147,6 +216,7 @@ $(document).ready(function() {
 		moreCommentsBtn.prop('hidden', true);
 	})
 
+	// narrow less comments
 	lessCommentBtn.on('click', () => {
 		const extraCommentElements = $('.extra-comment');
 
@@ -156,4 +226,6 @@ $(document).ready(function() {
 
 		moreCommentsBtn.prop('hidden', false);
 	})
+
+	handleLikeComment();
 })

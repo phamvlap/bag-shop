@@ -10,12 +10,6 @@ class AdminController extends Controller {
 
 	# show admin home page
 	public function index() {
-		purgeSESSION('pagination');
-		purgeSESSION('filter-pagination');
-		purgeSESSION('search-pagination');
-		purgeSESSION('invoices-pagination');
-		purgeSESSION('filter-invoices-pagination');
-
 		if(!isset($_SESSION['admin'])) {
 			redirectTo('/admin');
 		}
