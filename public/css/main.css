@@ -145,10 +145,14 @@ div[id^="product_"]:hover {
 }
 
 #footer i {
-	color: var(--primary-bg-color);
+	color: var(--primary-text-color);
 }
 
 #footer a:hover {
+	color: var(--primary-bg-color);
+}
+
+#footer a:hover i {
 	color: var(--primary-bg-color);
 }
 

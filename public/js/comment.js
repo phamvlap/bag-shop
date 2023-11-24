@@ -1,5 +1,5 @@
-// create format Date
-const createDate = (strDate) => {
+// format Date
+const formatDate = (strDate) => {
 	const value = [
 		...strDate.split(' ')[0].split('-'),
 		...strDate.split(' ')[1].split(':')
@@ -13,7 +13,7 @@ const createDate = (strDate) => {
 }
 
 // create comment form
-const createCommentForm = (currentUser) => {
+const createCommentForm = (currentUser = null) => {
 	const html = `<form id="comment-form" class="p-3 pb-4" method="post">
 					<div class="row">
 						${currentUser ? `
@@ -162,7 +162,7 @@ $(document).ready(function() {
 									</div>
 									<div class="col col-md-11">
 										<h4 class="m-0"><strong>${comment.user_name}</strong></h4>
-										<p class="m-0 py-2">${createDate(comment.created_at)}</p>
+										<p class="m-0 py-2">${formatDate(comment.created_at)}</p>
 										<p class="m-0 mt-3">${comment.content}</p>
 										<p class="m-0 mt-3">
 											<span class="like-comment-btn">
@@ -176,26 +176,30 @@ $(document).ready(function() {
 									</div>
 								</div>`;
 					const commentElement = $(html);
-					const lastCommentElement = $('.comment:last');
 					const commentFormContainer = $('#comment-form').parent();
 
 					commentElement.insertAfter(commentFormContainer);
 
 					commentFormContainer.empty();
 					
-					const idCurrentUser = $('[name="current-user"]');
+					const idCurrentUser = $('[name="current-user"]').val();
 					
-					fetch(`/user/get/${parseInt(idCurrentUser.val())}`, {
-						method: 'POST',
-						dataType: 'json',
-						headers: {
-							'Content-Type': 'application/json'
-						}
-					})
-					.then((respone) => respone.json())
-					.then(currentUser => {
-						commentFormContainer.append(createCommentForm(currentUser));
-					}); 
+					if(idCurrentUser) {
+						fetch(`/user/get/${parseInt(idCurrentUser)}`, {
+							method: 'POST',
+							dataType: 'json',
+							headers: {
+								'Content-Type': 'application/json'
+							}
+						})
+						.then((respone) => respone.json())
+						.then(currentUser => {
+							commentFormContainer.append(createCommentForm(currentUser));
+						});
+					}
+					else {
+						commentFormContainer.append(createCommentForm());
+					}
 					handleLikeComment();
 				}
 			});

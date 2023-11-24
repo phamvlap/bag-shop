@@ -1,3 +1,4 @@
+// create html of items in cart
 const renderItems = (items = []) => {
 	if(items.length === 0) {
 		return `
@@ -67,6 +68,7 @@ const renderItems = (items = []) => {
 	return cartItemsHtml;
 }
 
+// render details cart
 const renderCart = async () => {
 	const items = await cart.getItems();
 	const cartItemsHtml = renderItems(items);
@@ -74,6 +76,7 @@ const renderCart = async () => {
 	$('#detail-cart').html(cartItemsHtml);
 }
 
+// get details item from products table
 const getItemData = async (id_product) => {
 	let item = {};
 	await fetch('/get-item', {
@@ -93,11 +96,13 @@ const getItemData = async (id_product) => {
 	return item;
 }
 
+// set count items in cart for icon cart's badge
 const setCartIconCount = () => {
 	const cartIcon = $('#cart .cart-count');
 	cartIcon.text(cart.count);
 }
 
+// cart object
 let cart = {
 	count: 0,
 	total: 0,
@@ -105,6 +110,7 @@ let cart = {
 	chagreShip: 0,
 	listItems: new Map(),
 
+	// inittial cart
 	async init() {
 		const cartData = JSON.parse(window.localStorage.getItem('cart_user'));
 		if(cartData) {
@@ -116,6 +122,7 @@ let cart = {
 		setCartIconCount();
 	},
 
+	// get items in local storage (items are only user's cart)
 	async getItems() {
 		const cartData = JSON.parse(window.localStorage.getItem('cart_user'));
 		let items = [];
@@ -135,6 +142,7 @@ let cart = {
 		return Array.from(this.listItems.values());
 	},
 
+	// set items into local storage
 	setItems() {
 		let data = [];
 		this.total = 0;
@@ -156,6 +164,7 @@ let cart = {
 		window.localStorage.setItem('cart_user', JSON.stringify(cartData));
 	},
 
+	// clear items in cart
 	clearItems() {
 		this.count = 0;
 		this.total = 0;
@@ -164,6 +173,7 @@ let cart = {
 		window.localStorage.removeItem('cart_user');
 	},
 
+	// add item into cart
 	addItems(item) {
 		if(!this.listItems.has(item.id_product)){
 			this.listItems.set(item.id_product, {
@@ -184,6 +194,7 @@ let cart = {
 		this.setItems();
 	},
 
+	// delete items
 	async deleteItem(keyItem) {
 		if(this.listItems.has(keyItem)) {
 			this.listItems.delete(keyItem);
@@ -194,6 +205,7 @@ let cart = {
 		}
 	},
 
+	// handle temporary total when changed quantity
 	changeQuantityItem() {
 		const increaseBtns = $('.increase-btn');
 		const decreaseBtns = $('.decrease-btn');
@@ -252,6 +264,7 @@ let cart = {
 		})
 	},
 
+	// handle delete items
 	handleDeleteItem() {
 		const deleteBtns = $('.delete-btn');
 		deleteBtns.each((index, deleteBtn) => {
@@ -263,10 +276,12 @@ let cart = {
 		})
 	},
 
+	// show cart
 	async showCart() {
 		await renderCart();
 	},
 
+	// update temporary total when user select items
 	handleSelectedItem() {
 		const selectBtns = $('.selected-item');
 		selectBtns.each((index, selectedBtn) => {
@@ -287,10 +302,12 @@ let cart = {
 		});
 	},
 
+	// chagre for cart
 	chagreCart() {
 		return this.total - this.discount + this.chagreShip;
 	},
 
+	// show cart's chagre
 	showChagreCart() {
 		const cartTotal = $('#cart-total');
 		const cartTmpTotal = $('#cart-tmp-total');
@@ -299,6 +316,7 @@ let cart = {
 		cartTotal.text(formatMoney(this.chagreCart()));
 	},
 
+	// get bill
 	getCartOrder() {
 		let items = [];
 		this.listItems.forEach(item => {
@@ -316,6 +334,7 @@ let cart = {
 		return bill;
 	},
 
+	// delete items when they are ordered successfull
 	deleteSelectedItems() {
 		this.listItems.forEach((item, index) => {
 			if(item.selected) {
@@ -327,6 +346,7 @@ let cart = {
 		this.setItems();
 	},
 
+	// run cart
 	async run() {
 		await cart.init();
 		const itemButtons = $('[id^=product_] .btn');

@@ -1,3 +1,4 @@
+// create search hint html
 const hintItemsHtml = async (value) => {
 	let listItemsHtml = '';
 

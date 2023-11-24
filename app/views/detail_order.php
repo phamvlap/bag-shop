@@ -2,7 +2,7 @@
 
 <div class="container p-0">
 	<!-- Header -->
-	<div id="header" class="container fixed-top">
+	<div class="container fixed-top">
 		<?php require_once __DIR__ . '/components/header.php'; ?>
 	</div>
 

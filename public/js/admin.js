@@ -1,3 +1,4 @@
+// get search result
 const searchResult = async (value) => {
 	let result = [];
 
@@ -19,6 +20,7 @@ const searchResult = async (value) => {
 	return result;
 }
 
+// create result html from items
 const searchResultHtml = (items) => {
 	let resultHtml = '';
 
@@ -155,6 +157,7 @@ $(document).ready(function() {
 		}
 	})
 
+	// handle search appropriate items while admin key  up into search bar
 	const adminSearchForm = $('#admin-search-form');
 	const adminSearchFormBtn = adminSearchForm.children('button[type]');
 	const adminSearchFormInput = adminSearchForm.children('input[type]');
@@ -172,6 +175,7 @@ $(document).ready(function() {
 		}
 	})
 
+	// handle form's behavior when admin press enter
 	adminSearchForm.on('keypress', (event) => {		
 		if(event.keyCode === 13) {
 			if(adminSearchFormInput.val().length > 0) {
@@ -183,6 +187,7 @@ $(document).ready(function() {
 		}
 	})
 
+	// handle form's behavior when admin click submit button
 	adminSearchFormBtn.on('click', (event) => {
 		event.preventDefault();
 
