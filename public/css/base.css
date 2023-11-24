@@ -59,7 +59,7 @@ input[type] {
 	outline: none;
 }
 
-input[name], textarea[name], select, option {
+input[name], input[type], textarea[name], select[name], option {
 	font-size: 1.6rem;
 }
 

@@ -26,7 +26,7 @@
 									<i class="fa-solid fa-user-gear"></i>
 								</div>
 								<div class="col col-md-10 px-1">
-									<h4 class="m-0">' . $_SESSION['admin']['email'] . '</h4>
+									<h4 class="m-0">' . $htmlspecialchars($_SESSION['admin']['email']) . '</h4>
 								</div>
 								
 								<div class="position-absolute top-100 bg-white shadow rounded-2 admin-logout">

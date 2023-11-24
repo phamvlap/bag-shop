@@ -13,7 +13,7 @@ class RegisterController extends Controller {
 			redirectTo('/');
 		}
 		else {
-			renderPage('/customer/register.php');
+			renderPage('/register/index.php');
 		}
 	}
 
@@ -43,7 +43,7 @@ class RegisterController extends Controller {
 
 		if($isExist) {
 			$message = 'Tài khoản đăng ký đã tồn tại.';
-			renderPage('/customer/register.php', [
+			renderPage('/register/index.php', [
 				'old' => $this->getSavedFormValues(),
 				'failed' => $message
 			]);
@@ -52,7 +52,7 @@ class RegisterController extends Controller {
 			$customerModel->fill($data);
 			$customerModel->add();
 			$message = 'Đăng ký tài khoản thành công.';
-			renderPage('/customer/register.php', [
+			renderPage('/register/index.php', [
 				'new' => $data,
 				'success' => $message
 			]);

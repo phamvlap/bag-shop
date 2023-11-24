@@ -39,7 +39,7 @@
 						<div class="row py-2">
 							<p class="col col-md-8 m-0">Tổng thanh toán tạm thời: </p>
 							<p class="col col-md-4 m-0 text-end">
-								<span id="cart-tmp-total">100000</span> 
+								<span id="cart-tmp-total"></span> 
 								<span>đ</span>
 							</p>
 						</div>

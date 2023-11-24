@@ -34,7 +34,7 @@
 					            placeholder="Nhập email"
 					            value="<?php 
 					                if(isset($_SESSION['form']['admin-email'])) {
-					                    echo $_SESSION['form']['admin-email'];
+					                    echo $htmlspecialchars($_SESSION['form']['admin-email']);
 					                }
 					            ?>"
 					        >

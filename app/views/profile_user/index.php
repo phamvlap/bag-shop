@@ -2,19 +2,19 @@
 
 <div class="container p-0">
 	<!-- Header -->
-	<div id="header" class="container fixed-top">
+	<div class="container fixed-top">
 		<?php require_once __DIR__ . '/../components/header.php'; ?>
 	</div>
 
 	<div class="container content">
 		<div class="row">	
 			<div id="profile-user" class="row bg-white m-0 p-3">
-				<?php require_once __DIR__ . '/../components/customer/sidebar.php'; ?>
+				<?php require_once __DIR__ . '/sidebar.php'; ?>
 
 				<div class="col col-md-9 p-3">
 					<h3 class="m-0">Thông tin tài khoản</h3>
 
-					<?php require_once __DIR__ . '/../components/customer/content.php'; ?>
+					<?php require_once __DIR__ . '/main.php'; ?>
 
 				</div>
 			</div>

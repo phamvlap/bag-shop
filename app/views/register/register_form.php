@@ -1,5 +1,3 @@
-<?php require_once __DIR__ . '/../symbol.php'; ?>
-
 <h2 class="m-0 text-center fw-bold">Đăng ký</h2>
 
 <input 
@@ -50,7 +48,7 @@
             ?>"
             <?php 
                 if($_SESSION['new']) {
-                    echo 'disabled';
+                    echo 'disabled readonly';
                 } 
             ?>
         >
@@ -73,7 +71,7 @@
             ?>"
             <?php 
                 if($_SESSION['new']) {
-                    echo 'disabled';
+                    echo 'disabled readonly';
                 } 
             ?>
         >
@@ -96,7 +94,7 @@
             ?>"
             <?php 
                 if($_SESSION['new']) {
-                    echo 'disabled';
+                    echo 'disabled readonly';
                 } 
             ?>
         >
@@ -119,7 +117,7 @@
             ?>"
             <?php 
                 if($_SESSION['new']) {
-                    echo 'disabled';
+                    echo 'disabled readonly';
                 } 
             ?>
         >
@@ -142,7 +140,7 @@
             ?>"
             <?php 
                 if($_SESSION['new']) {
-                    echo 'disabled';
+                    echo 'disabled readonly';
                 } 
             ?>
         >

@@ -10,7 +10,7 @@ class ManageProductsController extends Controller {
 
 	# load item's add page
 	public function create() {
-		renderPage('/admin/product/add.php');
+		renderPage('/admin/add/index.php');
 	}
 
 	# store item into products table
@@ -27,7 +27,7 @@ class ManageProductsController extends Controller {
 		$newImages = $resCheckValues['new-images'];
 
 		if(count($errors) > 0) {
-			renderPage('/admin/product/add.php', [
+			renderPage('/admin/add/index.php', [
 				'old' => $this->getSavedFormValues(),
 				'errors' => $errors
 			]);
@@ -63,7 +63,7 @@ class ManageProductsController extends Controller {
 		$product = new Product();
 		$item = $product->findByID(id: $id);
 
-		renderPage('/admin/product/edit.php', [
+		renderPage('/admin/detail_item/index.php', [
 			'item' => $item
 		]);
 	}
@@ -91,7 +91,7 @@ class ManageProductsController extends Controller {
 		}
 
 		if(count($errors) > 0) {
-			renderPage('/admin/product/edit.php', [
+			renderPage('/admin/detail_item/index.php', [
 				'old' => $this->getSavedFormValues(),
 				'errors' => $errors
 			]);
@@ -182,59 +182,65 @@ class ManageProductsController extends Controller {
 			$errors['item-price'] = 'Giá sản phẩm không được bỏ trống';
 		}
 
+		if((int)$data['item-price'] < 1000) {
+			$errors['item-price'] = 'Giá sản phẩm không hợp lệ';
+		}
+
 		if((int)$data['item-type'] === 0) {
 			$errors['item-type'] = 'Loại sản phẩm không được bỏ trống';
 		}
 
-		// upload images
-		$targetDir = __DIR__ . '/../../../public/uploads/';
-		$extensions = ['jpg', 'jpeg', 'png', 'gif'];
 		$newImages = [];
+		if(count($errors) === 0) {
+			// upload images
+			$targetDir = __DIR__ . '/../../../public/uploads/';
+			$extensions = ['jpg', 'jpeg', 'png', 'gif'];
 
-		if(isset($data['item-files']) && strlen($data['item-files']['name'][0]) > 0) {
-			for($i = 0; $i < count($data['item-files']['name']); ++$i) {
-				$imageFileName = $data['item-files']['name'][$i];
-				$checkImageSize = getimagesize($data['item-files']['tmp_name'][$i]);
-				$imageFileType = strtolower(pathinfo($imageFileName, PATHINFO_EXTENSION));
+			if(isset($data['item-files']) && strlen($data['item-files']['name'][0]) > 0) {
+				for($i = 0; $i < count($data['item-files']['name']); ++$i) {
+					$imageFileName = $data['item-files']['name'][$i];
+					$checkImageSize = getimagesize($data['item-files']['tmp_name'][$i]);
+					$imageFileType = strtolower(pathinfo($imageFileName, PATHINFO_EXTENSION));
 
-				// check file image
-				if($checkImageSize === false) {
-					$errors['item-files'] = "{$imageFileName} không phải là hình ảnh!";
-					break;
-				}
+					// check file image
+					if($checkImageSize === false) {
+						$errors['item-files'] = "{$imageFileName} không phải là hình ảnh!";
+						break;
+					}
 
-				// check size image
-				if($data['item-files']['size'][$i] > 500000) {
-					$errors['item-files'] = "{$imageFileName} có kích thước quá lớn!";
-					break;
-				}
+					// check size image
+					if($data['item-files']['size'][$i] > 500000) {
+						$errors['item-files'] = "{$imageFileName} có kích thước quá lớn!";
+						break;
+					}
 
-				// check allowed extensions
-				if(!in_array($imageFileType, $extensions)) {
-					$errors['item-files'] = "{$imageFileName} không thuộc định dạng hình ảnh cho phép! Chỉ hình ảnh JPG, JPEG, PNG, GIF là được cho phép tải lên";
-					break;
-				}
+					// check allowed extensions
+					if(!in_array($imageFileType, $extensions)) {
+						$errors['item-files'] = "{$imageFileName} không thuộc định dạng hình ảnh cho phép! Chỉ hình ảnh JPG, JPEG, PNG, GIF là được cho phép tải lên";
+						break;
+					}
 
-				// save image to new destination
-				if(!isset($errors['item-files'])) {
-					$newImageName = bin2hex(random_bytes(4));
+					// save image to new destination
+					if(!isset($errors['item-files'])) {
+						$newImageName = bin2hex(random_bytes(4));
 
-					$targetFile = $targetDir . $newImageName . ".{$imageFileType}";
+						$targetFile = $targetDir . $newImageName . ".{$imageFileType}";
 
-					if(move_uploaded_file($data['item-files']['tmp_name'][$i], $targetFile)) {
-						array_push($newImages, $newImageName . ".{$imageFileType}");
+						if(move_uploaded_file($data['item-files']['tmp_name'][$i], $targetFile)) {
+							array_push($newImages, $newImageName . ".{$imageFileType}");
+						}
+						else {
+							$errors['item-files'] = "{$imageFileName} có lỗi trong quá trình tải lên";
+						}
 					}
 					else {
-						$errors['item-files'] = "{$imageFileName} có lỗi trong quá trình tải lên";
+						break;
 					}
 				}
-				else {
-					break;
-				}
 			}
-		}
-		else {
-			$errors['item-files'] = "Không tìm thấy hình ảnh tải lên!";
+			else {
+				$errors['item-files'] = "Không tìm thấy hình ảnh tải lên!";
+			}
 		}
 
 		return [
@@ -295,7 +301,7 @@ class ManageProductsController extends Controller {
 		$product = new Product();
 		$item = $product->findByID(id: $id);
 
-		renderPage('/admin/product/edit.php', [
+		renderPage('/admin/detail_item/index.php', [
 			'item' => $item
 		]);
 	}

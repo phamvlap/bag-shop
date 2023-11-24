@@ -56,7 +56,7 @@
 							</div>
 							<div class="p-4 mt-3 bg-white describe">
 								<h3 class="fw-bold color-heading">Mô tả sản phẩm</h3>
-								<p class="p-0"><?= $_SESSION['item']['describes'] ?></p>
+								<p class="p-0"><?= $htmlspecialchars($_SESSION['item']['describes']) ?></p>
 							</div>
 
 							<div class="bg-white mx-0 mt-3 p-4 rounded-2 comment-container">
@@ -113,9 +113,9 @@
 											<i class="fa-regular fa-circle-user"></i>
 										</div>
 										<div class="col col-md-11">
-											<h4 class="m-0"><strong><?= $comment['user_name'] ?></strong></h4>
+											<h4 class="m-0"><strong><?= $htmlspecialchars($comment['user_name']) ?></strong></h4>
 											<p class="m-0 py-2"><?php echo $hour . ' ' . $day ?></p>
-											<p class="m-0 mt-3"><?= $comment['content'] ?></p>
+											<p class="m-0 mt-3"><?= $htmlspecialchars($comment['content']) ?></p>
 											<p class="m-0 mt-3">
 												<span class="like-comment-btn">
 													<i class="fa-regular fa-thumbs-up"></i>

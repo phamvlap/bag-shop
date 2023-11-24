@@ -36,7 +36,7 @@ class ManageInvoicesController extends Controller {
 			'pages' => $pages
 		];
 
-		renderPage('/admin/invoices.php', [
+		renderPage('/admin/invoice/index.php', [
 			'invoices' => $invoices,
 			'pagination' => $pagination
 		]);
@@ -56,7 +56,7 @@ class ManageInvoicesController extends Controller {
 		$invoice['customer'] = $customer;
 		$invoice['items'] = $listItems;
 
-		renderPage('/admin/detail_invoice.php', ['invoice' => $invoice]);
+		renderPage('/admin/invoice/detail_invoice.php', ['invoice' => $invoice]);
 	}
 
 	# accept order
@@ -118,7 +118,7 @@ class ManageInvoicesController extends Controller {
 			'pages' => $pages
 		];
 
-		renderPage('/admin/invoices.php', [
+		renderPage('/admin/invoice/index.php', [
 			'invoices' => $invoices,
 			'pagination' => $pagination
 		]);

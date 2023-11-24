@@ -13,7 +13,7 @@ class SigninController extends Controller {
 			redirectTo('/');
 		}
 		else {
-			renderPage('/customer/signin.php');
+			renderPage('/login/index.php');
 		}
 	}
 
@@ -49,7 +49,7 @@ class SigninController extends Controller {
 		}
 		else {
 			$message = 'Tên đăng nhập hoặc mật khẩu không chính xác.';
-			renderPage('/customer/signin.php', ['failed' => $message]);
+			renderPage('/login/index.php', ['failed' => $message]);
 		}	
 	}
 

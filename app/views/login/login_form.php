@@ -1,5 +1,3 @@
-<?php require_once __DIR__ . '/../symbol.php'; ?>
-
 <h2 class="m-0 text-center"><strong>Đăng nhập</strong></h2>
 
 <?php 
@@ -23,7 +21,7 @@
             placeholder="Nhập tên đăng nhập"
             value="<?php 
                 if(isset($_SESSION['form']['username'])) {
-                    echo $_SESSION['form']['username'];
+                    echo $htmlspecialchars($_SESSION['form']['username']);
                 }
             ?>"
         >

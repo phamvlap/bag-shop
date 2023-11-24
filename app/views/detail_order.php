@@ -9,7 +9,7 @@
 	<div class="container content">
 		<div class="row">	
 			<div id="profile-user" class="row bg-white m-0 p-3">
-				<?php require_once __DIR__ . '/components/customer/sidebar.php'; ?>
+				<?php require_once __DIR__ . '/profile_user/sidebar.php'; ?>
 
 				<div class="col col-md-9 p-3">
 					<!-- title: id_invoice, status, date order -->

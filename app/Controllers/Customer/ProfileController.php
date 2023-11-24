@@ -8,7 +8,7 @@ use App\Models\Customer;
 class ProfileController extends Controller {
 	# load profile user page
 	public function edit() {
-		renderPage('/customer/profile.php');
+		renderPage('/profile_user/index.php');
 	}
 
 	# update profile user

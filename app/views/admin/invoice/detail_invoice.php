@@ -1,9 +1,9 @@
-<?php require_once __DIR__ . '/../components/head.php'; ?>
-<?php require_once __DIR__ . '/../components/symbol.php'; ?>
+<?php require_once __DIR__ . '/../../components/head.php'; ?>
+<?php require_once __DIR__ . '/../../components/symbol.php'; ?>
 
 <div id="admin-home" class="container p-0">
 	<!-- navbar -->
-	<?php require_once __DIR__ . '/components/navbar.php' ?>
+	<?php require_once __DIR__ . '/../components/navbar.php' ?>
 
 	<!-- content -->
 	<div class="content mt-5">
@@ -168,8 +168,8 @@
 	</div>
 
 	<!-- copyright -->
-	<?php require_once __DIR__ . '/../components/copyright.php'; ?>;
+	<?php require_once __DIR__ . '/../../components/copyright.php'; ?>;
 
 </div>
 
-<?php require_once __DIR__ . '/../components/foot.php'; ?>
+<?php require_once __DIR__ . '/../../components/foot.php'; ?>
