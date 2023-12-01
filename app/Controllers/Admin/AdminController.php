@@ -36,7 +36,7 @@ class AdminController extends Controller {
 			'pages' => $pages
 		];
 		
-		renderPage('/admin/index.php', [
+		renderPage('/admin/home/index.php', [
 			'products' => $products,
 			'pagination' => $pagination
 		]);
@@ -45,7 +45,7 @@ class AdminController extends Controller {
 	# login admin
 	public function create() {
 		if(!isset($_SESSION['admin'])) {
-			renderPage('/admin/login.php');
+			renderPage('/admin/login/index.php');
 		}
 		else {
 			redirectTo('/admin/product');
@@ -77,7 +77,7 @@ class AdminController extends Controller {
 		}
 
 		if(count($errors) > 0) {
-			renderPage('/admin/login.php', ['admin-errors' => $errors]);
+			renderPage('/admin/login/index.php', ['admin-errors' => $errors]);
 		}
 		else {
 			$admin['email'] = $data['admin-email'];

@@ -14,7 +14,7 @@ class Customer extends Model {
 	}
 
 	# fill data for attributes of customer from external data
-	public function fill(array $data) {
+	public function fill(array $data): Customer {
 		$this->id_customer = $data['id_customer'] ?? -1;
 		$this->name = htmlspecialchars($data['name'] ?? '');
 		$this->username = htmlspecialchars($data['username'] ?? '');
@@ -28,7 +28,7 @@ class Customer extends Model {
 	}
 
 	# add customer into customers table
-	public function add() {
+	public function add(): bool {
 		$customer = [
 			'name' => $this->name,
 			'username' => $this->username,
@@ -46,27 +46,27 @@ class Customer extends Model {
 	}
 
 	# get all customers from customers table
-	public function all() {
+	public function all(): array {
 		return parent::getAll($this->tableName);
 	}
 
 	# get customer by ID from customers table
-	public function findByID(int $id) {
+	public function findByID(int $id): array {
 		return parent::getByID($this->tableName, 'id_customer', $id);
 	}
 
 	# get customer base on attribute's customer from customers table
-	public function findByProps(array $props) {
+	public function findByProps(array $props): array {
 		return parent::getByProps($this->tableName, $props); 
 	}
 
 	# update info customer into customers table
-	public function edit(int $id, array $newInfo) {
+	public function edit(int $id, array $newInfo): bool {
 		return parent::update($this->tableName, 'id_customer', $id, $newInfo);
 	}
 	
-	# check password is not match
-	public function matchPassword(string $pwd) {
+	# check password is match
+	public function matchPassword(string $pwd): bool {
 		return password_verify($this->password, $pwd);
 	}
 

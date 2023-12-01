@@ -17,36 +17,9 @@
 				<div class="col col-md-8 offset-md-2">
 					<div class="row p-3">
 						<div class="col col-md-9">
-							<p class="m-0">
-								<span style="font-size: 1.4rem">Đơn hàng được đặt vào lúc:</span>
-								<?php
-									$dateTime = explode(' ', $_SESSION['invoice']['created_at']);
-									$day  = (int)date('w', strtotime($dateTime[0]));
-									$dayOfWeek = retrieveDay(day: $day);
+							<!-- title of invoice -->
+							<?php require_once __DIR__ . '/invoice_title.php'; ?>
 
-									echo  '<span style="font-size: 1.4rem" class="ps-1"><i>' . date('H:i',  strtotime($dateTime[1])) . ' ' . $dayOfWeek . ', ' . date('d/m/Y', strtotime($dateTime[0])) . '</i></span>';
-								?>
-							</p>
-							<p class="m-0">
-								<span style="font-size: 1.6rem">Trạng thái của đơn hàng: </span>
-								<?php
-									if((int)$_SESSION['invoice']['status'] === 1) {
-										echo '<strong style="font-size: 1.6rem; color: green" class="ps-1">
-											Đơn hàng đã được duyệt
-											</strong>';
-									}
-									elseif((int)$_SESSION['invoice']['status'] === -1) {
-										echo '<strong style="font-size: 1.6rem; color: red" class="ps-1">
-											Đơn hàng đã hủy
-											</strong>';
-									}
-									elseif((int)$_SESSION['invoice']['status'] === 0) {
-										echo '<strong style="font-size: 1.6rem; color: orange" class="ps-1">
-											Đơn hàng đang chờ duyệt
-											</strong>';
-									}
-								?>
-							</p>
 						</div>
 						<div class="col col-md-3 row align-items-center justify-content-center">
 							<?php
@@ -68,39 +41,9 @@
 				<div class="row me-0">
 					<!-- info user -->
 					<div class="col col-md-4">
-						<div class="p-3 rounded-3 section">
-							<h4 class="m-0"><strong>Thông tin khách hàng</strong></h4>
-							<div class="mt-2">
-								<div class="row">
-									<div class="col col-md-4">Họ và tên: </div>
-									<div class="col col-md-8"><?= $htmlspecialchars($_SESSION['invoice']['customer']['name']) ?></div>
-								</div>
-								<div class="row">
-									<div class="col col-md-4">Số điện thoại: </div>
-									<div class="col col-md-8"><?= $htmlspecialchars($_SESSION['invoice']['customer']['phone_number']) ?></div>
-								</div>
-								<div class="row">
-									<div class="col col-md-4">Địa chỉ: </div>
-									<div class="col col-md-8"><?= $htmlspecialchars($_SESSION['invoice']['customer']['address']) ?></div>
-								</div>
-							</div>
-						</div>
+						<!-- info user and payment -->
+						<?php require_once __DIR__ . '/info_user.php'; ?>
 
-						<!-- method payment -->
-						<div class="p-0 rounded-3 p-3 mt-3 section">
-							<h4 class="m-0"><strong>Hình thức thanh toán</strong></h4>
-
-							<p class="m-0 mt-2">
-								<?php
-									if($_SESSION['invoice']['method_payment'] === 'on-site') {
-										echo "Thanh toán khi nhận hàng";
-									}
-									elseif($_SESSION['invoice']['method_payment'] === 'deposit') {
-										echo "Thanh toán bằng hình thức chuyển khoản";
-									}
-								?>
-							</p>
-						</div>
 					</div>
 
 					<!-- items -->

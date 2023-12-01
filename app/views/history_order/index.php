@@ -1,16 +1,16 @@
-<?php require_once __DIR__ . '/components/head.php'; ?>
-<?php require_once __DIR__ . '/components/symbol.php'; ?>
+<?php require_once __DIR__ . '/../components/head.php'; ?>
+<?php require_once __DIR__ . '/../components/symbol.php'; ?>
 
 <div class="container p-0">
 	<!-- Header -->
 	<div class="container fixed-top">
-		<?php require_once __DIR__ . '/components/header.php'; ?>
+		<?php require_once __DIR__ . '/../components/header.php'; ?>
 	</div>
 
 	<div class="container content">
 		<div class="row">	
 			<div id="history-purchase" class="row bg-white m-0 p-3">
-				<?php require_once __DIR__ . '/profile_user/sidebar.php'; ?>
+				<?php require_once __DIR__ . '/../components/sidebar_profile.php'; ?>
 
 				<div class="col col-md-9 p-3">
 					<h3 class="m-0">Đơn hàng của tôi</h3>
@@ -96,11 +96,11 @@
 			</div>
 			<!-- footer -->
 			<div id="footer" class="container mt-3 bg-white rounded-top-2">
-				<?php require_once __DIR__ . '/components/footer.php'; ?>
+				<?php require_once __DIR__ . '/../components/footer.php'; ?>
 			</div>
 		</div>
 	</div>
 	
 </div>
 
-<?php require_once __DIR__ . '/components/foot.php'; ?>
+<?php require_once __DIR__ . '/../components/foot.php'; ?>

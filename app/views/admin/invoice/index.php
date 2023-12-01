@@ -10,7 +10,7 @@
 		<!-- filter invoice bar -->
 		<div class="row">
 			<div class="col col-md-10 offset-md-2">
-				<?php require_once __DIR__ . '/../components/filter_invoice.php'; ?>
+				<?php require_once __DIR__ . '/filter_invoice.php'; ?>
 			</div>
 		</div>
 

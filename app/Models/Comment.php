@@ -14,7 +14,7 @@ class Comment extends Model {
 	}
 
 	# fill data for attributes of comment from external data
-	public function fill(array $data) {
+	public function fill(array $data): Comment {
 		$this->user_name = htmlspecialchars($data['user_name'] ?? '');
 		$this->user_phone_number = htmlspecialchars($data['user_phone_number'] ?? '');
 		$this->content = htmlspecialchars($data['content'] ?? '');
@@ -24,7 +24,7 @@ class Comment extends Model {
 	}
 
 	# add comment into comments table
-	public function add() {
+	public function add(): array {
 		$comment = [
 			'user_name' => $this->user_name,
 			'user_phone_number' => $this->user_phone_number,
@@ -41,12 +41,12 @@ class Comment extends Model {
 	}
 
 	# get comments by ID product in comment table
-	public function getByItem(int $id_product) {
+	public function getByItem(int $id_product): array {
 		return parent::getByProps($this->tableName, ['id_product' => $id_product]);
 	}
 
 	# get newest comments by ID product in comment table	
-	public function getNewestByItem(int $id_product) {
+	public function getNewestByItem(int $id_product): array {
 		$query = "select * from {$this->tableName} where id_product = :id_product order by created_at desc";
 
 		$stmt = $this->getPDO()->prepare($query);
@@ -57,12 +57,12 @@ class Comment extends Model {
 	}
 
 	# get comment by ID comment
-	public function findByID(int $id_comment) {
+	public function findByID(int $id_comment): array {
 		return parent::getByID($this->tableName, 'id_comment', $id_comment);
 	}
 
 	# add like for comment
-	public function likeComment(int $id_comment) {
+	public function likeComment(int $id_comment): bool {
 		$thisComment = $this->findByID(id_comment: $id_comment);
 		$currentLikedCount = $thisComment['liked_count'];
 

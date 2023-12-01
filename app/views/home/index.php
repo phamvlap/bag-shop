@@ -1,16 +1,16 @@
-<?php require_once __DIR__ . '/components/head.php'; ?>
+<?php require_once __DIR__ . '/../components/head.php'; ?>
 
 <div class="container p-0">
 	<!-- header -->
 	<div class="container fixed-top">
-		<?php require_once __DIR__ . '/components/header.php'; ?>
+		<?php require_once __DIR__ . '/../components/header.php'; ?>
 	</div>
 
 	<div class="container content">
 		<div class="row">
 			<!-- sidebar -->
 			<div id="sidebar" class="col-md-2 mt-2 px-1 p-0 sidebar">
-				<?php require_once __DIR__ . '/components/sidebar.php'; ?>
+				<?php require_once __DIR__ . '/../components/sidebar.php'; ?>
 			</div>
 
 			<div class="col-md-10 p-0">
@@ -39,7 +39,7 @@
 
 					<!-- sort bar -->
 					<?php if(strpos($uri, '/home') !== false && isset($_GET['type']) || strpos($uri, '/search') !== false): ?>
-						<?php require_once __DIR__ . '/components/sort_bar.php'; ?>
+						<?php require_once __DIR__ . '/../components/sort_bar.php'; ?>
 					<?php else: ?>
 						<div class="p-3 mt-2 mx-0 bg-white">
 							<!-- newest products -->
@@ -55,26 +55,9 @@
 													$image = (explode(';', $product['images']))[0];
 												}
 											?>
-											<div class="card w-100" style="width: 18rem;" id="product_<?= $product['id_product'] ?>">
-												<a href="/view/item/<?= $product['id_product'] ?>" title="<?= $product['name'] ?>">
-													<img src="/uploads/<?= $image ?>" class="card-img-top" alt="<?= $product['name'] ?>">
-												</a>
-												<div class="card-body p-3">
-													<a href="/view/item/<?= $product['id_product'] ?>">
-														<h4 class="m-0 item-title"><?= $htmlspecialchars($product['name']) ?></h4>
-														<div class="d-flex justify-content-between mt-3 mb-2 item-text">
-															<strong class="color-heading">
-																<?php echo formatMoney($product['price']) ?>
-																<span>đ</span>
-															</strong>
-															<p class="m-0">Đã bán <?= $product['sold_quantity'] ?></p>
-														</div>
-													</a>
-													<div class="text-center">
-														<button class="btn btn-fill-primary">Thêm vào giỏ</button>
-													</div>
-												</div>
-											</div>
+											<!-- card item -->
+											<?php require __DIR__ . '/card_item.php'; ?>
+
 										</div>
 									<?php endforeach ?>
 								</div>
@@ -101,26 +84,9 @@
 											$image = (explode(';', $product['images']))[0];
 										}
 									?>
-									<div class="card w-100" style="width: 18rem;" id="product_<?= $product['id_product'] ?>">
-										<a href="/view/item/<?= $product['id_product'] ?>">
-											<img src="/uploads/<?= $image ?>" class="card-img-top" alt="<?= $product['name'] ?>">
-										</a>
-										<div class="card-body p-3">
-											<a href="/view/item/<?= $product['id_product'] ?>">
-												<h4 class="m-0 item-title"><?= $htmlspecialchars($product['name']) ?></h4>
-												<div class="d-flex justify-content-between mt-3 mb-2 item-text">
-													<strong class="color-heading">
-														<?php echo formatMoney($product['price']) ?>
-														<span>đ</span>
-													</strong>
-													<p class="m-0">Đã bán <?= $product['sold_quantity'] ?></p>
-												</div>
-											</a>
-											<div class="text-center">
-												<button class="btn btn-fill-primary">Thêm vào giỏ</button>
-											</div>
-										</div>
-									</div>
+									<!-- card item -->
+									<?php require __DIR__ . '/card_item.php'; ?>
+
 								</div>
 							<?php endforeach ?>
 						</div>
@@ -128,11 +94,11 @@
 				</div>
 
 				<!-- pagination -->
-				<?php require_once __DIR__ . '/components/paginator.php'; ?>
+				<?php require_once __DIR__ . '/../components/paginator.php'; ?>
 
 				<!-- footer -->
 				<div id="footer" class="container mt-3 bg-white rounded-top-2">
-					<?php require_once __DIR__ . '/components/footer.php'; ?>
+					<?php require_once __DIR__ . '/../components/footer.php'; ?>
 				</div>
 
 			</div>
@@ -141,4 +107,4 @@
 	
 </div>
 
-<?php require_once __DIR__ . '/components/foot.php'; ?>
+<?php require_once __DIR__ . '/../components/foot.php'; ?>

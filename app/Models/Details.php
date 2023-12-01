@@ -15,7 +15,7 @@ class Details extends Model {
 	}
 
 	# fill data for attributes of detail from external data
-	public function fill(int $idInvoice, array $items) {
+	public function fill(int $idInvoice, array $items): void {
 		$invoiceModel = new Invoice();
 		$this->invoice = $invoiceModel->findByID($idInvoice);
 
@@ -33,7 +33,7 @@ class Details extends Model {
 	}
 
 	# save details into details table
-	public function save() {
+	public function save(): bool {
 		$res = true;
 		foreach($this->products as $product) {
 			$detail = [
@@ -51,17 +51,17 @@ class Details extends Model {
 	}
 
 	# get all items
-	public function getListItem() {
+	public function getListItem(): array {
 		return $this->products;
 	}
 
 	# get invoice
-	public function getInvoice() {
+	public function getInvoice(): array {
 		return $this->invoice;
 	}
 
 	# get all items of an invoice from database
-	public function getListItemsFromDB(int $id_invoice) {
+	public function getListItemsFromDB(int $id_invoice): array {
 		$query = "select products.*, details.count from details join products on details.id_product = products.id_product where details.id_invoice = :id_invoice";
 
 		$stmt = $this->getPDO()->prepare($query);	

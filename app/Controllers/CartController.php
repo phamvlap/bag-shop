@@ -11,7 +11,7 @@ class CartController {
 		if(!isset($_SESSION['user']['id_customer'])) {
 			$isExistUser = false;
 		}
-		renderPage('/cart.php', ['is-exist-user' => $isExistUser]);
+		renderPage('/cart/index.php', ['is-exist-user' => $isExistUser]);
 	}
 
 	# load items in user's cart
@@ -19,7 +19,7 @@ class CartController {
 		$data = json_decode(file_get_contents('php://input'));
 
 		if(!isset($_SESSION['user']['id_customer'])) {
-			renderPage('/cart.php', ['is-exist-user' => false]);
+			renderPage('/cart/index.php', ['is-exist-user' => false]);
 		}
 		else {
 			$productModel = new Product();
@@ -40,7 +40,7 @@ class CartController {
 
 	# show checkout page
 	public function showCheckout() {
-		renderPage(page: '/checkout.php');
+		renderPage(page: '/checkout/index.php');
 	}
 
 	# store order

@@ -24,7 +24,7 @@ class InvoicesController {
 			]);
 		}
 
-		renderPage('/history_order.php', ['invoices' => $invoices]);
+		renderPage('/history_order/index.php', ['invoices' => $invoices]);
 	}
 
 	# show details of order
@@ -38,7 +38,7 @@ class InvoicesController {
 
 		$invoice['details'] = $details;
 
-		renderPage('/detail_order.php', ['invoice' => $invoice]);
+		renderPage('/detail_order/index.php', ['invoice' => $invoice]);
 	}
 
 	# remove order by user

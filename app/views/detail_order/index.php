@@ -1,74 +1,29 @@
-<?php require_once __DIR__ . '/components/head.php'; ?>
+<?php require_once __DIR__ . '/../components/head.php'; ?>
 
 <div class="container p-0">
 	<!-- Header -->
 	<div class="container fixed-top">
-		<?php require_once __DIR__ . '/components/header.php'; ?>
+		<?php require_once __DIR__ . '/../components/header.php'; ?>
 	</div>
 
 	<div class="container content">
 		<div class="row">	
 			<div id="profile-user" class="row bg-white m-0 p-3">
-				<?php require_once __DIR__ . '/profile_user/sidebar.php'; ?>
+				<?php require_once __DIR__ . '/../components/sidebar_profile.php'; ?>
 
 				<div class="col col-md-9 p-3">
 					<!-- title: id_invoice, status, date order -->
 					<div class="row">
 						<h3 class="col col-md-3 m-0">Chi tiết đơn hàng:</h3>
-						<div class="col col-md-5 d-flex align-items-end">
-							<span style="font-size: 1.6rem">#<?= $_SESSION['invoice']['id_invoice'] ?> -</span>
-							<?php
-								if((int)$_SESSION['invoice']['status'] === 1) {
-									echo '<strong style="font-size: 1.6rem; color: green" class="ps-1"> 
-										Đơn hàng đã được duyệt
-										</strong>';
-								}
-								elseif((int)$_SESSION['invoice']['status'] === 0) {
-									echo '<strong style="font-size: 1.6rem; color: orange" class="ps-1"> 
-										Đơn hàng đang chờ duyệt
-										</strong>';
-								}
-								elseif((int)$_SESSION['invoice']['status'] === -1) {
-									echo '<strong style="font-size: 1.6rem; color: red" class="ps-1"> 
-										Đơn hàng đã hủy
-										</strong>';
-								}
-							?>
-						</div>
-						<div class="col col-md-4 d-flex align-items-end">
-							<span style="font-size: 1.4rem">Đặt hàng lúc:</span>
-							<?php
-								$dateTime = explode(' ', $_SESSION['invoice']['created_at']);
-								$day  = (int)date('w', strtotime($dateTime[0]));
-								$dayOfWeek = retrieveDay(day: $day);
-
-								echo  '<span style="font-size: 1.4rem" class="ps-1">' . date('H:i',  strtotime($dateTime[1])) . ' ' . $dayOfWeek . ', ' . date('d/m/Y', strtotime($dateTime[0])) . '</span>';
-							?>
-						</div>
+						<!-- order title -->
+						<?php require_once __DIR__ . '/order_title.php'; ?>
+						
 					</div>
 
 					<div class="detail-invoice mt-2">
 						<div class="row me-0">
 							<!-- info user -->
-							<div class="col col-md-8">
-								<div class="p-3 rounded-3 section">
-									<h4 class="m-0"><strong>Thông tin khách hàng</strong></h4>
-									<div class="mt-2">
-										<div class="row">
-											<div class="col col-md-3">Người nhận: </div>
-											<div class="col col-md-9"><?= $htmlspecialchars($_SESSION['user']['name']) ?></div>
-										</div>
-										<div class="row">
-											<div class="col col-md-3">Số điện thoại: </div>
-											<div class="col col-md-9"><?= $htmlspecialchars($_SESSION['user']['phone_number']) ?></div>
-										</div>
-										<div class="row">
-											<div class="col col-md-3">Nhận tại: </div>
-											<div class="col col-md-9"><?= $htmlspecialchars($_SESSION['user']['address']) ?></div>
-										</div>
-									</div>
-								</div>
-							</div>
+							<?php require_once __DIR__ . '/info_user.php'; ?>
 
 							<!-- method payment -->
 							<div class="col col-md-4 p-0 rounded-3 p-3 section">
@@ -159,35 +114,17 @@
 			</div>
 			<!-- footer -->
 			<div id="footer" class="container mt-3 bg-white rounded-top-2">
-				<?php require_once __DIR__ . '/components/footer.php'; ?>
+				<?php require_once __DIR__ . '/../components/footer.php'; ?>
 			</div>
 		</div>
 	</div>
 	
 </div>
 
-<!-- Button trigger modal destroy order -->
+<!-- Button trigger modal confirm destroy order -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-destroy-order" hidden></button>
 
-<!-- Modal destroy order -->
-<div class="modal fade" id="confirm-destroy-order" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body">
-				<?php
-					$titleOrder = '';
-					foreach($_SESSION['invoice']['details'] as $item) {
-						$titleOrder .= $item['name'];
-					}
-					echo "Bạn có chắc chắn muốn hủy đơn hàng <strong>{$titleOrder}</strong> không ?";
-				?>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-				<a href="/user/history-order/destroy/<?= $_SESSION['invoice']['id_invoice'] ?>" class="btn btn-fill-primary order-btn">Đồng ý</a>
-			</div>
-		</div>
-	</div>
-</div>
+<!-- Modal confirm destroy order -->
+<?php require_once __DIR__ . '/destroy_order_modal.php'; ?>
 
-<?php require_once __DIR__ . '/components/foot.php'; ?>
+<?php require_once __DIR__ . '/../components/foot.php'; ?>

@@ -1,7 +1,7 @@
 <?php
 
 # redirect to specific page
-function redirectTo(string $url, array $data = []) {
+function redirectTo(string $url, array $data = []): void {
 	setIntoSESSION($data);
 	
 	header('Location: ' . $url);
@@ -9,14 +9,14 @@ function redirectTo(string $url, array $data = []) {
 }
 
 # load page
-function renderPage(string $page, array $data = []) {
+function renderPage(string $page, array $data = []): void {
 	setIntoSESSION($data);
 
 	require_once __DIR__ . '/views' . $page;
 }
 
 # get variable in SESSION and delete it
-function getOnceSession(string $name, $default = null) {
+function getOnceSession(string $name, $default = null): mixed {
 	$value = $default;
 
 	if(isset($_SESSION[$name])) {
@@ -35,14 +35,14 @@ function setIntoSESSION(array $data): void {
 }
 
 # delete variable in SESSION
-function purgeSESSION(string $key) {
+function purgeSESSION(string $key): void {
 	if(isset($_SESSION[$key])) {
 		unset($_SESSION[$key]);
 	}
 }
 
 # convert day to Vietnamese day
-function retrieveDay(int $day) {
+function retrieveDay(int $day): string {
 	$res = '';
 
 	switch($day) {
@@ -72,7 +72,7 @@ function retrieveDay(int $day) {
 }
 
 # format money string
-function formatMoney(int $money) {
+function formatMoney(int $money): string {
 	$strMoney = (string)$money;
 	$moneyUnits = [];
 
@@ -86,4 +86,26 @@ function formatMoney(int $money) {
 
 	$result = join('.', $moneyUnits);
 	return $result;
+}
+
+# retrieve type of items
+function retrieveTypeItem(int $type): string {
+	$typeName = '';
+
+	switch($type) {
+		case 1: 
+			$typeName = 'Túi du lịch';
+			break;
+		case 2: 
+			$typeName = 'Balo thời trang nam, nữ';
+			break;
+		case 3: 
+			$typeName = 'Túi chống sốc laptop';
+			break;
+		case 4: 
+			$typeName = 'Balo Laptop';
+			break;
+	};
+
+	return $typeName;
 }

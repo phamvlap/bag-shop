@@ -1,10 +1,10 @@
-<?php require_once __DIR__ . '/components/head.php'; ?>
-<?php require_once __DIR__ . '/components/symbol.php'; ?>
+<?php require_once __DIR__ . '/../components/head.php'; ?>
+<?php require_once __DIR__ . '/../components/symbol.php'; ?>
 
 <div class="container p-0">
 	<!-- Header -->
 	<div class="container fixed-top">
-		<?php require_once __DIR__ . '/components/header.php'; ?>
+		<?php require_once __DIR__ . '/../components/header.php'; ?>
 	</div>
 
 	<div class="container p-0 content">
@@ -73,7 +73,7 @@
 
 			</div>
 			<div id="footer" class="container mt-3 bg-white rounded-top-2">
-				<?php require_once __DIR__ . '/components/footer.php'; ?>
+				<?php require_once __DIR__ . '/../components/footer.php'; ?>
 			</div>
 		</div>
 	</div>
@@ -95,18 +95,6 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#request-login" hidden></button>
 
 <!-- Modal request login -->
-<div class="modal fade" id="request-login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body">
-				<strong>Bạn chưa đăng nhập, vui lòng đăng nhập để đặt hàng!</strong>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-				<a href="/user/signin" id="preorder-btn" class="btn btn-fill-primary order-btn">Đăng nhập</a>
-			</div>
-		</div>
-	</div>
-</div>
+<?php require_once __DIR__ . '/request_login_modal.php'; ?>
 
-<?php require_once __DIR__ . '/components/foot.php'; ?>
+<?php require_once __DIR__ . '/../components/foot.php'; ?>

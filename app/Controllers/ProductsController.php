@@ -58,7 +58,7 @@ class ProductsController {
 				$products = $productModel->paginateWithType(type: $type, offset: $paginator->getRecordOffset(), limit: $limit);
 			}
 
-			renderPage('/home.php', [
+			renderPage('/home/index.php', [
 				'products' => $products,
 				'pagination' => $pagination
 			]);
@@ -68,7 +68,7 @@ class ProductsController {
 
 			$newestProducts = $productModel->getNewestProducts();
 
-			renderPage('/home.php', [
+			renderPage('/home/index.php', [
 				'products' => $products,
 				'newest-products' => $newestProducts,
 				'pagination' => $pagination
@@ -89,7 +89,7 @@ class ProductsController {
 			'comments' => $comments
 		];
 
-		renderPage('/item.php', ['item' => $payLoad]);
+		renderPage('/detail_item/index.php', ['item' => $payLoad]);
 	}
 
 	# get hint for search key
@@ -143,7 +143,7 @@ class ProductsController {
 			'pages' => $pages
 		];
 
-		renderPage('/home.php', [
+		renderPage('/home/index.php', [
 				'search-result-count' => $totalRecords,
 				'products' => $products,
 				'pagination' => $pagination

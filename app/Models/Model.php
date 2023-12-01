@@ -6,7 +6,7 @@ use App\Core\PDOFactory;
 use \PDO;
 
 class Model {
-	private $pdo;
+	private PDO $pdo;
 
 	protected function __construct() {
 		$config = [
@@ -19,12 +19,12 @@ class Model {
 		$this->pdo = $db->connect();
 	}
 
-	protected function getPDO() {
+	protected function getPDO(): PDO {
 		return $this->pdo;
 	}
 
 	# set record into table
-	public function set(string $table, array $record) {
+	public function set(string $table, array $record): bool {
 		$keys = array_keys($record);
 		$strKey = join(', ', $keys);
 		$arrParams = array_map(fn($key) => (":$key"), $keys);
@@ -46,8 +46,8 @@ class Model {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	# get all records in a table by ID
-	public function getByID(string $table, string $idName, int $id) {
+	# get record in a table by ID
+	public function getByID(string $table, string $idName, int $id): array {
 		$query = "select * from $table where $idName = :$idName;";
 
 		$stmt = $this->pdo->prepare($query);
@@ -58,7 +58,7 @@ class Model {
 	}
 
 	# update record of table
-	public function update(string $table, string $idName, int $id, array $newValue) {
+	public function update(string $table, string $idName, int $id, array $newValue): bool {
 		$keys = array_keys($newValue);
 		$arrFields = array_map(fn($key) => ("$key = :$key"), $keys);
 		$strFields = join(', ', $arrFields);
@@ -73,7 +73,7 @@ class Model {
 	}
 
 	# delete record from table
-	public function delete(string $table, string $idName, int $id) {
+	public function delete(string $table, string $idName, int $id): bool {
 		$query = "delete from $table where $idName = :$idName";
 
 		$stmt = $this->pdo->prepare($query);
@@ -81,14 +81,8 @@ class Model {
 		return $stmt->execute();
 	}
 
-	# check a record is exist in table
-	public function isExistRecord(string $table, string $idName, int $id) {
-		$result = self::getByID($table, $idName, $id);
-		return count($result) > 0 ? true : false;
-	}
-
 	# get records in table by attributes
-	public function getByProps(string $table, array $props) {
+	public function getByProps(string $table, array $props): array {
 		$keys = array_keys($props);
 		$params = array_map(fn($key) => ("$key = :$key"), $keys);
 		$strParams = join(' and ', $params);

@@ -15,7 +15,7 @@ class Invoice extends Model {
 	}
 
 	# fill data for attributes of invoice from external data
-	public function fill(array $data) {
+	public function fill(array $data): Invoice {
 		$this->status = htmlspecialchars($data['status'] ?? 0);
 		$this->total = htmlspecialchars($data['total'] ?? 0);
 		$this->method_payment = htmlspecialchars($data['method_payment'] ?? '');
@@ -26,7 +26,7 @@ class Invoice extends Model {
 	}
 
 	# add invoice into invoices table
-	public function add() {
+	public function add(): bool {
 		$invoice = [
 			'status' => $this->status,
 			'total' => $this->total,
@@ -41,12 +41,12 @@ class Invoice extends Model {
 	}
 
 	# get all invoices from products table
-	public function all() {
+	public function all(): array {
 		return parent::getAll($this->tableName);
 	}
 
 	# get invoice by ID from invoices table
-	public function findByID(int $id_invoice) {
+	public function findByID(int $id_invoice): array {
 		return parent::getByID($this->tableName, 'id_invoice', $id_invoice);
 	}
 
@@ -78,12 +78,12 @@ class Invoice extends Model {
 	}
 
 	# update status accept for invoices in invoices table
-	public function agreeInvoice(int $id_invoice) {
+	public function agreeInvoice(int $id_invoice): bool {
 		return parent::update($this->tableName, 'id_invoice', $id_invoice, ['status' => 1]);
 	}
 
 	# update status destroy for invoices in invoices table
-	public function destroyInvoice(int $id_invoice) {
+	public function destroyInvoice(int $id_invoice): bool {
 		return parent::update($this->tableName, 'id_invoice', $id_invoice, ['status' => -1]);
 	}
 
@@ -110,7 +110,7 @@ class Invoice extends Model {
 	}
 
 	# get items by filters, attribute's order, offset and limit in products table
-	public function paginateWithFilter(array $orders, array $filters, int $offset = 0, int $limit = 10) {
+	public function paginateWithFilter(array $orders, array $filters, int $offset = 0, int $limit = 10): array {
 		$arrFilters = [];
 		foreach($filters as $key => $value) {
 			array_push($arrFilters, " $key = :$key");

@@ -56,7 +56,7 @@ class ManageInvoicesController extends Controller {
 		$invoice['customer'] = $customer;
 		$invoice['items'] = $listItems;
 
-		renderPage('/admin/invoice/detail_invoice.php', ['invoice' => $invoice]);
+		renderPage('/admin/detail_invoice/index.php', ['invoice' => $invoice]);
 	}
 
 	# accept order

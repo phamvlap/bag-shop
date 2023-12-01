@@ -15,7 +15,7 @@ class Product extends Model {
 	}
 
 	# fill data for attributes of product from external data
-	public function fill(array $data) {
+	public function fill(array $data): Product {
 		$this->name = htmlspecialchars($data['name'] ?? '');
 		$this->describes = htmlspecialchars($data['describes'] ?? '');
 		$this->images = htmlspecialchars($data['images'] ?? '');
@@ -26,7 +26,7 @@ class Product extends Model {
 	}
 
 	# add product into products table
-	public function add() {
+	public function add(): bool {
 		$product = [
 			'name' => $this->name, 
 			'describes' => $this->describes,
@@ -42,27 +42,27 @@ class Product extends Model {
 	}
 
 	# get all products from products table
-	public function all() {
+	public function all(): array {
 		return parent::getAll($this->tableName);
 	}
 
 	# get product by ID from products table
-	public function findByID(int $id) {
+	public function findByID(int $id): array {
 		return parent::getByID($this->tableName, 'id_product', $id);
 	}
 
 	# get products by type from products table
-	public function findByType(int $type) {
+	public function findByType(int $type): array {
 		return parent::getByProps($this->tableName, ['type' => $type]);
 	}
 
 	# update product into products table
-	public function edit(int $id, array $updatedFields) {
+	public function edit(int $id, array $updatedFields): bool {
 		return parent::update($this->tableName, 'id_product', $id, $updatedFields);
 	}
 
 	# remove product from products table
-	public function remove(int $id) {
+	public function remove(int $id): bool {
 		return parent::delete($this->tableName, 'id_product', $id);
 	}
 
@@ -146,7 +146,7 @@ class Product extends Model {
 	}
 
 	# get items base on search value and can attribute's order in products table
-	public function search(string $name, array $orders = []) {
+	public function search(string $name, array $orders = []): array {
 		$arrOrders = [];
 		foreach($orders as $key => $value) {
 			array_push($arrOrders, "$key $value");
@@ -155,13 +155,14 @@ class Product extends Model {
 
 		$order = " order by {$strOrder}";
 
-		$query = "select * from {$this->tableName} where name like '%{$name}%'";
+		$query = "select * from {$this->tableName} where name like :name";
 
 		if(count($orders) > 0) {
 			$query .= $order;
 		}
 
 		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':name', "%{$name}%", PDO::PARAM_STR);
 		$stmt->execute();
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -182,16 +183,17 @@ class Product extends Model {
 
 	# count search result in products table
 	public function countSearchResult(string $name): int {
-		$query = "select count(*) from {$this->tableName} where name like '%{$name}%'";
+		$query = "select count(*) from {$this->tableName} where name like :name";
 
 		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':name', "%{$name}%", PDO::PARAM_STR);
 		$stmt->execute();
 
 		return $stmt->fetchColumn();
 	}
 
 	# get items by name, attribute's order, offset and limit in products table
-	public function paginateWithSearch(string $name, array $orders = [], int $offset = 0, int $limit = 12) {
+	public function paginateWithSearch(string $name, array $orders = [], int $offset = 0, int $limit = 12): array {
 		$arrOrders = [];
 		foreach($orders as $key => $value) {
 			array_push($arrOrders, "$key $value");
@@ -200,7 +202,7 @@ class Product extends Model {
 
 		$order = " order by {$strOrder}";
 
-		$query = "select * from {$this->tableName} where name like '%{$name}%'";
+		$query = "select * from {$this->tableName} where name like :name";
 
 		if(count($orders) > 0) {
 			$query .= $order;
@@ -209,6 +211,7 @@ class Product extends Model {
 		$query .= " limit :offset, :limit";
 
 		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':name', "%{$name}%", PDO::PARAM_STR);
 		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
 		$stmt->execute();
@@ -217,7 +220,7 @@ class Product extends Model {
 	}
 
 	# get items by filters, attribute's order, offset and limit in products table
-	public function paginateWithFilter(array $orders, array $filters, int $offset = 0, int $limit = 10) {
+	public function paginateWithFilter(array $orders, array $filters, int $offset = 0, int $limit = 10): array {
 		$arrFilters = [];
 		foreach($filters as $key => $value) {
 			array_push($arrFilters, " $key = :$key");
@@ -277,7 +280,7 @@ class Product extends Model {
 	}
 
 	# get items by name, filters, attribute's order, offset and limit in products table
-	public function searchWithFilter(string $name, array $orders, array $filters, int $offset = 0, int $limit = 10) {
+	public function searchWithFilter(string $name, array $orders, array $filters, int $offset = 0, int $limit = 10): array {
 		$arrFilters = [];
 		foreach($filters as $key => $value) {
 			array_push($arrFilters, " $key = :$key");
@@ -290,7 +293,7 @@ class Product extends Model {
 		}
 		$strOrder = join(', ', $arrOrders);
 
-		$query = "select * from {$this->tableName} where name like '%{$name}%'";
+		$query = "select * from {$this->tableName} where name like :name";
 		if(count($filters) > 0) {
 			$query .= " and {$strFilters}";
 		}
@@ -300,6 +303,7 @@ class Product extends Model {
 		$query .= " limit :offset, :limit";
 
 		$stmt = $this->getPDO()->prepare($query);
+		$stmt->bindValue(':name', "%{$name}%", PDO::PARAM_STR);
 		if(count($filters) > 0) {
 			foreach($filters as $key => $value) {
 				$stmt->bindValue(":{$key}", $value);

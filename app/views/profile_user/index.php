@@ -9,7 +9,7 @@
 	<div class="container content">
 		<div class="row">	
 			<div id="profile-user" class="row bg-white m-0 p-3">
-				<?php require_once __DIR__ . '/sidebar.php'; ?>
+				<?php require_once __DIR__ . '/../components/sidebar_profile.php'; ?>
 
 				<div class="col col-md-9 p-3">
 					<h3 class="m-0">Thông tin tài khoản</h3>

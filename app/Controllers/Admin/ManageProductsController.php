@@ -143,7 +143,7 @@ class ManageProductsController extends Controller {
 		$item = $productModel->findByID(id: $id);
 
 		if($item) {
-			renderPage('/admin/index.php', [
+			renderPage('/admin/home/index.php', [
 				'delete-item' => $item
 			]);
 		}
@@ -290,7 +290,7 @@ class ManageProductsController extends Controller {
 			'pages' => $pages
 		];
 
-		renderPage('/admin/index.php', [
+		renderPage('/admin/home/index.php', [
 			'products' => $products,
 			'pagination' => $pagination
 		]);
@@ -350,7 +350,7 @@ class ManageProductsController extends Controller {
 			'pages' => $pages
 		];
 
-		renderPage('/admin/index.php', [
+		renderPage('/admin/home/index.php', [
 			'products' => $products,
 			'pagination' => $pagination
 		]);
