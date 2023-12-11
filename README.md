@@ -1,11 +1,7 @@
-# Project học phần Công nghệ Web (CT275)
+# Title: Bag Shop
 
-Học kỳ 1, Năm học 2023-2024
+## Used Techs
 
-**MSSV**: B2105580 
+**Back end**: PHP, MySQL
 
-**Họ tên SV**: Phạm  Văn Lập
-
-**Lớp học phần**: CT27501
-
-**Tên dự án**: Website cửa hàng bán ba lô trực tuyến Bag Shop
+**Front end**: HTML, CSS, Bootstrap, jQuery
