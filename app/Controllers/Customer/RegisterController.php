@@ -9,7 +9,7 @@ class RegisterController extends Controller {
 
 	# load register page
 	public function create() {
-		if($_SESSION['user']['id_customer']) {
+		if(isset($_SESSION['user']['id_customer'])) {
 			redirectTo('/');
 		}
 		else {

@@ -39,15 +39,15 @@
             class="form-control" 
             placeholder="Nhập họ tên của bạn"
             value="<?php 
-                if($_SESSION['old']){
+                if(isset($_SESSION['old']['name'])){
                     echo $htmlspecialchars($_SESSION['old']['name']);
                 }
-                elseif($_SESSION['new']) {
+                elseif(isset($_SESSION['new']['name'])) {
                     echo $htmlspecialchars($_SESSION['new']['name']);
                 }
             ?>"
             <?php 
-                if($_SESSION['new']) {
+                if(isset($_SESSION['new'])) {
                     echo 'disabled readonly';
                 } 
             ?>
@@ -62,15 +62,15 @@
             class="form-control" 
             placeholder="Nhập tên đăng nhập"
             value="<?php 
-                if($_SESSION['old']){
+                if(isset($_SESSION['old']['username'])){
                     echo $htmlspecialchars($_SESSION['old']['username']);
                 }
-                elseif($_SESSION['new']) {
+                elseif(isset($_SESSION['new']['username'])) {
                     echo $htmlspecialchars($_SESSION['new']['username']);
                 }
             ?>"
             <?php 
-                if($_SESSION['new']) {
+                if(isset($_SESSION['new'])) {
                     echo 'disabled readonly';
                 } 
             ?>
@@ -85,15 +85,15 @@
             class="form-control" 
             placeholder="Nhập số điện thoại"
             value="<?php 
-                if($_SESSION['old']){
+                if(isset($_SESSION['old']['phone_number'])){
                     echo $htmlspecialchars($_SESSION['old']['phone_number']);
                 }
-                elseif($_SESSION['new']) {
+                elseif(isset($_SESSION['new']['phone_number'])) {
                     echo $htmlspecialchars($_SESSION['new']['phone_number']);
                 }
             ?>"
             <?php 
-                if($_SESSION['new']) {
+                if(isset($_SESSION['new'])) {
                     echo 'disabled readonly';
                 } 
             ?>
@@ -108,15 +108,15 @@
             class="form-control" 
             placeholder="Nhập mật khẩu"
             value="<?php 
-                if($_SESSION['old']){
+                if(isset($_SESSION['old']['password'])){
                     echo $htmlspecialchars($_SESSION['old']['password']);
                 }
-                elseif($_SESSION['new']) {
+                elseif(isset($_SESSION['new']['password'])) {
                     echo $htmlspecialchars($_SESSION['new']['password']);
                 }
             ?>"
             <?php 
-                if($_SESSION['new']) {
+                if(isset($_SESSION['new'])) {
                     echo 'disabled readonly';
                 } 
             ?>
@@ -131,15 +131,15 @@
             class="form-control" 
             placeholder="Nhập lại mật khẩu"
             value="<?php 
-                if($_SESSION['old']){
+                if(isset($_SESSION['old']['password'])){
                     echo $htmlspecialchars($_SESSION['old']['password']);
                 }
-                elseif($_SESSION['new']) {
+                elseif(isset($_SESSION['new']['password'])) {
                     echo $htmlspecialchars($_SESSION['new']['password']);
                 }
             ?>"
             <?php 
-                if($_SESSION['new']) {
+                if(isset($_SESSION['new'])) {
                     echo 'disabled readonly';
                 } 
             ?>
@@ -153,7 +153,7 @@
                 type="checkbox" 
                 id="agree-policy"
                 <?php 
-                    if($_SESSION['new']) {
+                    if(isset($_SESSION['new'])) {
                         echo 'checked';
                     } 
                 ?>
